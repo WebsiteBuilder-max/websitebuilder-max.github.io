@@ -22,6 +22,14 @@ const PACKAGES = [
     items: ["Up to 20 products", "Cart and checkout", "PayFast / SnapScan / card", "SA shipping notes", "2 revision rounds"],
     prices: { ZAR: 14500, USD: 800, EUR: 740, GBP: 630, AUD: 1220 },
   },
+  {
+    name: "Rescue",
+    days: "Special quote",
+    blurb: "You already have a website. I fix it, restyle it, or rebuild the parts that lose you customers.",
+    items: ["I look at your live URL", "Mobile, speed, and copy", "New look or a rebuild", "Quote after I see the site"],
+    quote: true,
+    prices: { ZAR: 0, USD: 0, EUR: 0, GBP: 0, AUD: 0 },
+  },
 ];
 
 const CURRENCIES = [
@@ -41,6 +49,7 @@ const FAQS = [
   { q: "Can you build an online store?", a: "Yes. Products, cart, checkout, and payment (PayFast, SnapScan, or card). Look at Drift Supply in the portfolio." },
   { q: "Shopify or a custom shop?", a: "If you already have Shopify, I set that up. If you want a small custom shop you own, I build that. We pick what fits the stock and the budget." },
   { q: "What about bookings and WhatsApp?", a: "Restaurant tables, salon slots, or a WhatsApp button that opens a chat with the order already typed. Whatever gets you the next customer." },
+  { q: "I already have a website. Can you fix it?", a: "Yes. Pick Rescue on the form and paste your URL. I quote after I look at it — speed, mobile, look, or a full rebuild." },
 ];
 
 const INBOX_HOOK = "https://script.google.com/macros/s/AKfycbyeuCdZI5KA0yYs0YpFubGjnQgKuxTNYGbog3HuniTP2Ulj_BT0MW6zxyl7s-IUAoDm/exec";
@@ -85,6 +94,7 @@ export default function Home() {
     pack: "Business",
     city: "Cape Town",
     domain: "I already have a domain",
+    siteUrl: "",
     goal: "",
   });
   const [sent, setSent] = useState("");
@@ -110,6 +120,7 @@ export default function Home() {
   );
 
   const startPrice = formatPrice(PACKAGES[0].prices[currency], currency);
+  const shownPrice = chosen.quote ? "Special quote" : formatPrice(chosen.prices[currency], currency);
 
   function update(e) {
     const next = { ...form, [e.target.name]: e.target.value };
@@ -126,7 +137,7 @@ export default function Home() {
     e.preventDefault();
     setSending(true);
     setSent("Sending…");
-    const price = formatPrice(chosen.prices[currency], currency);
+    const price = chosen.quote ? "Special quote" : formatPrice(chosen.prices[currency], currency);
     const payload = {
       name: form.name,
       email: form.email,
@@ -135,6 +146,7 @@ export default function Home() {
       currency,
       price,
       domain: form.domain,
+      currentSite: form.siteUrl || "(none)",
       goal: form.goal || "(none)",
     };
     try {
@@ -205,8 +217,8 @@ export default function Home() {
           <nav className="nav-links">
             <a href="#work">What I build</a>
             <a href="#ecommerce">Stores</a>
+            <a href="#rescue">Rescue</a>
             <a href="#portfolio">Portfolio</a>
-            <a href="#services">Packages</a>
             <a href="#contact">Start</a>
           </nav>
           <div className="nav-end">
@@ -236,7 +248,7 @@ export default function Home() {
         {menu ? (
           <div className="mobile-menu wrap">
             <a href="#work" onClick={() => setMenu(false)}>What I build</a>
-            <a href="#ecommerce" onClick={() => setMenu(false)}>Stores</a>
+            <a href="#rescue" onClick={() => setMenu(false)}>Rescue</a>
             <a href="#portfolio" onClick={() => setMenu(false)}>Portfolio</a>
             <a href="#contact" onClick={() => setMenu(false)}>Start</a>
           </div>
@@ -254,7 +266,7 @@ export default function Home() {
                 <span>customers.</span>
               </h1>
               <p className="lede">
-                I design and launch modern sites for restaurants, shops, trades, and coaches. See my portfolio, pick a package, and pay in the currency that suits you.
+                New sites. Online stores. Or I take the website you already have and make it work — faster, clearer, built to get the next customer.
               </p>
               <div className="actions">
                 <a className="btn btn-gold" href="#portfolio">See portfolio</a>
@@ -425,7 +437,7 @@ export default function Home() {
             <h2 className="section-title display">Clear prices. Choose your currency.</h2>
             <p className="lede">Showing prices in {CURRENCIES.find((c) => c.id === currency)?.name}. Change it any time in the top bar.</p>
           </div>
-          <div className="grid-3 pack-grid">
+          <div className="grid-4 pack-grid">
             {PACKAGES.map((p) => (
               <button
                 type="button"
@@ -435,8 +447,8 @@ export default function Home() {
               >
                 <h3 className="display">{p.name}</h3>
                 <p className="muted pack-blurb">{p.blurb}</p>
-                <p className="price">{formatPrice(p.prices[currency], currency)}</p>
-                <p className="muted">{p.days} · {currency}</p>
+                <p className="price">{p.quote ? "Quote" : formatPrice(p.prices[currency], currency)}</p>
+                <p className="muted">{p.days}{p.quote ? "" : ` · ${currency}`}</p>
                 <ul>
                   {p.items.map((item) => (
                     <li key={item}>{item}</li>
@@ -444,6 +456,25 @@ export default function Home() {
                 </ul>
               </button>
             ))}
+          </div>
+        </section>
+
+        <section className="wrap" id="rescue">
+          <div className="rescue-band">
+            <div>
+              <p className="kicker">Already have a site?</p>
+              <h2 className="section-title display">I can fix it. Or make it better.</h2>
+              <p className="lede">
+                Slow, ugly, not mobile, old WordPress, or a site that doesn’t take payments — send the URL. I quote after I look. Not a fixed package.
+              </p>
+              <ul className="rescue-list">
+                <li>Restyle the look without throwing everything away</li>
+                <li>Rebuild on React + Vite if it’s falling apart</li>
+                <li>Add a shop, booking, or WhatsApp</li>
+                <li>Connect your domain and make it fast on Cloudflare</li>
+              </ul>
+              <a className="btn btn-gold" href="#contact" onClick={() => pickPack("Rescue")}>Get a rescue quote</a>
+            </div>
           </div>
         </section>
 
@@ -506,8 +537,8 @@ export default function Home() {
               <p className="kicker">Start</p>
               <h2 className="section-title display">Tell me what the site has to do.</h2>
               <p className="lede">This goes to Cape Web Co. I reply from ryan.mostert2006@gmail.com.</p>
-              <p className="price">{formatPrice(chosen.prices[currency], currency)}</p>
-              <p className="muted">{chosen.name} · {currency} · {form.city}</p>
+              <p className="price">{shownPrice}</p>
+              <p className="muted">{chosen.name} · {form.city}</p>
             </div>
             <form onSubmit={submit}>
               <label>Name<input name="name" value={form.name} onChange={update} required /></label>
@@ -540,8 +571,13 @@ export default function Home() {
                   <option>Not sure yet</option>
                 </select>
               </label>
+              {form.pack === "Rescue" ? (
+                <label>Your current website
+                  <input name="siteUrl" value={form.siteUrl} onChange={update} placeholder="https://yoursite.com" />
+                </label>
+              ) : null}
               <label>What should the site do?
-                <textarea name="goal" value={form.goal} onChange={update} placeholder="Bookings, sales, WhatsApp enquiries…" />
+                <textarea name="goal" value={form.goal} onChange={update} placeholder="Bookings, sales, WhatsApp, or fix my current site…" />
               </label>
               <button className="btn btn-gold" type="submit" disabled={sending}>
                 {sending ? "Sending…" : "Request a plan"}
