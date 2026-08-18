@@ -18,8 +18,8 @@ const PACKAGES = [
   {
     name: "Store",
     days: "2–3 weeks",
-    blurb: "Sell products. Cart, checkout, and payment setup help.",
-    items: ["Up to 20 products", "Cart and checkout", "Payment setup help", "Domain and launch", "2 revision rounds"],
+    blurb: "Full ecommerce: products, cart, checkout, PayFast or SnapScan.",
+    items: ["Up to 20 products", "Cart and checkout", "PayFast / SnapScan / card", "SA shipping notes", "2 revision rounds"],
     prices: { ZAR: 14500, USD: 800, EUR: 740, GBP: 630, AUD: 1220 },
   },
 ];
@@ -38,6 +38,9 @@ const FAQS = [
   { q: "I already have a domain. Can you use it?", a: "Yes. You keep the domain. I connect it so your address opens the new site." },
   { q: "Do you work anywhere in South Africa?", a: "Yes. I am in Cape Town. I build for Cape Town, Johannesburg, Durban, Pretoria, and smaller towns. We can work on WhatsApp and email." },
   { q: "Do I own the website?", a: "Yes. Your GitHub. Your Cloudflare. No locked monthly builder." },
+  { q: "Can you build an online store?", a: "Yes. Products, cart, checkout, and payment (PayFast, SnapScan, or card). Look at Drift Supply in the portfolio." },
+  { q: "Shopify or a custom shop?", a: "If you already have Shopify, I set that up. If you want a small custom shop you own, I build that. We pick what fits the stock and the budget." },
+  { q: "What about bookings and WhatsApp?", a: "Restaurant tables, salon slots, or a WhatsApp button that opens a chat with the order already typed. Whatever gets you the next customer." },
 ];
 
 const INBOX_HOOK = "https://script.google.com/macros/s/AKfycbyeuCdZI5KA0yYs0YpFubGjnQgKuxTNYGbog3HuniTP2Ulj_BT0MW6zxyl7s-IUAoDm/exec";
@@ -184,9 +187,12 @@ export default function Home() {
         });
       }}
     >
+      <div className="live-bg" aria-hidden="true">
+        <img src="/images/cape-dusk.jpg" alt="" />
+      </div>
       <div
         className="spot"
-        style={{ background: `radial-gradient(600px circle at ${spot.x}% ${spot.y}%, rgba(212,179,122,0.16), transparent 45%)` }}
+        style={{ background: `radial-gradient(600px circle at ${spot.x}% ${spot.y}%, rgba(212,179,122,0.14), transparent 45%)` }}
       />
       <div className="grain" />
 
@@ -197,9 +203,10 @@ export default function Home() {
             Cape Web Co
           </a>
           <nav className="nav-links">
+            <a href="#work">What I build</a>
+            <a href="#ecommerce">Stores</a>
             <a href="#portfolio">Portfolio</a>
             <a href="#services">Packages</a>
-            <a href="#domain">Domain</a>
             <a href="#contact">Start</a>
           </nav>
           <div className="nav-end">
@@ -228,8 +235,9 @@ export default function Home() {
         </div>
         {menu ? (
           <div className="mobile-menu wrap">
+            <a href="#work" onClick={() => setMenu(false)}>What I build</a>
+            <a href="#ecommerce" onClick={() => setMenu(false)}>Stores</a>
             <a href="#portfolio" onClick={() => setMenu(false)}>Portfolio</a>
-            <a href="#services" onClick={() => setMenu(false)}>Packages</a>
             <a href="#contact" onClick={() => setMenu(false)}>Start</a>
           </div>
         ) : null}
@@ -281,6 +289,95 @@ export default function Home() {
               </ul>
               <div className="now-playing"><i /> Open for new work</div>
             </aside>
+          </div>
+        </section>
+
+        <section className="wrap" id="work">
+          <div className="section-head">
+            <p className="kicker">What I build</p>
+            <h2 className="section-title display">From a one-page site to a shop that takes money.</h2>
+          </div>
+          <div className="offer-grid">
+            <article className="card offer-card">
+              <p className="kicker">Brochure & leads</p>
+              <h3 className="display">Business sites</h3>
+              <p className="muted">Who you are, what you do, how to reach you. Built so someone on a phone can WhatsApp you in two taps.</p>
+              <ul>
+                <li>Home, about, services, contact</li>
+                <li>Maps, hours, and a WhatsApp button</li>
+                <li>Works on cheap Androids and iPhones</li>
+              </ul>
+            </article>
+            <article className="card offer-card">
+              <p className="kicker">Bookings</p>
+              <h3 className="display">Restaurants & bookings</h3>
+              <p className="muted">Menus, wine lists, table requests, salon or coach diaries. See Harbour Kitchen in the portfolio.</p>
+              <ul>
+                <li>Menu and photo galleries</li>
+                <li>Reserve / enquire forms</li>
+                <li>Hours, address, parking notes</li>
+              </ul>
+            </article>
+            <article className="card offer-card">
+              <p className="kicker">Ecommerce</p>
+              <h3 className="display">Online stores</h3>
+              <p className="muted">Products, cart, checkout, shipping. PayFast, SnapScan, or card. See Drift Supply.</p>
+              <ul>
+                <li>Product pages and sizes</li>
+                <li>Cart and a real checkout flow</li>
+                <li>SA shipping notes and collection</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section className="wrap" id="ecommerce">
+          <div className="ecom-split">
+            <div>
+              <p className="kicker">Ecommerce, plainly</p>
+              <h2 className="section-title display">If you sell things, the site has to take the money.</h2>
+              <p className="lede">
+                A shop is not a pretty photo grid. People need to pick a size, add to cart, pay, and know when it arrives. I build that, or I set up Shopify if that is already your stack.
+              </p>
+            </div>
+            <div className="ecom-list">
+              <article>
+                <h3>Catalogue</h3>
+                <p className="muted">Products, prices, photos, sizes, what’s in stock. Up to 20 items on the Store package. More if we agree a bigger job.</p>
+              </article>
+              <article>
+                <h3>Cart and checkout</h3>
+                <p className="muted">Add, change qty, see a total, leave a name and city. Demo shops show the flow. Live shops get a real payment option.</p>
+              </article>
+              <article>
+                <h3>Pay in South Africa</h3>
+                <p className="muted">PayFast, SnapScan, EFT, or card. Overseas shops can use Stripe if that fits. We pick one and set it up together.</p>
+              </article>
+              <article>
+                <h3>After they pay</h3>
+                <p className="muted">A confirmation screen. You get the order. We can add email or WhatsApp alerts if you want them.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="wrap">
+          <div className="section-head">
+            <p className="kicker">Who it’s for</p>
+            <h2 className="section-title display">Small businesses that need the next customer, not a 40-page deck.</h2>
+          </div>
+          <div className="who-grid">
+            {[
+              ["Restaurants & cafés", "Menus, bookings, the Friday-night rush."],
+              ["Shops & makers", "Clothes, food, crafts — sell from the site."],
+              ["Trades & coaches", "Show the work. Get the WhatsApp."],
+              ["New brands", "One sharp page so you look open for business."],
+            ].map(([t, d]) => (
+              <article className="about-card" key={t}>
+                <h3>{t}</h3>
+                <p className="muted">{d}</p>
+              </article>
+            ))}
           </div>
         </section>
 
