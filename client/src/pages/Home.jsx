@@ -40,6 +40,8 @@ const FAQS = [
   { q: "Do I own the website?", a: "Yes. Your GitHub. Your Cloudflare. No locked monthly builder." },
 ];
 
+const INBOX_HOOK = "";
+
 const TICKER = [
   "Cape Town",
   "South Africa",
@@ -122,29 +124,40 @@ export default function Home() {
     setSending(true);
     setSent("Sending…");
     const price = formatPrice(chosen.prices[currency], currency);
+    const payload = {
+      name: form.name,
+      email: form.email,
+      city: form.city,
+      package: form.pack,
+      currency,
+      price,
+      domain: form.domain,
+      goal: form.goal || "(none)",
+    };
     try {
-      const res = await fetch("https://formsubmit.co/ajax/ryan.mostert2006@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          city: form.city,
-          package: form.pack,
-          currency,
-          price,
-          domain: form.domain,
-          goal: form.goal || "(none)",
-          _subject: `New website plan: ${form.pack} · ${form.name}`,
-          _template: "table",
-          _captcha: "false",
-        }),
-      });
-      if (!res.ok) throw new Error("send failed");
-      setSent(`Sent. I’ll reply to ${form.email}. Check your inbox.`);
+      if (INBOX_HOOK) {
+        const res = await fetch(INBOX_HOOK, {
+          method: "POST",
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error("send failed");
+      } else {
+        const res = await fetch("https://formsubmit.co/ajax/ryan.mostert2006@gmail.com", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            ...payload,
+            _subject: `New website plan: ${form.pack} · ${form.name}`,
+            _template: "table",
+            _captcha: "false",
+          }),
+        });
+        if (!res.ok) throw new Error("send failed");
+      }
+      setSent(`Sent. I’ll reply to ${form.email}.`);
       setForm((f) => ({ ...f, name: "", email: "", goal: "" }));
     } catch {
       setSent("Could not send. Email me directly at ryan.mostert2006@gmail.com");
