@@ -178,7 +178,7 @@ export default function Home() {
         <div className="wrap nav-bar">
           <a className="brand" href="#top">
             <img src="/logo.jpg" alt="" />
-            Cape Web Co
+            Web Work Co
           </a>
           <nav className="nav-links">
             <a href="#work">Work</a>
@@ -213,7 +213,7 @@ export default function Home() {
         <section className="hero-full">
           <div className="wrap hero-grid">
             <div className="hero-copy">
-              <p className="kicker">Cape Web Co · websites worldwide</p>
+              <p className="kicker">Web Work Co · websites worldwide</p>
               <h1 className="display hero-title">
                 <span>Websites</span>
                 <span className="line">that get you</span>
@@ -234,7 +234,7 @@ export default function Home() {
             </div>
             <aside className="sa-panel">
               <p className="kicker">The studio</p>
-              <h2 className="display">Cape Web Co</h2>
+              <h2 className="display">Web Work Co</h2>
               <ul>
                 <li><strong>Portfolio ready</strong>Two full sample sites you can click through.</li>
                 <li><strong>Pay how you want</strong>USD, euro, pound, AUD, or rand.</li>
@@ -391,7 +391,7 @@ export default function Home() {
             <div>
               <p className="kicker">Start</p>
               <h2 className="section-title display">Tell me what the site has to do.</h2>
-              <p className="lede">Goes to Cape Web Co. I reply from ryan.mostert2006@gmail.com.</p>
+              <p className="lede">Goes to Web Work Co. I reply from ryan.mostert2006@gmail.com.</p>
               <p className="price">{shownPrice}</p>
               <p className="muted">{chosen.name}{form.city ? ` · ${form.city}` : ""}</p>
             </div>
@@ -438,7 +438,7 @@ export default function Home() {
       </main>
 
       <footer className="wrap">
-        <span>Cape Web Co</span>
+        <span>Web Work Co</span>
         <span>Prices in {currency}</span>
       </footer>
     </div>

@@ -365,7 +365,7 @@ export default function Harbour() {
 
       <footer className="wrap">
         <span>Harbour Kitchen · Kalk Bay</span>
-        <a href="/">Cape Web Co</a>
+        <a href="/">Web Work Co</a>
       </footer>
     </div>
   );

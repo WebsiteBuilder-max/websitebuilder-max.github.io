@@ -321,7 +321,7 @@ export default function Drift() {
 
       <footer className="wrap">
         <span>Drift Supply · Woodstock</span>
-        <a href="/">Cape Web Co</a>
+        <a href="/">Web Work Co</a>
       </footer>
     </div>
   );
