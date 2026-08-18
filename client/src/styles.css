@@ -118,8 +118,33 @@ button { cursor: pointer; }
 }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 650; }
 .brand img { width: 34px; height: 34px; border-radius: 8px; }
-.nav-links { display: flex; gap: 22px; color: var(--muted); font-size: 0.94rem; }
-.nav-links a:hover { color: var(--ink); }
+.nav-links { display: flex; gap: 18px; color: var(--muted); font-size: 0.94rem; align-items: center; }
+.nav-links a:hover, .nav-links button:hover { color: var(--ink); }
+.nav-links button {
+  background: none;
+  border: 0;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+.page-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 22px;
+}
+.page-tabs button {
+  background: rgba(8,24,36,0.55);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 10px 16px;
+  min-height: 44px;
+}
+.page-tabs button.on { background: var(--gold); color: #141008; border-color: var(--gold); }
+.browse { padding-top: 28px; padding-bottom: 40px; }
+.tab-lede { margin-bottom: 16px; }
+.hero-grid { min-height: auto; }
 .live-pill {
   display: inline-flex;
   align-items: center;
@@ -196,7 +221,6 @@ button { cursor: pointer; }
   grid-template-columns: 1.05fr 0.95fr;
   gap: 40px;
   align-items: center;
-  min-height: calc(100vh - 120px);
 }
 .hero-title {
   font-size: clamp(3rem, 7vw, 6.4rem);

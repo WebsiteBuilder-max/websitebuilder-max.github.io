@@ -76,6 +76,13 @@ export default function Home() {
   const [currency, setCurrency] = useState("USD");
   const [spot, setSpot] = useState({ x: 50, y: 20 });
   const [menu, setMenu] = useState(false);
+  const [tab, setTab] = useState("portfolio");
+
+  function show(next) {
+    setTab(next);
+    setMenu(false);
+    document.getElementById("browse")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -182,11 +189,10 @@ export default function Home() {
             Web Work Co
           </a>
           <nav className="nav-links">
-            <a href="#work">Work</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#services">Prices</a>
-            <a href="#rescue">Rescue</a>
-            <a href="#contact">Start</a>
+            <button type="button" onClick={() => show("portfolio")}>Portfolio</button>
+            <button type="button" onClick={() => show("work")}>Work</button>
+            <button type="button" onClick={() => show("prices")}>Prices</button>
+            <button type="button" onClick={() => show("start")}>Start</button>
           </nav>
           <div className="nav-end">
             <label className="currency-label">
@@ -203,11 +209,11 @@ export default function Home() {
         </div>
         {menu ? (
           <div className="mobile-menu wrap">
-            <a href="#work" onClick={() => setMenu(false)}>Work</a>
-            <a href="#portfolio" onClick={() => setMenu(false)}>Portfolio</a>
-            <a href="#services" onClick={() => setMenu(false)}>Prices</a>
-            <a href="#rescue" onClick={() => setMenu(false)}>Rescue</a>
-            <a href="#contact" onClick={() => setMenu(false)}>Start</a>
+            <button type="button" onClick={() => show("portfolio")}>Portfolio</button>
+            <button type="button" onClick={() => show("work")}>Work</button>
+            <button type="button" onClick={() => show("prices")}>Prices</button>
+            <button type="button" onClick={() => show("rescue")}>Rescue</button>
+            <button type="button" onClick={() => show("start")}>Start</button>
           </div>
         ) : null}
       </header>
@@ -226,8 +232,8 @@ export default function Home() {
                 New sites. Online stores. Or I take the site you already have and make it work — faster, clearer, ready to take the next client.
               </p>
               <div className="actions">
-                <a className="btn btn-gold" href="#portfolio">See portfolio</a>
-                <a className="btn btn-ghost" href="#contact">Get a plan</a>
+                <button className="btn btn-gold" type="button" onClick={() => show("portfolio")}>See portfolio</button>
+                <button className="btn btn-ghost" type="button" onClick={() => show("start")}>Get a plan</button>
               </div>
               <div className="stat-row">
                 <div><b>3–14</b><span>days to launch</span></div>
@@ -249,194 +255,173 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="ticker" aria-hidden="true">
-          <div className="ticker-track">
-            {[...TICKER, ...TICKER].map((item, i) => (
-              <span key={i}>{item}</span>
-            ))}
-          </div>
-        </div>
-
-        <section className="wrap" id="work">
-          <div className="section-head">
-            <p className="kicker">What I build</p>
-            <h2 className="section-title display">From one page to a shop that takes money.</h2>
-          </div>
-          <div className="offer-grid">
-            <article className="card offer-card">
-              <p className="kicker">Leads</p>
-              <h3 className="display">Business sites</h3>
-              <p className="muted">Who you are, what you do, how to reach you. Built for a phone first.</p>
-              <ul>
-                <li>Home, about, services, contact</li>
-                <li>Maps, hours, chat or email</li>
-                <li>Works on any phone</li>
-              </ul>
-            </article>
-            <article className="card offer-card">
-              <p className="kicker">Bookings</p>
-              <h3 className="display">Restaurants & bookings</h3>
-              <p className="muted">Menus, table requests, salon or coach diaries. See Harbour Kitchen.</p>
-              <ul>
-                <li>Menu and galleries</li>
-                <li>Reserve forms</li>
-                <li>Hours and location</li>
-              </ul>
-            </article>
-            <article className="card offer-card">
-              <p className="kicker">Ecommerce</p>
-              <h3 className="display">Online stores</h3>
-              <p className="muted">Products, cart, checkout, shipping. Stripe, PayPal, or card. See Drift Supply.</p>
-              <ul>
-                <li>Product pages and sizes</li>
-                <li>Cart and checkout</li>
-                <li>Shipping notes</li>
-              </ul>
-            </article>
-          </div>
-        </section>
-
-        <section className="wrap" id="portfolio">
-          <div className="section-head">
-            <p className="kicker">Portfolio</p>
-            <h2 className="section-title display">Live samples. Click in.</h2>
-            <p className="lede">Demo businesses — not my studio name. Full sites with real pages inside.</p>
-          </div>
-          <div className="portfolio-grid">
-            <a className="portfolio-card" href="/harbour-kitchen/">
-              <img src="/images/harbour-hero.jpg" alt="Harbour Kitchen restaurant site" />
-              <div>
-                <span>Restaurant</span>
-                <strong>Harbour Kitchen</strong>
-                <p>Menu, wine, hours, gallery, booking.</p>
-                <em>Open site →</em>
-              </div>
-            </a>
-            <a className="portfolio-card" href="/drift-supply/">
-              <img src="/images/drift-hero.jpg" alt="Drift Supply shop site" />
-              <div>
-                <span>Shop</span>
-                <strong>Drift Supply</strong>
-                <p>Products, cart, sizes, checkout.</p>
-                <em>Open site →</em>
-              </div>
-            </a>
-          </div>
-        </section>
-
-        <section className="wrap" id="services">
-          <div className="section-head">
-            <p className="kicker">Packages</p>
-            <h2 className="section-title display">Clear prices. Your currency.</h2>
-          </div>
-          <div className="grid-4 pack-grid">
-            {PACKAGES.map((p) => (
-              <button type="button" className={`card pack ${picked === p.name ? "on" : ""}`} key={p.name} onClick={() => pickPack(p.name)}>
-                <h3 className="display">{p.name}</h3>
-                <p className="muted pack-blurb">{p.blurb}</p>
-                <p className="price">{p.quote ? "Quote" : formatPrice(p.prices[currency], currency)}</p>
-                <p className="muted">{p.days}{p.quote ? "" : ` · ${currency}`}</p>
-                <ul>
-                  {p.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <section className="wrap" id="rescue">
-          <div className="rescue-band">
-            <p className="kicker">Already have a site?</p>
-            <h2 className="section-title display">I can fix it. Or make it better.</h2>
-            <p className="lede">Slow, not mobile, old, or it doesn’t take payments — send the URL. Special quote after I look.</p>
-            <a className="btn btn-gold" href="#contact" onClick={() => pickPack("Rescue")}>Get a rescue quote</a>
-          </div>
-        </section>
-
-        <section className="wrap compact" id="how">
-          <div className="domain-line">
+        <section className="wrap browse" id="browse">
+          <div className="tabs page-tabs">
             {[
-              ["01", "You send the brief", "Goal, photos, logo — or your current URL."],
-              ["02", "I build a preview", "You click a private link and we tweak it."],
-              ["03", "Your domain goes live", "yourname.com opens the new site. You own the code."],
-            ].map(([n, t, d]) => (
-              <article className="about-card" key={n}>
-                <span className="num">{n}</span>
-                <h3>{t}</h3>
-                <p className="muted">{d}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="wrap compact">
-          <div className="section-head">
-            <p className="kicker">Questions</p>
-            <h2 className="section-title display">Straight answers.</h2>
-          </div>
-          <div className="faq-list">
-            {FAQS.map((item, i) => (
-              <article className="faq" key={item.q}>
-                <button type="button" onClick={() => setOpenFaq(openFaq === i ? -1 : i)}>
-                  <span>{item.q}</span>
-                  <span>{openFaq === i ? "–" : "+"}</span>
-                </button>
-                {openFaq === i ? <p>{item.a}</p> : null}
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="wrap" id="contact">
-          <div className="quote">
-            <div>
-              <p className="kicker">Start</p>
-              <h2 className="section-title display">Tell me what the site has to do.</h2>
-              <p className="lede">Goes to Web Work Co. I reply from ryan.mostert2006@gmail.com.</p>
-              <p className="price">{shownPrice}</p>
-              <p className="muted">{chosen.name}{form.city ? ` · ${form.city}` : ""}</p>
-            </div>
-            <form onSubmit={submit}>
-              <label>Name<input name="name" value={form.name} onChange={update} required /></label>
-              <label>Email<input name="email" type="email" value={form.email} onChange={update} required /></label>
-              <label>City / country<input name="city" value={form.city} onChange={update} placeholder="London, NYC, Sydney…" /></label>
-              <label>Package
-                <select name="pack" value={form.pack} onChange={update}>
-                  {PACKAGES.map((p) => (
-                    <option key={p.name}>{p.name}</option>
-                  ))}
-                </select>
-              </label>
-              <label>Currency
-                <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
-                  {CURRENCIES.map((c) => (
-                    <option key={c.id} value={c.id}>{c.id} · {c.name}</option>
-                  ))}
-                </select>
-              </label>
-              <label>Domain
-                <select name="domain" value={form.domain} onChange={update}>
-                  <option>I already have a domain</option>
-                  <option>I need a domain</option>
-                  <option>Not sure yet</option>
-                </select>
-              </label>
-              {form.pack === "Rescue" ? (
-                <label>Your current website
-                  <input name="siteUrl" value={form.siteUrl} onChange={update} placeholder="https://yoursite.com" />
-                </label>
-              ) : null}
-              <label>What should the site do?
-                <textarea name="goal" value={form.goal} onChange={update} placeholder="Bookings, sales, or fix my current site…" />
-              </label>
-              <button className="btn btn-gold" type="submit" disabled={sending}>
-                {sending ? "Sending…" : "Request a plan"}
+              ["portfolio", "Portfolio"],
+              ["work", "Work"],
+              ["prices", "Prices"],
+              ["rescue", "Rescue"],
+              ["faq", "FAQ"],
+              ["start", "Start"],
+            ].map(([id, label]) => (
+              <button key={id} type="button" className={tab === id ? "on" : ""} onClick={() => show(id)}>
+                {label}
               </button>
-              <p className="success">{sent}</p>
-            </form>
+            ))}
           </div>
+
+          {tab === "portfolio" && (
+            <div>
+              <p className="lede tab-lede">Demo businesses — not my studio name. Open them.</p>
+              <div className="portfolio-grid">
+                <a className="portfolio-card" href="/harbour-kitchen/">
+                  <img src="/images/harbour-hero.jpg" alt="Harbour Kitchen restaurant site" />
+                  <div>
+                    <span>Restaurant</span>
+                    <strong>Harbour Kitchen</strong>
+                    <p>Menu, wine, hours, gallery, booking.</p>
+                    <em>Open site →</em>
+                  </div>
+                </a>
+                <a className="portfolio-card" href="/drift-supply/">
+                  <img src="/images/drift-hero.jpg" alt="Drift Supply shop site" />
+                  <div>
+                    <span>Shop</span>
+                    <strong>Drift Supply</strong>
+                    <p>Products, cart, sizes, checkout.</p>
+                    <em>Open site →</em>
+                  </div>
+                </a>
+              </div>
+            </div>
+          )}
+
+          {tab === "work" && (
+            <div className="offer-grid">
+              <article className="card offer-card">
+                <p className="kicker">Leads</p>
+                <h3 className="display">Business sites</h3>
+                <p className="muted">Who you are, what you do, how to reach you. Phone first.</p>
+                <ul>
+                  <li>Home, about, services, contact</li>
+                  <li>Maps, hours, chat or email</li>
+                  <li>Works on any phone</li>
+                </ul>
+              </article>
+              <article className="card offer-card">
+                <p className="kicker">Bookings</p>
+                <h3 className="display">Restaurants & bookings</h3>
+                <p className="muted">Menus, table requests, diaries. See Harbour Kitchen.</p>
+                <ul>
+                  <li>Menu and galleries</li>
+                  <li>Reserve forms</li>
+                  <li>Hours and location</li>
+                </ul>
+              </article>
+              <article className="card offer-card">
+                <p className="kicker">Ecommerce</p>
+                <h3 className="display">Online stores</h3>
+                <p className="muted">Products, cart, checkout. Stripe, PayPal, or card. See Drift Supply.</p>
+                <ul>
+                  <li>Product pages and sizes</li>
+                  <li>Cart and checkout</li>
+                  <li>Shipping notes</li>
+                </ul>
+              </article>
+            </div>
+          )}
+
+          {tab === "prices" && (
+            <div className="grid-4 pack-grid">
+              {PACKAGES.map((p) => (
+                <button type="button" className={`card pack ${picked === p.name ? "on" : ""}`} key={p.name} onClick={() => pickPack(p.name)}>
+                  <h3 className="display">{p.name}</h3>
+                  <p className="muted pack-blurb">{p.blurb}</p>
+                  <p className="price">{p.quote ? "Quote" : formatPrice(p.prices[currency], currency)}</p>
+                  <p className="muted">{p.days}{p.quote ? "" : ` · ${currency}`}</p>
+                  <ul>
+                    {p.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {tab === "rescue" && (
+            <div className="rescue-band">
+              <p className="kicker">Already have a site?</p>
+              <h2 className="section-title display">I can fix it. Or make it better.</h2>
+              <p className="lede">Slow, not mobile, old, or it doesn’t take payments — send the URL. Special quote after I look.</p>
+              <button className="btn btn-gold" type="button" onClick={() => { pickPack("Rescue"); show("start"); }}>Get a rescue quote</button>
+            </div>
+          )}
+
+          {tab === "faq" && (
+            <div className="faq-list">
+              {FAQS.map((item, i) => (
+                <article className="faq" key={item.q}>
+                  <button type="button" onClick={() => setOpenFaq(openFaq === i ? -1 : i)}>
+                    <span>{item.q}</span>
+                    <span>{openFaq === i ? "–" : "+"}</span>
+                  </button>
+                  {openFaq === i ? <p>{item.a}</p> : null}
+                </article>
+              ))}
+            </div>
+          )}
+
+          {tab === "start" && (
+            <div className="quote">
+              <div>
+                <p className="kicker">Start</p>
+                <h2 className="section-title display">Tell me what the site has to do.</h2>
+                <p className="lede">Goes to Web Work Co. I reply from ryan.mostert2006@gmail.com.</p>
+                <p className="price">{shownPrice}</p>
+                <p className="muted">{chosen.name}{form.city ? ` · ${form.city}` : ""}</p>
+              </div>
+              <form onSubmit={submit}>
+                <label>Name<input name="name" value={form.name} onChange={update} required /></label>
+                <label>Email<input name="email" type="email" value={form.email} onChange={update} required /></label>
+                <label>City / country<input name="city" value={form.city} onChange={update} placeholder="London, NYC, Sydney…" /></label>
+                <label>Package
+                  <select name="pack" value={form.pack} onChange={update}>
+                    {PACKAGES.map((p) => (
+                      <option key={p.name}>{p.name}</option>
+                    ))}
+                  </select>
+                </label>
+                <label>Currency
+                  <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
+                    {CURRENCIES.map((c) => (
+                      <option key={c.id} value={c.id}>{c.id} · {c.name}</option>
+                    ))}
+                  </select>
+                </label>
+                <label>Domain
+                  <select name="domain" value={form.domain} onChange={update}>
+                    <option>I already have a domain</option>
+                    <option>I need a domain</option>
+                    <option>Not sure yet</option>
+                  </select>
+                </label>
+                {form.pack === "Rescue" ? (
+                  <label>Your current website
+                    <input name="siteUrl" value={form.siteUrl} onChange={update} placeholder="https://yoursite.com" />
+                  </label>
+                ) : null}
+                <label>What should the site do?
+                  <textarea name="goal" value={form.goal} onChange={update} placeholder="Bookings, sales, or fix my current site…" />
+                </label>
+                <button className="btn btn-gold" type="submit" disabled={sending}>
+                  {sending ? "Sending…" : "Request a plan"}
+                </button>
+                <p className="success">{sent}</p>
+              </form>
+            </div>
+          )}
         </section>
       </main>
 
