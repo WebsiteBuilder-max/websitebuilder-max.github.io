@@ -5,27 +5,27 @@ const PACKAGES = [
     name: "Starter",
     days: "5–7 days",
     blurb: "One clear page. Enough to look real and get the first message.",
-    items: ["Home, about, services, contact", "Looks right on a phone", "WhatsApp button", "Live on your domain", "1 revision round"],
+    items: ["Home, about, services, contact", "Looks right on a phone", "Contact or chat button", "Live on your domain", "1 revision round"],
     prices: { ZAR: 4500, USD: 250, EUR: 230, GBP: 195, AUD: 380 },
   },
   {
     name: "Business",
     days: "10–14 days",
-    blurb: "A full site built to get bookings, calls, and walk-ins.",
+    blurb: "A full site built to get bookings, calls, and enquiries.",
     items: ["5 pages, written and designed", "Contact form and maps", "Search basics", "Domain connect", "2 revision rounds"],
     prices: { ZAR: 11500, USD: 650, EUR: 600, GBP: 510, AUD: 990 },
   },
   {
     name: "Store",
     days: "2–3 weeks",
-    blurb: "Full ecommerce: products, cart, checkout, PayFast or SnapScan.",
-    items: ["Up to 20 products", "Cart and checkout", "PayFast / SnapScan / card", "SA shipping notes", "2 revision rounds"],
+    blurb: "Ecommerce: products, cart, checkout, and payment.",
+    items: ["Up to 20 products", "Cart and checkout", "Stripe, PayPal, or card", "Shipping notes", "2 revision rounds"],
     prices: { ZAR: 14500, USD: 800, EUR: 740, GBP: 630, AUD: 1220 },
   },
   {
     name: "Rescue",
     days: "Special quote",
-    blurb: "You already have a website. I fix it, restyle it, or rebuild the parts that lose you customers.",
+    blurb: "You already have a website. I fix it, restyle it, or rebuild what loses you customers.",
     items: ["I look at your live URL", "Mobile, speed, and copy", "New look or a rebuild", "Quote after I see the site"],
     quote: true,
     prices: { ZAR: 0, USD: 0, EUR: 0, GBP: 0, AUD: 0 },
@@ -33,41 +33,29 @@ const PACKAGES = [
 ];
 
 const CURRENCIES = [
-  { id: "ZAR", name: "South African rand", prefix: "R" },
   { id: "USD", name: "US dollar", prefix: "$" },
   { id: "EUR", name: "Euro", prefix: "€" },
   { id: "GBP", name: "British pound", prefix: "£" },
   { id: "AUD", name: "Australian dollar", prefix: "A$" },
+  { id: "ZAR", name: "South African rand", prefix: "R" },
 ];
 
 const FAQS = [
-  { q: "Can I pay in my own currency?", a: "Yes. Use the currency menu at the top. South African clients usually pick rand. Overseas clients can pick US dollar, euro, pound, or Australian dollar." },
-  { q: "Do you have a portfolio?", a: "Yes. Open the Portfolio section for two full sample sites: a restaurant (Harbour Kitchen) and a clothing shop (Drift Supply). They are demos, not my studio brand." },
-  { q: "I already have a domain. Can you use it?", a: "Yes. You keep the domain. I connect it so your address opens the new site." },
-  { q: "Do you work anywhere in South Africa?", a: "Yes. I am in Cape Town. I build for Cape Town, Johannesburg, Durban, Pretoria, and smaller towns. We can work on WhatsApp and email." },
+  { q: "Can I pay in my own currency?", a: "Yes. Use the currency menu. Dollar, euro, pound, Australian dollar, or rand." },
+  { q: "Do you have a portfolio?", a: "Yes. Two full sample sites: Harbour Kitchen (restaurant) and Drift Supply (shop). Demos, not my studio name." },
+  { q: "I already have a domain. Can you use it?", a: "Yes. You keep it. I connect it so yourname.com opens the new site." },
+  { q: "Where do you work?", a: "Anywhere. We work over email or chat. You get a preview link, then we launch." },
   { q: "Do I own the website?", a: "Yes. Your GitHub. Your Cloudflare. No locked monthly builder." },
-  { q: "Can you build an online store?", a: "Yes. Products, cart, checkout, and payment (PayFast, SnapScan, or card). Look at Drift Supply in the portfolio." },
-  { q: "Shopify or a custom shop?", a: "If you already have Shopify, I set that up. If you want a small custom shop you own, I build that. We pick what fits the stock and the budget." },
-  { q: "What about bookings and WhatsApp?", a: "Restaurant tables, salon slots, or a WhatsApp button that opens a chat with the order already typed. Whatever gets you the next customer." },
-  { q: "I already have a website. Can you fix it?", a: "Yes. Pick Rescue on the form and paste your URL. I quote after I look at it — speed, mobile, look, or a full rebuild." },
+  { q: "Can you build an online store?", a: "Yes. Products, cart, checkout, Stripe, PayPal, or card. See Drift Supply." },
+  { q: "I already have a website. Can you fix it?", a: "Yes. Pick Rescue, paste your URL, say what’s wrong. I quote after I look." },
 ];
 
 const INBOX_HOOK = "https://script.google.com/macros/s/AKfycbyeuCdZI5KA0yYs0YpFubGjnQgKuxTNYGbog3HuniTP2Ulj_BT0MW6zxyl7s-IUAoDm/exec";
 
-const TICKER = [
-  "Cape Town",
-  "South Africa",
-  "Portfolio online",
-  "WhatsApp first",
-  "Restaurants",
-  "Shops",
-  "Trades",
-  "Pay in your currency",
-];
+const TICKER = ["New sites", "Online stores", "Rescue rebuilds", "Your domain", "Worldwide", "Portfolio live", "Pay in your currency"];
 
-function capeTime() {
+function clockNow() {
   return new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Africa/Johannesburg",
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
@@ -82,17 +70,17 @@ function formatPrice(amount, currency) {
 }
 
 export default function Home() {
-  const [time, setTime] = useState(capeTime);
+  const [time, setTime] = useState(clockNow);
   const [openFaq, setOpenFaq] = useState(0);
   const [picked, setPicked] = useState("Business");
-  const [currency, setCurrency] = useState("ZAR");
+  const [currency, setCurrency] = useState("USD");
   const [spot, setSpot] = useState({ x: 50, y: 20 });
   const [menu, setMenu] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
     pack: "Business",
-    city: "Cape Town",
+    city: "",
     domain: "I already have a domain",
     siteUrl: "",
     goal: "",
@@ -101,7 +89,7 @@ export default function Home() {
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
-    const id = setInterval(() => setTime(capeTime()), 1000);
+    const id = setInterval(() => setTime(clockNow()), 1000);
     return () => clearInterval(id);
   }, []);
 
@@ -152,38 +140,16 @@ export default function Home() {
     try {
       if (INBOX_HOOK) {
         try {
-          const res = await fetch(INBOX_HOOK, {
-            method: "POST",
-            body: JSON.stringify(payload),
-          });
+          const res = await fetch(INBOX_HOOK, { method: "POST", body: JSON.stringify(payload) });
           if (!res.ok) throw new Error("send failed");
         } catch {
-          await fetch(INBOX_HOOK, {
-            method: "POST",
-            mode: "no-cors",
-            body: JSON.stringify(payload),
-          });
+          await fetch(INBOX_HOOK, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
         }
-      } else {
-        const res = await fetch("https://formsubmit.co/ajax/ryan.mostert2006@gmail.com", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            ...payload,
-            _subject: `New website plan: ${form.pack} · ${form.name}`,
-            _template: "table",
-            _captcha: "false",
-          }),
-        });
-        if (!res.ok) throw new Error("send failed");
       }
       setSent(`Sent. I’ll reply to ${form.email}.`);
-      setForm((f) => ({ ...f, name: "", email: "", goal: "" }));
+      setForm((f) => ({ ...f, name: "", email: "", goal: "", siteUrl: "" }));
     } catch {
-      setSent("Could not send. Email me directly at ryan.mostert2006@gmail.com");
+      setSent("Could not send. Email me at ryan.mostert2006@gmail.com");
     } finally {
       setSending(false);
     }
@@ -191,7 +157,7 @@ export default function Home() {
 
   return (
     <div
-      className="studio"
+      className="studio tight"
       onMouseMove={(e) => {
         setSpot({
           x: (e.clientX / window.innerWidth) * 100,
@@ -199,12 +165,12 @@ export default function Home() {
         });
       }}
     >
-      <div className="live-bg" aria-hidden="true">
+      <div className="live-bg pop" aria-hidden="true">
         <img src="/images/cape-dusk.jpg" alt="" />
       </div>
       <div
         className="spot"
-        style={{ background: `radial-gradient(600px circle at ${spot.x}% ${spot.y}%, rgba(212,179,122,0.14), transparent 45%)` }}
+        style={{ background: `radial-gradient(700px circle at ${spot.x}% ${spot.y}%, rgba(224,190,122,0.22), transparent 42%)` }}
       />
       <div className="grain" />
 
@@ -215,40 +181,28 @@ export default function Home() {
             Cape Web Co
           </a>
           <nav className="nav-links">
-            <a href="#work">What I build</a>
-            <a href="#ecommerce">Stores</a>
-            <a href="#rescue">Rescue</a>
+            <a href="#work">Work</a>
             <a href="#portfolio">Portfolio</a>
+            <a href="#services">Prices</a>
+            <a href="#rescue">Rescue</a>
             <a href="#contact">Start</a>
           </nav>
           <div className="nav-end">
             <label className="currency-label">
               <span>Currency</span>
-              <select
-                className="currency-select"
-                value={currency}
-                onChange={(e) => setCurrency(e.target.value)}
-                aria-label="Choose currency"
-              >
+              <select className="currency-select" value={currency} onChange={(e) => setCurrency(e.target.value)} aria-label="Choose currency">
                 {CURRENCIES.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.id} · {c.name}
-                  </option>
+                  <option key={c.id} value={c.id}>{c.id}</option>
                 ))}
               </select>
             </label>
-            <span className="live-pill">
-              <i /> Cape Town <span className="clock">{time}</span>
-            </span>
-            <button className="menu-btn" type="button" onClick={() => setMenu((v) => !v)}>
-              Menu
-            </button>
+            <span className="live-pill"><i /> Online <span className="clock">{time}</span></span>
+            <button className="menu-btn" type="button" onClick={() => setMenu((v) => !v)}>Menu</button>
           </div>
         </div>
         {menu ? (
           <div className="mobile-menu wrap">
-            <a href="#work" onClick={() => setMenu(false)}>What I build</a>
-            <a href="#rescue" onClick={() => setMenu(false)}>Rescue</a>
+            <a href="#work" onClick={() => setMenu(false)}>Work</a>
             <a href="#portfolio" onClick={() => setMenu(false)}>Portfolio</a>
             <a href="#contact" onClick={() => setMenu(false)}>Start</a>
           </div>
@@ -259,14 +213,14 @@ export default function Home() {
         <section className="hero-full">
           <div className="wrap hero-grid">
             <div className="hero-copy">
-              <p className="kicker">Cape Web Co · Cape Town</p>
+              <p className="kicker">Cape Web Co · websites worldwide</p>
               <h1 className="display hero-title">
                 <span>Websites</span>
                 <span className="line">that get you</span>
                 <span>customers.</span>
               </h1>
               <p className="lede">
-                New sites. Online stores. Or I take the website you already have and make it work — faster, clearer, built to get the next customer.
+                New sites. Online stores. Or I take the site you already have and make it work — faster, clearer, ready to take the next client.
               </p>
               <div className="actions">
                 <a className="btn btn-gold" href="#portfolio">See portfolio</a>
@@ -282,114 +236,13 @@ export default function Home() {
               <p className="kicker">The studio</p>
               <h2 className="display">Cape Web Co</h2>
               <ul>
-                <li>
-                  <strong>Portfolio ready</strong>
-                  Two full sample sites you can click through.
-                </li>
-                <li>
-                  <strong>Pay how you want</strong>
-                  Rand, dollar, euro, pound, or Australian dollar.
-                </li>
-                <li>
-                  <strong>Your domain</strong>
-                  I connect it. You keep it.
-                </li>
-                <li>
-                  <strong>You own the code</strong>
-                  GitHub + Cloudflare. No locked builder.
-                </li>
+                <li><strong>Portfolio ready</strong>Two full sample sites you can click through.</li>
+                <li><strong>Pay how you want</strong>USD, euro, pound, AUD, or rand.</li>
+                <li><strong>Your domain</strong>I connect it. You keep it.</li>
+                <li><strong>You own the code</strong>GitHub + Cloudflare. No locked builder.</li>
               </ul>
               <div className="now-playing"><i /> Open for new work</div>
             </aside>
-          </div>
-        </section>
-
-        <section className="wrap" id="work">
-          <div className="section-head">
-            <p className="kicker">What I build</p>
-            <h2 className="section-title display">From a one-page site to a shop that takes money.</h2>
-          </div>
-          <div className="offer-grid">
-            <article className="card offer-card">
-              <p className="kicker">Brochure & leads</p>
-              <h3 className="display">Business sites</h3>
-              <p className="muted">Who you are, what you do, how to reach you. Built so someone on a phone can WhatsApp you in two taps.</p>
-              <ul>
-                <li>Home, about, services, contact</li>
-                <li>Maps, hours, and a WhatsApp button</li>
-                <li>Works on cheap Androids and iPhones</li>
-              </ul>
-            </article>
-            <article className="card offer-card">
-              <p className="kicker">Bookings</p>
-              <h3 className="display">Restaurants & bookings</h3>
-              <p className="muted">Menus, wine lists, table requests, salon or coach diaries. See Harbour Kitchen in the portfolio.</p>
-              <ul>
-                <li>Menu and photo galleries</li>
-                <li>Reserve / enquire forms</li>
-                <li>Hours, address, parking notes</li>
-              </ul>
-            </article>
-            <article className="card offer-card">
-              <p className="kicker">Ecommerce</p>
-              <h3 className="display">Online stores</h3>
-              <p className="muted">Products, cart, checkout, shipping. PayFast, SnapScan, or card. See Drift Supply.</p>
-              <ul>
-                <li>Product pages and sizes</li>
-                <li>Cart and a real checkout flow</li>
-                <li>SA shipping notes and collection</li>
-              </ul>
-            </article>
-          </div>
-        </section>
-
-        <section className="wrap" id="ecommerce">
-          <div className="ecom-split">
-            <div>
-              <p className="kicker">Ecommerce, plainly</p>
-              <h2 className="section-title display">If you sell things, the site has to take the money.</h2>
-              <p className="lede">
-                A shop is not a pretty photo grid. People need to pick a size, add to cart, pay, and know when it arrives. I build that, or I set up Shopify if that is already your stack.
-              </p>
-            </div>
-            <div className="ecom-list">
-              <article>
-                <h3>Catalogue</h3>
-                <p className="muted">Products, prices, photos, sizes, what’s in stock. Up to 20 items on the Store package. More if we agree a bigger job.</p>
-              </article>
-              <article>
-                <h3>Cart and checkout</h3>
-                <p className="muted">Add, change qty, see a total, leave a name and city. Demo shops show the flow. Live shops get a real payment option.</p>
-              </article>
-              <article>
-                <h3>Pay in South Africa</h3>
-                <p className="muted">PayFast, SnapScan, EFT, or card. Overseas shops can use Stripe if that fits. We pick one and set it up together.</p>
-              </article>
-              <article>
-                <h3>After they pay</h3>
-                <p className="muted">A confirmation screen. You get the order. We can add email or WhatsApp alerts if you want them.</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section className="wrap">
-          <div className="section-head">
-            <p className="kicker">Who it’s for</p>
-            <h2 className="section-title display">Small businesses that need the next customer, not a 40-page deck.</h2>
-          </div>
-          <div className="who-grid">
-            {[
-              ["Restaurants & cafés", "Menus, bookings, the Friday-night rush."],
-              ["Shops & makers", "Clothes, food, crafts — sell from the site."],
-              ["Trades & coaches", "Show the work. Get the WhatsApp."],
-              ["New brands", "One sharp page so you look open for business."],
-            ].map(([t, d]) => (
-              <article className="about-card" key={t}>
-                <h3>{t}</h3>
-                <p className="muted">{d}</p>
-              </article>
-            ))}
           </div>
         </section>
 
@@ -401,13 +254,50 @@ export default function Home() {
           </div>
         </div>
 
+        <section className="wrap" id="work">
+          <div className="section-head">
+            <p className="kicker">What I build</p>
+            <h2 className="section-title display">From one page to a shop that takes money.</h2>
+          </div>
+          <div className="offer-grid">
+            <article className="card offer-card">
+              <p className="kicker">Leads</p>
+              <h3 className="display">Business sites</h3>
+              <p className="muted">Who you are, what you do, how to reach you. Built for a phone first.</p>
+              <ul>
+                <li>Home, about, services, contact</li>
+                <li>Maps, hours, chat or email</li>
+                <li>Works on any phone</li>
+              </ul>
+            </article>
+            <article className="card offer-card">
+              <p className="kicker">Bookings</p>
+              <h3 className="display">Restaurants & bookings</h3>
+              <p className="muted">Menus, table requests, salon or coach diaries. See Harbour Kitchen.</p>
+              <ul>
+                <li>Menu and galleries</li>
+                <li>Reserve forms</li>
+                <li>Hours and location</li>
+              </ul>
+            </article>
+            <article className="card offer-card">
+              <p className="kicker">Ecommerce</p>
+              <h3 className="display">Online stores</h3>
+              <p className="muted">Products, cart, checkout, shipping. Stripe, PayPal, or card. See Drift Supply.</p>
+              <ul>
+                <li>Product pages and sizes</li>
+                <li>Cart and checkout</li>
+                <li>Shipping notes</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
         <section className="wrap" id="portfolio">
           <div className="section-head">
             <p className="kicker">Portfolio</p>
-            <h2 className="section-title display">Live sample sites. Click in and look around.</h2>
-            <p className="lede">
-              These are demo businesses I built to show the work. They are not my studio name. Each one is a full site with real pages inside.
-            </p>
+            <h2 className="section-title display">Live samples. Click in.</h2>
+            <p className="lede">Demo businesses — not my studio name. Full sites with real pages inside.</p>
           </div>
           <div className="portfolio-grid">
             <a className="portfolio-card" href="/harbour-kitchen/">
@@ -415,7 +305,7 @@ export default function Home() {
               <div>
                 <span>Restaurant</span>
                 <strong>Harbour Kitchen</strong>
-                <p>Menu, wine list, hours, gallery, and table booking.</p>
+                <p>Menu, wine, hours, gallery, booking.</p>
                 <em>Open site →</em>
               </div>
             </a>
@@ -424,7 +314,7 @@ export default function Home() {
               <div>
                 <span>Shop</span>
                 <strong>Drift Supply</strong>
-                <p>Products, cart, size guide, shipping, and checkout.</p>
+                <p>Products, cart, sizes, checkout.</p>
                 <em>Open site →</em>
               </div>
             </a>
@@ -434,17 +324,11 @@ export default function Home() {
         <section className="wrap" id="services">
           <div className="section-head">
             <p className="kicker">Packages</p>
-            <h2 className="section-title display">Clear prices. Choose your currency.</h2>
-            <p className="lede">Showing prices in {CURRENCIES.find((c) => c.id === currency)?.name}. Change it any time in the top bar.</p>
+            <h2 className="section-title display">Clear prices. Your currency.</h2>
           </div>
           <div className="grid-4 pack-grid">
             {PACKAGES.map((p) => (
-              <button
-                type="button"
-                className={`card pack ${picked === p.name ? "on" : ""}`}
-                key={p.name}
-                onClick={() => pickPack(p.name)}
-              >
+              <button type="button" className={`card pack ${picked === p.name ? "on" : ""}`} key={p.name} onClick={() => pickPack(p.name)}>
                 <h3 className="display">{p.name}</h3>
                 <p className="muted pack-blurb">{p.blurb}</p>
                 <p className="price">{p.quote ? "Quote" : formatPrice(p.prices[currency], currency)}</p>
@@ -461,33 +345,19 @@ export default function Home() {
 
         <section className="wrap" id="rescue">
           <div className="rescue-band">
-            <div>
-              <p className="kicker">Already have a site?</p>
-              <h2 className="section-title display">I can fix it. Or make it better.</h2>
-              <p className="lede">
-                Slow, ugly, not mobile, old WordPress, or a site that doesn’t take payments — send the URL. I quote after I look. Not a fixed package.
-              </p>
-              <ul className="rescue-list">
-                <li>Restyle the look without throwing everything away</li>
-                <li>Rebuild on React + Vite if it’s falling apart</li>
-                <li>Add a shop, booking, or WhatsApp</li>
-                <li>Connect your domain and make it fast on Cloudflare</li>
-              </ul>
-              <a className="btn btn-gold" href="#contact" onClick={() => pickPack("Rescue")}>Get a rescue quote</a>
-            </div>
+            <p className="kicker">Already have a site?</p>
+            <h2 className="section-title display">I can fix it. Or make it better.</h2>
+            <p className="lede">Slow, not mobile, old, or it doesn’t take payments — send the URL. Special quote after I look.</p>
+            <a className="btn btn-gold" href="#contact" onClick={() => pickPack("Rescue")}>Get a rescue quote</a>
           </div>
         </section>
 
-        <section className="wrap" id="domain">
-          <div className="section-head">
-            <p className="kicker">Your domain</p>
-            <h2 className="section-title display">You buy the name. I make it open the site.</h2>
-          </div>
+        <section className="wrap compact" id="how">
           <div className="domain-line">
             {[
-              ["01", "Already have a domain?", "Send me the name. I point it at the new site."],
-              ["02", "Need one?", "I tell you where to register it. You stay the owner."],
-              ["03", "We launch", "yourname.com or yourname.co.za is the website."],
+              ["01", "You send the brief", "Goal, photos, logo — or your current URL."],
+              ["02", "I build a preview", "You click a private link and we tweak it."],
+              ["03", "Your domain goes live", "yourname.com opens the new site. You own the code."],
             ].map(([n, t, d]) => (
               <article className="about-card" key={n}>
                 <span className="num">{n}</span>
@@ -498,22 +368,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="wrap">
-          <div className="section-head">
-            <p className="kicker">About</p>
-            <h2 className="section-title display">Built in Cape Town. Made for businesses that need the phone to ring.</h2>
-          </div>
-          <div className="grid-2 about-copy">
-            <p className="lede">
-              I’m Ryan. Cape Web Co is my Cape Town studio. I build fast, modern sites for local and overseas clients. We talk on WhatsApp or email. You get a preview link. Then we launch on your domain.
-            </p>
-            <p className="lede">
-              After launch I do not vanish. If a button breaks, I fix it.
-            </p>
-          </div>
-        </section>
-
-        <section className="wrap">
+        <section className="wrap compact">
           <div className="section-head">
             <p className="kicker">Questions</p>
             <h2 className="section-title display">Straight answers.</h2>
@@ -536,20 +391,14 @@ export default function Home() {
             <div>
               <p className="kicker">Start</p>
               <h2 className="section-title display">Tell me what the site has to do.</h2>
-              <p className="lede">This goes to Cape Web Co. I reply from ryan.mostert2006@gmail.com.</p>
+              <p className="lede">Goes to Cape Web Co. I reply from ryan.mostert2006@gmail.com.</p>
               <p className="price">{shownPrice}</p>
-              <p className="muted">{chosen.name} · {form.city}</p>
+              <p className="muted">{chosen.name}{form.city ? ` · ${form.city}` : ""}</p>
             </div>
             <form onSubmit={submit}>
               <label>Name<input name="name" value={form.name} onChange={update} required /></label>
-              <label>Email or WhatsApp<input name="email" value={form.email} onChange={update} required /></label>
-              <label>City
-                <select name="city" value={form.city} onChange={update}>
-                  {["Cape Town", "Johannesburg", "Durban", "Pretoria", "Stellenbosch", "Other SA", "Outside South Africa"].map((c) => (
-                    <option key={c}>{c}</option>
-                  ))}
-                </select>
-              </label>
+              <label>Email<input name="email" type="email" value={form.email} onChange={update} required /></label>
+              <label>City / country<input name="city" value={form.city} onChange={update} placeholder="London, NYC, Sydney…" /></label>
               <label>Package
                 <select name="pack" value={form.pack} onChange={update}>
                   {PACKAGES.map((p) => (
@@ -577,7 +426,7 @@ export default function Home() {
                 </label>
               ) : null}
               <label>What should the site do?
-                <textarea name="goal" value={form.goal} onChange={update} placeholder="Bookings, sales, WhatsApp, or fix my current site…" />
+                <textarea name="goal" value={form.goal} onChange={update} placeholder="Bookings, sales, or fix my current site…" />
               </label>
               <button className="btn btn-gold" type="submit" disabled={sending}>
                 {sending ? "Sending…" : "Request a plan"}
@@ -589,8 +438,8 @@ export default function Home() {
       </main>
 
       <footer className="wrap">
-        <span>Cape Web Co · Cape Town</span>
-        <span>Prices in {currency} · SAST {time}</span>
+        <span>Cape Web Co</span>
+        <span>Prices in {currency}</span>
       </footer>
     </div>
   );

@@ -144,7 +144,7 @@ button { cursor: pointer; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(1.05) brightness(0.52) contrast(1.05);
+  filter: saturate(1.25) brightness(0.72) contrast(1.12);
   transform-origin: 50% 40%;
   animation: drift 32s ease-in-out infinite alternate;
 }
@@ -157,8 +157,8 @@ button { cursor: pointer; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(900px 480px at 70% 20%, rgba(224,190,122,0.18), transparent 55%),
-    linear-gradient(180deg, rgba(7,15,22,0.35) 0%, rgba(7,15,22,0.62) 48%, rgba(7,15,22,0.94) 100%);
+    radial-gradient(900px 480px at 70% 18%, rgba(224,190,122,0.22), transparent 50%),
+    linear-gradient(180deg, rgba(7,15,22,0.18) 0%, rgba(7,15,22,0.42) 42%, rgba(7,15,22,0.88) 100%);
 }
 .offer-grid {
   display: grid;
@@ -354,7 +354,10 @@ button { cursor: pointer; }
   to { transform: translateX(-50%); }
 }
 
-section { padding: 88px 0; }
+section { padding: 52px 0; }
+.tight section { padding: 44px 0; }
+.compact { padding-top: 28px !important; padding-bottom: 28px !important; }
+.hero-full { min-height: auto; }
 .section-head { max-width: 40rem; margin-bottom: 28px; }
 .section-head .lede { margin-top: 12px; }
 .section-title { font-size: clamp(1.9rem, 3.4vw, 3rem); line-height: 1.12; }
