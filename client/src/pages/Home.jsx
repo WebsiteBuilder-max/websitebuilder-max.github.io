@@ -40,7 +40,7 @@ const FAQS = [
   { q: "Do I own the website?", a: "Yes. Your GitHub. Your Cloudflare. No locked monthly builder." },
 ];
 
-const INBOX_HOOK = "";
+const INBOX_HOOK = "https://script.google.com/macros/s/AKfycbyeuCdZI5KA0yYs0YpFubGjnQgKuxTNYGbog3HuniTP2Ulj_BT0MW6zxyl7s-IUAoDm/exec";
 
 const TICKER = [
   "Cape Town",
@@ -136,11 +136,19 @@ export default function Home() {
     };
     try {
       if (INBOX_HOOK) {
-        const res = await fetch(INBOX_HOOK, {
-          method: "POST",
-          body: JSON.stringify(payload),
-        });
-        if (!res.ok) throw new Error("send failed");
+        try {
+          const res = await fetch(INBOX_HOOK, {
+            method: "POST",
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) throw new Error("send failed");
+        } catch {
+          await fetch(INBOX_HOOK, {
+            method: "POST",
+            mode: "no-cors",
+            body: JSON.stringify(payload),
+          });
+        }
       } else {
         const res = await fetch("https://formsubmit.co/ajax/ryan.mostert2006@gmail.com", {
           method: "POST",
