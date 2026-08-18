@@ -194,7 +194,7 @@ export default function Home() {
         <div className="wrap nav-bar">
           <a className="brand" href="#top">
             <img src="/logo.jpg" alt="" />
-            Ryan
+            Cape Web Co
           </a>
           <nav className="nav-links">
             <a href="#portfolio">Portfolio</a>
@@ -239,7 +239,7 @@ export default function Home() {
         <section className="hero-full">
           <div className="wrap hero-grid">
             <div className="hero-copy">
-              <p className="kicker">Cape Town studio · South Africa</p>
+              <p className="kicker">Cape Web Co · Cape Town</p>
               <h1 className="display hero-title">
                 <span>Websites</span>
                 <span className="line">that get you</span>
@@ -259,8 +259,8 @@ export default function Home() {
               </div>
             </div>
             <aside className="sa-panel">
-              <p className="kicker">This is the studio</p>
-              <h2 className="display">Ryan · Cape Town</h2>
+              <p className="kicker">The studio</p>
+              <h2 className="display">Cape Web Co</h2>
               <ul>
                 <li>
                   <strong>Portfolio ready</strong>
@@ -377,7 +377,7 @@ export default function Home() {
           </div>
           <div className="grid-2 about-copy">
             <p className="lede">
-              I am Ryan. I build fast, modern sites for local and overseas clients. We talk on WhatsApp or email. You get a preview link. Then we launch on your domain.
+              I’m Ryan. Cape Web Co is my Cape Town studio. I build fast, modern sites for local and overseas clients. We talk on WhatsApp or email. You get a preview link. Then we launch on your domain.
             </p>
             <p className="lede">
               After launch I do not vanish. If a button breaks, I fix it.
@@ -408,7 +408,7 @@ export default function Home() {
             <div>
               <p className="kicker">Start</p>
               <h2 className="section-title display">Tell me what the site has to do.</h2>
-              <p className="lede">This goes to my inbox. I reply from ryan.mostert2006@gmail.com.</p>
+              <p className="lede">This goes to Cape Web Co. I reply from ryan.mostert2006@gmail.com.</p>
               <p className="price">{formatPrice(chosen.prices[currency], currency)}</p>
               <p className="muted">{chosen.name} · {currency} · {form.city}</p>
             </div>
@@ -456,7 +456,7 @@ export default function Home() {
       </main>
 
       <footer className="wrap">
-        <span>Ryan · Cape Town, South Africa</span>
+        <span>Cape Web Co · Cape Town</span>
         <span>Prices in {currency} · SAST {time}</span>
       </footer>
     </div>
