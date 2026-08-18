@@ -430,9 +430,17 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="wrap">
-        <span>Web Work Co</span>
-        <span>Prices in {currency}</span>
+      <footer className="wrap site-foot">
+        <div>
+          <strong>Web Work Co</strong>
+          <p>Ryan Mostert · ryan.mostert2006@gmail.com</p>
+        </div>
+        <nav className="foot-links">
+          <a href="/about">About</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="mailto:ryan.mostert2006@gmail.com">Email</a>
+        </nav>
       </footer>
     </div>
   );

@@ -17,10 +17,10 @@ if (existsSync(join(dist, "logo.jpg"))) cpSync(join(dist, "logo.jpg"), join(root
 if (existsSync(join(dist, "_redirects"))) cpSync(join(dist, "_redirects"), join(root, "_redirects"));
 if (existsSync(join(dist, "robots.txt"))) cpSync(join(dist, "robots.txt"), join(root, "robots.txt"));
 if (existsSync(join(dist, "sitemap.xml"))) cpSync(join(dist, "sitemap.xml"), join(root, "sitemap.xml"));
-mkdirSync(join(root, "harbour-kitchen"), { recursive: true });
-mkdirSync(join(root, "drift-supply"), { recursive: true });
+for (const folder of ["harbour-kitchen", "drift-supply", "about", "privacy", "terms"]) {
+  mkdirSync(join(root, folder), { recursive: true });
+  cpSync(join(dist, "index.html"), join(root, folder, "index.html"));
+}
 cpSync(join(dist, "index.html"), join(root, "404.html"));
-cpSync(join(dist, "index.html"), join(root, "harbour-kitchen", "index.html"));
-cpSync(join(dist, "index.html"), join(root, "drift-supply", "index.html"));
 
 console.log("Exported built site to repo root for Cloudflare.");

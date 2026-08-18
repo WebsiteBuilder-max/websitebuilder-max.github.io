@@ -541,6 +541,13 @@ footer {
   gap: 12px;
   flex-wrap: wrap;
 }
+.site-foot { align-items: flex-start; }
+.site-foot strong { color: var(--ink); display: block; }
+.foot-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.legal-page { min-height: 100vh; background: var(--navy); }
+.legal-body { padding: 48px 0 80px; max-width: 720px; }
+.legal-copy p { margin: 0 0 16px; color: var(--muted); max-width: 62ch; }
+.legal-copy a { color: var(--gold); }
 
 .back-studio {
   background: #070f16;
