@@ -15,6 +15,8 @@ if (existsSync(join(dist, "assets"))) cpSync(join(dist, "assets"), assets, { rec
 if (existsSync(join(dist, "images"))) cpSync(join(dist, "images"), join(root, "images"), { recursive: true });
 if (existsSync(join(dist, "logo.jpg"))) cpSync(join(dist, "logo.jpg"), join(root, "logo.jpg"));
 if (existsSync(join(dist, "_redirects"))) cpSync(join(dist, "_redirects"), join(root, "_redirects"));
+if (existsSync(join(dist, "robots.txt"))) cpSync(join(dist, "robots.txt"), join(root, "robots.txt"));
+if (existsSync(join(dist, "sitemap.xml"))) cpSync(join(dist, "sitemap.xml"), join(root, "sitemap.xml"));
 mkdirSync(join(root, "harbour-kitchen"), { recursive: true });
 mkdirSync(join(root, "drift-supply"), { recursive: true });
 cpSync(join(dist, "index.html"), join(root, "404.html"));
