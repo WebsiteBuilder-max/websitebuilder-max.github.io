@@ -83,6 +83,7 @@ export default function Home() {
     goal: "",
   });
   const [sent, setSent] = useState("");
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => setTime(capeTime()), 1000);
@@ -116,11 +117,40 @@ export default function Home() {
     setForm((f) => ({ ...f, pack: name }));
   }
 
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
-    setSent(
-      `Thanks, ${form.name || "there"}. ${chosen.name} at ${formatPrice(chosen.prices[currency], currency)} (${currency}) · ${form.city}. Send me the same note on WhatsApp or email and I will send a plan.`
-    );
+    setSending(true);
+    setSent("Sending…");
+    const price = formatPrice(chosen.prices[currency], currency);
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/ryan.mostert2006@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          city: form.city,
+          package: form.pack,
+          currency,
+          price,
+          domain: form.domain,
+          goal: form.goal || "(none)",
+          _subject: `New website plan: ${form.pack} · ${form.name}`,
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+      if (!res.ok) throw new Error("send failed");
+      setSent(`Sent. I’ll reply to ${form.email}. Check your inbox.`);
+      setForm((f) => ({ ...f, name: "", email: "", goal: "" }));
+    } catch {
+      setSent("Could not send. Email me directly at ryan.mostert2006@gmail.com");
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -357,7 +387,7 @@ export default function Home() {
             <div>
               <p className="kicker">Start</p>
               <h2 className="section-title display">Tell me what the site has to do.</h2>
-              <p className="lede">WhatsApp or email is fine. This box is just the brief.</p>
+              <p className="lede">This goes to my inbox. I reply from ryan.mostert2006@gmail.com.</p>
               <p className="price">{formatPrice(chosen.prices[currency], currency)}</p>
               <p className="muted">{chosen.name} · {currency} · {form.city}</p>
             </div>
@@ -395,7 +425,9 @@ export default function Home() {
               <label>What should the site do?
                 <textarea name="goal" value={form.goal} onChange={update} placeholder="Bookings, sales, WhatsApp enquiries…" />
               </label>
-              <button className="btn btn-gold" type="submit">Request a plan</button>
+              <button className="btn btn-gold" type="submit" disabled={sending}>
+                {sending ? "Sending…" : "Request a plan"}
+              </button>
               <p className="success">{sent}</p>
             </form>
           </div>
