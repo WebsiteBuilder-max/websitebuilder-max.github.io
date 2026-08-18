@@ -390,7 +390,32 @@ button { cursor: pointer; }
   to { transform: translateX(-50%); }
 }
 
-section { padding: 52px 0; }
+section { padding: 56px 0; scroll-margin-top: 84px; }
+.jump-bar {
+  position: sticky;
+  top: 60px;
+  z-index: 18;
+  background: rgba(7, 15, 22, 0.78);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.jump-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 10px 0;
+  -webkit-overflow-scrolling: touch;
+}
+.jump-row a {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
 .tight section { padding: 44px 0; }
 .compact { padding-top: 28px !important; padding-bottom: 28px !important; }
 .hero-full { min-height: auto; }
