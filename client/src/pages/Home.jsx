@@ -1,39 +1,50 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 
 const PACKAGES = [
   {
     name: "Starter",
-    price: 250,
+    zar: 4500,
+    usd: 250,
     days: "5–7 days",
-    blurb: "One sharp page. Enough to look real and get the first message.",
-    items: ["Hero, about, services, contact", "Looks right on a phone", "WhatsApp or email button", "Live on your domain", "1 revision round"],
+    blurb: "One sharp page. Enough to look real and get the first WhatsApp.",
+    items: ["Hero, about, services, contact", "Works on a phone", "WhatsApp button", "Live on your .co.za", "1 revision round"],
   },
   {
     name: "Business",
-    price: 650,
+    zar: 11500,
+    usd: 650,
     days: "10–14 days",
-    blurb: "A full site built to get bookings, calls, and enquiries.",
-    items: ["5 pages, written and designed", "Contact form + maps", "SEO basics", "Domain connect", "2 revision rounds"],
+    blurb: "A full site built to get bookings, calls, and walk-ins.",
+    items: ["5 pages, written and designed", "Contact form + maps", "Google and SEO basics", "Domain connect", "2 revision rounds"],
   },
   {
     name: "Store",
-    price: 800,
+    zar: 14500,
+    usd: 800,
     days: "2–3 weeks",
-    blurb: "Sell products. Cart, checkout, and product pages that work on a phone.",
+    blurb: "Sell products. Cart, checkout, PayFast or SnapScan help.",
     items: ["Up to 20 products", "Cart + checkout", "Payment setup help", "Domain + launch", "2 revision rounds"],
   },
 ];
 
 const FAQS = [
-  { q: "I already bought a domain. Can you use it?", a: "Yes. You keep the domain. I connect it on Cloudflare so yourname.com opens the new site." },
-  { q: "How long does a site take?", a: "Starter about a week. Business 10–14 days. Store 2–3 weeks once I have photos, prices, and a logo." },
-  { q: "Do I own the website?", a: "Yes. Code in your GitHub. Site on your Cloudflare. No locked monthly builder." },
-  { q: "Are the two sample sites real businesses?", a: "No. Harbour Kitchen and Drift Supply are samples I built so you can click around. Real client work replaces them." },
-  { q: "What do you need from me?", a: "A logo if you have one, 6–12 photos, a few sentences about the business, and the domain name." },
+  { q: "I already have a .co.za or .com. Can you use it?", a: "Yes. You keep the domain. I connect it so yourname.co.za opens the new site." },
+  { q: "Do you work anywhere in South Africa?", a: "Yes. I’m in Cape Town. I build for businesses in CPT, Joburg, Durban, Pretoria, and smaller towns. We work on WhatsApp and email." },
+  { q: "Rand or dollars?", a: "South African clients pay in rand. Overseas clients (Upwork) can pay in USD. Same work." },
+  { q: "Do I own the website?", a: "Yes. Your GitHub, your Cloudflare. No locked monthly builder." },
+  { q: "What are Harbour Kitchen and Drift Supply?", a: "Separate sample sites only. They are not part of this studio brand. They show what a restaurant site and a shop site can feel like." },
 ];
 
-const TICKER = ["React + Vite", "Cape Town studio", "Your domain", "Cloudflare launch", "Restaurants", "Shops", "Coaches", "Same-day replies"];
+const TICKER = [
+  "Cape Town",
+  "South Africa",
+  "WhatsApp first",
+  ".co.za domains",
+  "Restaurants",
+  "Shops",
+  "Trades",
+  "Joburg to Durban",
+];
 
 function capeTime() {
   return new Intl.DateTimeFormat("en-GB", {
@@ -43,6 +54,10 @@ function capeTime() {
     second: "2-digit",
     hour12: false,
   }).format(new Date());
+}
+
+function money(zar) {
+  return `R${zar.toLocaleString("en-ZA")}`;
 }
 
 export default function Home() {
@@ -55,6 +70,7 @@ export default function Home() {
     name: "",
     email: "",
     pack: "Business",
+    city: "Cape Town",
     domain: "I already have a domain",
     goal: "",
   });
@@ -84,7 +100,7 @@ export default function Home() {
   function submit(e) {
     e.preventDefault();
     setSent(
-      `Got it, ${form.name || "there"}. ${chosen.name} at $${chosen.price}. ${form.domain}. On Upwork, send me that same note and I’ll reply with a plan.`
+      `Sharp, ${form.name || "there"}. ${chosen.name} at ${money(chosen.zar)} · ${form.city}. WhatsApp or email me that same note and I’ll send a plan.`
     );
   }
 
@@ -111,13 +127,13 @@ export default function Home() {
             Ryan
           </a>
           <nav className="nav-links">
-            <a href="#work">Work</a>
             <a href="#services">Packages</a>
             <a href="#domain">Domain</a>
+            <a href="#samples">Samples</a>
             <a href="#contact">Start</a>
           </nav>
           <span className="live-pill">
-            <i /> Live · CPT <span className="clock">{time}</span>
+            <i /> Cape Town <span className="clock">{time}</span>
           </span>
           <button className="menu-btn" type="button" onClick={() => setMenu((v) => !v)}>
             Menu
@@ -125,8 +141,8 @@ export default function Home() {
         </div>
         {menu ? (
           <div className="mobile-menu wrap">
-            <a href="#work" onClick={() => setMenu(false)}>Work</a>
             <a href="#services" onClick={() => setMenu(false)}>Packages</a>
+            <a href="#samples" onClick={() => setMenu(false)}>Samples</a>
             <a href="#contact" onClick={() => setMenu(false)}>Start</a>
           </div>
         ) : null}
@@ -136,41 +152,36 @@ export default function Home() {
         <section className="hero-full">
           <div className="wrap hero-grid">
             <div className="hero-copy">
-              <p className="kicker fade-up">Cape Town · React · Vite · Cloudflare</p>
+              <p className="kicker">Cape Town studio · South Africa</p>
               <h1 className="display hero-title">
-                Sites that feel
-                <span className="line">alive.</span>
-                Built to get you paid.
+                Websites for
+                <span className="line">SA businesses</span>
+                that need customers.
               </h1>
-              <p className="lede fade-up delay">
-                I design and ship modern business websites and shops. You bring the domain — or I help you buy one. Then yourname.com is the site.
+              <p className="lede">
+                I design and launch modern sites for restaurants, shops, trades, and coaches — from Cape Town to Joburg and everywhere in between. You bring the domain. I put it live.
               </p>
               <div className="actions">
                 <a className="btn btn-gold" href="#contact">Get a plan</a>
-                <a className="btn btn-ghost" href="#work">Open the live samples</a>
+                <a className="btn btn-ghost" href="#services">See packages</a>
               </div>
               <div className="stat-row">
                 <div><b>3–14</b><span>days to launch</span></div>
-                <div><b>$250</b><span>starting price</span></div>
-                <div><b>USD</b><span>you pay in dollars</span></div>
+                <div><b>R4,500</b><span>starting price</span></div>
+                <div><b>SAST</b><span>Cape Town time</span></div>
               </div>
             </div>
-            <div className="hero-stage">
-              <Link className="float-card one" to="/harbour-kitchen/">
-                <img src="/images/harbour-hero.jpg" alt="Harbour Kitchen" />
-                <em>01 · Restaurant</em>
-              </Link>
-              <Link className="float-card two" to="/drift-supply/">
-                <img src="/images/drift-hero.jpg" alt="Drift Supply" />
-                <em>02 · Shop</em>
-              </Link>
-              <div className="float-card three">
-                <img src="/images/kingklip.jpg" alt="" />
-              </div>
-              <div className="now-playing">
-                <i /> Building in React + Vite
-              </div>
-            </div>
+            <aside className="sa-panel">
+              <p className="kicker">This is the studio</p>
+              <h2 className="display">Ryan · Cape Town</h2>
+              <ul>
+                <li><strong>WhatsApp first</strong> Same-day replies, local hours.</li>
+                <li><strong>Your .co.za</strong> I connect the domain. You keep it.</li>
+                <li><strong>Pay in rand</strong> SA clients invoice in ZAR. Overseas in USD.</li>
+                <li><strong>You own the code</strong> GitHub + Cloudflare. No locked builder.</li>
+              </ul>
+              <div className="now-playing"><i /> Open for new SA work</div>
+            </aside>
           </div>
         </section>
 
@@ -182,63 +193,10 @@ export default function Home() {
           </div>
         </div>
 
-        <section className="wrap" id="work">
-          <div className="section-head">
-            <p className="kicker">Selected work</p>
-            <h2 className="section-title display">Click in. These are real working sites — not pictures of sites.</h2>
-          </div>
-          <div className="work-stack">
-            <Link className="work-wide" to="/harbour-kitchen/">
-              <img src="/images/harbour-hero.jpg" alt="Harbour Kitchen" />
-              <div className="work-meta">
-                <span>01</span>
-                <div>
-                  <p className="kicker">Restaurant · live sample</p>
-                  <h3 className="display">Harbour Kitchen</h3>
-                  <p>Menu tabs, dish photos, a table-booking flow that hands you a table number.</p>
-                </div>
-                <b>Open →</b>
-              </div>
-            </Link>
-            <Link className="work-wide light" to="/drift-supply/">
-              <img src="/images/drift-hero.jpg" alt="Drift Supply" />
-              <div className="work-meta">
-                <span>02</span>
-                <div>
-                  <p className="kicker">Shop · live sample</p>
-                  <h3 className="display">Drift Supply</h3>
-                  <p>Sizes, product view, cart, three-step checkout, order number.</p>
-                </div>
-                <b>Open →</b>
-              </div>
-            </Link>
-          </div>
-        </section>
-
-        <section className="wrap bento-wrap">
-          <div className="bento">
-            <article className="bento-big">
-              <p className="kicker">How it feels</p>
-              <h3 className="display">Not a template. A small studio site that moves.</h3>
-              <p className="lede">Hover the cards. Book a table. Add a jacket to the cart. This is the same React + Vite stack I use for client work.</p>
-            </article>
-            <article>
-              <p className="kicker">Stack</p>
-              <h3>React · Vite · GitHub · Cloudflare</h3>
-              <p className="muted">Fast to load. Easy to hand over. You own it.</p>
-            </article>
-            <article>
-              <p className="kicker">Hours</p>
-              <h3 className="clock">{time}</h3>
-              <p className="muted">Cape Town time. Live with UK / EU. US mornings.</p>
-            </article>
-          </div>
-        </section>
-
         <section className="wrap" id="services">
-          <div className="section-head">
+          <div className="section-head wide">
             <p className="kicker">Packages</p>
-            <h2 className="section-title display">Pick a size. Price stays put.</h2>
+            <h2 className="section-title display">Clear prices in rand.</h2>
           </div>
           <div className="grid-3">
             {PACKAGES.map((p) => (
@@ -250,8 +208,8 @@ export default function Home() {
               >
                 <h3 className="display">{p.name}</h3>
                 <p className="muted">{p.blurb}</p>
-                <p className="price">${p.price}</p>
-                <p className="muted">{p.days}</p>
+                <p className="price">{money(p.zar)}</p>
+                <p className="muted">{p.days} · or ${p.usd} USD</p>
                 <ul>
                   {p.items.map((item) => (
                     <li key={item}>{item}</li>
@@ -263,15 +221,15 @@ export default function Home() {
         </section>
 
         <section className="wrap" id="domain">
-          <div className="section-head">
+          <div className="section-head wide">
             <p className="kicker">Your domain</p>
-            <h2 className="section-title display">You buy the name. I make the internet open it.</h2>
+            <h2 className="section-title display">You buy the name. I make it open the site.</h2>
           </div>
           <div className="domain-line">
             {[
-              ["01", "You already have a domain", "Send me studiolee.com. I point it at the new site."],
-              ["02", "You don’t have one", "Buy it for about $10–15 a year. I tell you the clicks. You stay the owner."],
-              ["03", "We launch", "yourname.com is the website. Not a random link."],
+              ["01", "Already have a domain?", "Send me the name. I point it at the new site."],
+              ["02", "Need a .co.za?", "Register it on Afrihost, xneelo, or Cloudflare. About R100–R200 a year. You stay the owner."],
+              ["03", "We launch", "yourname.co.za is the website. Not a random link."],
             ].map(([n, t, d]) => (
               <article className="about-card" key={n}>
                 <span className="num">{n}</span>
@@ -283,17 +241,39 @@ export default function Home() {
         </section>
 
         <section className="wrap">
-          <div className="section-head">
+          <div className="section-head wide">
             <p className="kicker">About</p>
-            <h2 className="section-title display">Ryan. Cape Town. Sites for people who need customers, not a 40-page deck.</h2>
+            <h2 className="section-title display">Built in Cape Town. For South African businesses that need the phone to ring.</h2>
           </div>
           <div className="grid-2">
             <p className="lede">
-              I build for restaurants, shops, coaches, and trades. React and Vite so it feels current. Cloudflare so it stays fast. You get progress you can click, not radio silence.
+              I’m Ryan. I build fast, modern sites for local businesses — not 40-page agency decks. We can talk on WhatsApp. You see a preview link. Then we launch on your domain.
             </p>
             <p className="lede">
               After launch I don’t vanish. If a button breaks, I fix it.
             </p>
+          </div>
+        </section>
+
+        <section className="wrap samples-only" id="samples">
+          <div className="section-head wide">
+            <p className="kicker">Separate sample sites</p>
+            <h2 className="section-title display">Two demo businesses. Not part of this studio.</h2>
+            <p className="lede">
+              These are make-believe shops I built so you can click around a restaurant site and a clothing shop. They have their own look. They are not my brand.
+            </p>
+          </div>
+          <div className="sample-links">
+            <a className="sample-link" href="/harbour-kitchen/">
+              <span>Restaurant demo</span>
+              <strong>Harbour Kitchen</strong>
+              <em>Open the full site →</em>
+            </a>
+            <a className="sample-link" href="/drift-supply/">
+              <span>Shop demo</span>
+              <strong>Drift Supply</strong>
+              <em>Open the full site →</em>
+            </a>
           </div>
         </section>
 
@@ -318,13 +298,20 @@ export default function Home() {
             <div>
               <p className="kicker">Start</p>
               <h2 className="section-title display">Tell me what the site has to do.</h2>
-              <p className="lede">This form is a demo of the brief. On Upwork, paste the same thing and I’ll write back with a plan.</p>
-              <p className="price">${chosen.price}</p>
-              <p className="muted">{chosen.name} · {form.domain}</p>
+              <p className="lede">WhatsApp or email is fine. This box is just the brief.</p>
+              <p className="price">{money(chosen.zar)}</p>
+              <p className="muted">{chosen.name} · {form.city} · {form.domain}</p>
             </div>
             <form onSubmit={submit}>
               <label>Name<input name="name" value={form.name} onChange={update} required /></label>
-              <label>Email<input name="email" type="email" value={form.email} onChange={update} required /></label>
+              <label>Email or WhatsApp<input name="email" value={form.email} onChange={update} required /></label>
+              <label>City
+                <select name="city" value={form.city} onChange={update}>
+                  {["Cape Town", "Johannesburg", "Durban", "Pretoria", "Stellenbosch", "Other SA"].map((c) => (
+                    <option key={c}>{c}</option>
+                  ))}
+                </select>
+              </label>
               <label>Package
                 <select name="pack" value={form.pack} onChange={update}>
                   {PACKAGES.map((p) => (
@@ -335,12 +322,12 @@ export default function Home() {
               <label>Domain
                 <select name="domain" value={form.domain} onChange={update}>
                   <option>I already have a domain</option>
-                  <option>I need help buying one</option>
+                  <option>I need a .co.za</option>
                   <option>Not sure yet</option>
                 </select>
               </label>
               <label>What should the site do?
-                <textarea name="goal" value={form.goal} onChange={update} placeholder="Bookings, sales, enquiries…" />
+                <textarea name="goal" value={form.goal} onChange={update} placeholder="Bookings, sales, WhatsApp enquiries…" />
               </label>
               <button className="btn btn-gold" type="submit">Request a plan</button>
               <p className="success">{sent}</p>
@@ -350,8 +337,8 @@ export default function Home() {
       </main>
 
       <footer className="wrap">
-        <span>Ryan · Cape Town</span>
-        <span>React + Vite · GitHub · Cloudflare</span>
+        <span>Ryan · Cape Town, South Africa</span>
+        <span>SAST {time}</span>
       </footer>
     </div>
   );

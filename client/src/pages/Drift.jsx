@@ -1,11 +1,17 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 
 const PRODUCTS = [
-  { id: "cap", name: "Harbour cap", price: 38, img: "/images/cap.jpg", blurb: "Washed navy. Sits right in wind.", sizes: ["One size"] },
-  { id: "tee", name: "Heavyweight tee", price: 42, img: "/images/tee.jpg", blurb: "Thick cotton. Off-white.", sizes: ["S", "M", "L", "XL"] },
-  { id: "tote", name: "Canvas tote", price: 28, img: "/images/tote.jpg", blurb: "Sand canvas. Daily bag.", sizes: ["One size"] },
-  { id: "jacket", name: "Navy chore jacket", price: 120, img: "/images/jacket.jpg", blurb: "Light layer for evening wind.", sizes: ["S", "M", "L"] },
+  { id: "cap", name: "Harbour cap", price: 450, img: "/images/cap.jpg", blurb: "Washed navy. Sits right in south-easter.", sizes: ["One size"], tag: "Hats", made: "Cut in Woodstock. Cotton twill." },
+  { id: "tee", name: "Heavyweight tee", price: 580, img: "/images/tee.jpg", blurb: "Thick cotton. Off-white. Doesn’t go see-through.", sizes: ["S", "M", "L", "XL"], tag: "Wear", made: "220gsm. Pre-washed so it stays this size." },
+  { id: "tote", name: "Canvas tote", price: 320, img: "/images/tote.jpg", blurb: "Sand canvas. Beach, market, laptop.", sizes: ["One size"], tag: "Bags", made: "12oz canvas. Leather grip on the handles." },
+  { id: "jacket", name: "Navy chore jacket", price: 1890, img: "/images/jacket.jpg", blurb: "Light layer for evening wind off the bay.", sizes: ["S", "M", "L"], tag: "Wear", made: "Unlined. Two chest pockets. Made to be worn open." },
+];
+
+const SIZES = [
+  ["S", "87–92", "71–76"],
+  ["M", "93–98", "77–82"],
+  ["L", "99–104", "83–88"],
+  ["XL", "105–110", "89–94"],
 ];
 
 export default function Drift() {
@@ -15,10 +21,13 @@ export default function Drift() {
   const [size, setSize] = useState("M");
   const [step, setStep] = useState(1);
   const [order, setOrder] = useState(null);
+  const [page, setPage] = useState("shop");
+  const [filter, setFilter] = useState("All");
 
   const count = cart.reduce((n, i) => n + i.qty, 0);
   const total = cart.reduce((n, i) => n + i.price * i.qty, 0);
   const product = useMemo(() => PRODUCTS.find((p) => p.id === active), [active]);
+  const shown = filter === "All" ? PRODUCTS : PRODUCTS.filter((p) => p.tag === filter);
 
   function add(p, chosenSize) {
     setCart((c) => {
@@ -48,10 +57,11 @@ export default function Drift() {
     <div className="drift-body">
       <header className="site-nav drift-nav">
         <div className="wrap">
-          <a className="brand" href="#shop">Drift Supply</a>
+          <button className="brand bare" type="button" onClick={() => setPage("shop")}>Drift Supply</button>
           <nav className="nav-links">
-            <a href="#shop">Shop</a>
-            <Link to="/">Ryan portfolio</Link>
+            <button type="button" onClick={() => setPage("shop")}>Shop</button>
+            <button type="button" onClick={() => setPage("story")}>Story</button>
+            <button type="button" onClick={() => setPage("guide")}>Size & shipping</button>
           </nav>
           <button className="cart-btn" type="button" onClick={() => setOpen(true)}>
             Cart {count}
@@ -59,52 +69,111 @@ export default function Drift() {
         </div>
       </header>
 
-      <section className="wrap drift-hero">
-        <div>
-          <p className="kicker">Sample shop · Cape Town</p>
-          <h1 className="display">Quiet clothes for salt air.</h1>
-          <p className="lede">
-            Four products, sizes, a real cart, and a checkout that feels finished. Demo only — no payment is taken.
-          </p>
-        </div>
-        <img src="/images/drift-hero.jpg" alt="Drift Supply flat lay" />
-      </section>
+      {page === "shop" && (
+        <>
+          <section className="wrap drift-hero">
+            <div>
+              <p className="kicker">Woodstock · Cape Town</p>
+              <h1 className="display">Quiet clothes for salt air.</h1>
+              <p className="lede">
+                A small Cape label. Four things we actually wear: a cap, a heavy tee, a tote, a chore jacket. Made for wind, not a lookbook in Milan.
+              </p>
+            </div>
+            <img src="/images/drift-hero.jpg" alt="Drift Supply flat lay" />
+          </section>
 
-      <section className="wrap" id="shop">
-        <p className="kicker">Shop</p>
-        <div className="grid-4">
-          {PRODUCTS.map((p) => (
-            <article className="product" key={p.id}>
-              <img src={p.img} alt={p.name} />
-              <h3>{p.name}</h3>
-              <p className="muted">{p.blurb}</p>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12 }}>
-                <strong>${p.price}</strong>
-                <button
-                  className="icon-btn"
-                  type="button"
-                  onClick={() => {
-                    setActive(p.id);
-                    setSize(p.sizes[0]);
-                  }}
-                >
-                  View
+          <section className="wrap" id="shop">
+            <div className="tabs">
+              {["All", "Wear", "Hats", "Bags"].map((t) => (
+                <button key={t} className={filter === t ? "on" : ""} type="button" onClick={() => setFilter(t)}>
+                  {t}
                 </button>
-              </div>
+              ))}
+            </div>
+            <div className="grid-4">
+              {shown.map((p) => (
+                <article className="product" key={p.id}>
+                  <img src={p.img} alt={p.name} />
+                  <h3>{p.name}</h3>
+                  <p className="muted">{p.blurb}</p>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12 }}>
+                    <strong>R{p.price}</strong>
+                    <button
+                      className="icon-btn"
+                      type="button"
+                      onClick={() => {
+                        setActive(p.id);
+                        setSize(p.sizes[0]);
+                      }}
+                    >
+                      View
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        </>
+      )}
+
+      {page === "story" && (
+        <section className="wrap page-pad">
+          <p className="kicker">Story</p>
+          <h2 className="display section-title">Started with a cap that didn’t blow off on Chapman’s Peak.</h2>
+          <div className="grid-2">
+            <p className="lede">
+              Drift is two friends in a Woodstock studio. We got tired of thin tees and logos. So we made four pieces, in short runs, and we restock when the roll of cloth is gone.
+            </p>
+            <p className="lede">
+              Everything ships from Cape Town. If you’re in CPT you can collect on Albert Road. If you’re in Joburg or Durban, The Courier Guy usually takes two days.
+            </p>
+          </div>
+          <div className="gallery" style={{ marginTop: 28 }}>
+            <img src="/images/drift-hero.jpg" alt="Studio flat lay" />
+            <img src="/images/jacket.jpg" alt="Chore jacket" />
+            <img src="/images/tee.jpg" alt="Tee" />
+            <img src="/images/cap.jpg" alt="Cap" />
+          </div>
+        </section>
+      )}
+
+      {page === "guide" && (
+        <section className="wrap page-pad">
+          <p className="kicker">Size & shipping</p>
+          <h2 className="display section-title">Measured in centimetres. Shipped from Cape Town.</h2>
+          <div className="grid-2">
+            <article className="about-card">
+              <h3>Size guide</h3>
+              <div className="menu-row"><span>Size</span><strong>Chest · waist</strong></div>
+              {SIZES.map(([s, c, w]) => (
+                <div className="menu-row" key={s}>
+                  <span>{s}</span>
+                  <strong>{c} · {w}</strong>
+                </div>
+              ))}
+              <p className="muted" style={{ marginTop: 12 }}>If you’re between sizes, take the bigger one. The jacket is meant to sit open.</p>
             </article>
-          ))}
-        </div>
-      </section>
+            <article className="about-card">
+              <h3>Shipping (SA)</h3>
+              <p className="lede">Cape Town metro — R70 or free over R1,000. Collect in Woodstock is free.</p>
+              <p className="lede">Joburg, Pretoria, Durban, PE — R95. Rest of SA — R120.</p>
+              <p className="lede">We don’t ship outside South Africa on this sample store. Returns within 14 days if the tags are on.</p>
+              <p className="lede">Pay with card, EFT, or SnapScan. Demo checkout does not take money.</p>
+            </article>
+          </div>
+        </section>
+      )}
 
       {product ? (
         <div className="modal" onClick={() => setActive(null)}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
             <img src={product.img} alt={product.name} />
             <div>
-              <p className="kicker">Look closer</p>
+              <p className="kicker">{product.tag}</p>
               <h2 className="display">{product.name}</h2>
               <p className="lede">{product.blurb}</p>
-              <p className="price">${product.price}</p>
+              <p className="lede">{product.made}</p>
+              <p className="price">R{product.price}</p>
               <p className="muted">Size</p>
               <div className="sizes">
                 {product.sizes.map((s) => (
@@ -114,7 +183,7 @@ export default function Drift() {
                 ))}
               </div>
               <button className="cart-btn" type="button" onClick={() => add(product, size)}>
-                Add {size} to cart
+                Add {size} · R{product.price}
               </button>
             </div>
           </div>
@@ -135,7 +204,7 @@ export default function Drift() {
                 <div className="line" key={i.key}>
                   <div>
                     <strong>{i.name}</strong>
-                    <div className="muted">{i.size} · ${i.price}</div>
+                    <div className="muted">{i.size} · R{i.price}</div>
                   </div>
                   <div>
                     <button className="qty-btn" type="button" onClick={() => setQty(i.key, i.qty - 1)}>−</button>
@@ -145,19 +214,24 @@ export default function Drift() {
                 </div>
               ))}
             </div>
-            <p>Total ${total}</p>
-            <button className="checkout" type="button" onClick={() => cart.length && setStep(2)}>
-              Checkout
-            </button>
+            <p>Total R{total}</p>
+            <button className="checkout" type="button" onClick={() => cart.length && setStep(2)}>Checkout</button>
           </>
         )}
 
         {step === 2 && (
           <form onSubmit={placeOrder} style={{ marginTop: 16 }}>
-            <p className="muted">Step 2 of 3 · details</p>
+            <p className="muted">Delivery in South Africa</p>
             <label>Name<input required /></label>
             <label>Email<input type="email" required /></label>
-            <label>City<input required placeholder="Cape Town" /></label>
+            <label>City
+              <select required defaultValue="Cape Town">
+                {["Cape Town", "Johannesburg", "Pretoria", "Durban", "Stellenbosch", "Gqeberha"].map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
+            </label>
+            <label>Address<input required placeholder="Street and suburb" /></label>
             <button className="checkout" type="submit">Place order (demo)</button>
             <button className="icon-btn" type="button" onClick={() => setStep(1)}>Back to cart</button>
           </form>
@@ -165,9 +239,9 @@ export default function Drift() {
 
         {step === 3 && (
           <div style={{ marginTop: 24 }}>
-            <p className="kicker">Packed</p>
+            <p className="kicker">Packed in Woodstock</p>
             <h2 className="display">Order {order}</h2>
-            <p className="lede">Demo only. No card was charged. This is the confirmation a real shop would show.</p>
+            <p className="lede">Demo only. No card was charged. A real shop would SMS you a tracking number.</p>
             <button className="checkout" type="button" onClick={() => { setStep(1); setOpen(false); }}>
               Keep shopping
             </button>
@@ -176,8 +250,8 @@ export default function Drift() {
       </aside>
 
       <footer className="wrap">
-        <span>Drift Supply · sample shop</span>
-        <Link to="/">Back to Ryan</Link>
+        <span>Drift Supply · Woodstock, Cape Town</span>
+        <span>Sample shop · no real payment</span>
       </footer>
     </div>
   );
