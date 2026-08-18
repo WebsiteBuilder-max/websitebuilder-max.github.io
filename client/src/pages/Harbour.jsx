@@ -78,6 +78,12 @@ export default function Harbour() {
   const [dish, setDish] = useState(null);
   const [toast, setToast] = useState("");
   const [favs, setFavs] = useState([]);
+  const [navOpen, setNavOpen] = useState(false);
+
+  function go(next) {
+    setPage(next);
+    setNavOpen(false);
+  }
 
   useEffect(() => {
     const id = setInterval(() => setClock(capeClock()), 1000);
@@ -109,20 +115,30 @@ export default function Harbour() {
       <BackToStudio />
       <header className="site-nav harbour-nav">
         <div className="wrap">
-          <button className="brand bare" type="button" onClick={() => setPage("home")}>
+          <button className="brand bare" type="button" onClick={() => go("home")}>
             Harbour Kitchen
           </button>
           <nav className="nav-links">
-            <button type="button" onClick={() => setPage("menu")}>Menu</button>
-            <button type="button" onClick={() => setPage("wine")}>Wine</button>
-            <button type="button" onClick={() => setPage("events")}>Tonight</button>
-            <button type="button" onClick={() => setPage("visit")}>Visit</button>
-            <button type="button" onClick={() => setPage("reserve")}>Reserve</button>
+            <button type="button" onClick={() => go("menu")}>Menu</button>
+            <button type="button" onClick={() => go("wine")}>Wine</button>
+            <button type="button" onClick={() => go("events")}>Tonight</button>
+            <button type="button" onClick={() => go("visit")}>Visit</button>
+            <button type="button" onClick={() => go("reserve")}>Reserve</button>
           </nav>
           <span className="live-pill">
             <i /> {tables} tables · {clock}
           </span>
+          <button className="menu-btn" type="button" onClick={() => setNavOpen((v) => !v)}>Menu</button>
         </div>
+        {navOpen ? (
+          <div className="mobile-menu wrap">
+            <button type="button" onClick={() => go("menu")}>Menu</button>
+            <button type="button" onClick={() => go("wine")}>Wine</button>
+            <button type="button" onClick={() => go("events")}>Tonight</button>
+            <button type="button" onClick={() => go("visit")}>Visit</button>
+            <button type="button" onClick={() => go("reserve")}>Reserve</button>
+          </div>
+        ) : null}
       </header>
 
       {page === "home" && (

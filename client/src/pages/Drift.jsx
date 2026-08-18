@@ -36,7 +36,13 @@ export default function Drift() {
   const [search, setSearch] = useState("");
   const [code, setCode] = useState("");
   const [toast, setToast] = useState("");
-  const [pay, setPay] = useState("PayFast");
+  const [pay, setPay] = useState("Card");
+  const [navOpen, setNavOpen] = useState(false);
+
+  function go(next) {
+    setPage(next);
+    setNavOpen(false);
+  }
 
   useEffect(() => {
     localStorage.setItem("drift-cart", JSON.stringify(cart));
@@ -92,17 +98,27 @@ export default function Drift() {
       <BackToStudio />
       <header className="site-nav drift-nav">
         <div className="wrap">
-          <button className="brand bare" type="button" onClick={() => setPage("shop")}>Drift Supply</button>
+          <button className="brand bare" type="button" onClick={() => go("shop")}>Drift Supply</button>
           <nav className="nav-links">
-            <button type="button" onClick={() => setPage("shop")}>Shop</button>
-            <button type="button" onClick={() => setPage("story")}>Story</button>
-            <button type="button" onClick={() => setPage("journal")}>Journal</button>
-            <button type="button" onClick={() => setPage("guide")}>Size & shipping</button>
+            <button type="button" onClick={() => go("shop")}>Shop</button>
+            <button type="button" onClick={() => go("story")}>Story</button>
+            <button type="button" onClick={() => go("journal")}>Journal</button>
+            <button type="button" onClick={() => go("guide")}>Size & shipping</button>
           </nav>
           <button className="cart-btn" type="button" onClick={() => setOpen(true)}>
             Cart {count}
           </button>
+          <button className="menu-btn" type="button" onClick={() => setNavOpen((v) => !v)}>Menu</button>
         </div>
+        {navOpen ? (
+          <div className="mobile-menu wrap">
+            <button type="button" onClick={() => go("shop")}>Shop</button>
+            <button type="button" onClick={() => go("story")}>Story</button>
+            <button type="button" onClick={() => go("journal")}>Journal</button>
+            <button type="button" onClick={() => go("guide")}>Size & shipping</button>
+            <button type="button" onClick={() => { setOpen(true); setNavOpen(false); }}>Cart ({count})</button>
+          </div>
+        ) : null}
       </header>
 
       {page === "shop" && (

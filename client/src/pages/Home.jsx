@@ -174,6 +174,7 @@ export default function Home() {
       />
       <div className="grain" />
 
+      <a className="skip" href="#top">Skip to content</a>
       <header className="studio-nav">
         <div className="wrap nav-bar">
           <a className="brand" href="#top">
@@ -204,6 +205,8 @@ export default function Home() {
           <div className="mobile-menu wrap">
             <a href="#work" onClick={() => setMenu(false)}>Work</a>
             <a href="#portfolio" onClick={() => setMenu(false)}>Portfolio</a>
+            <a href="#services" onClick={() => setMenu(false)}>Prices</a>
+            <a href="#rescue" onClick={() => setMenu(false)}>Rescue</a>
             <a href="#contact" onClick={() => setMenu(false)}>Start</a>
           </div>
         ) : null}
