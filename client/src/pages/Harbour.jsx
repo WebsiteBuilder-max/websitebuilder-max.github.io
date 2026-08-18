@@ -48,7 +48,7 @@ export default function Harbour() {
           <nav className="nav-links">
             <a href="#menu">Menu</a>
             <a href="#reserve">Reserve</a>
-            <Link to="/">Ryan portfolio</Link>
+            <Link to="/">← Ryan</Link>
           </nav>
           <span className="live-pill"><i /> 4 tables left tonight</span>
         </div>
