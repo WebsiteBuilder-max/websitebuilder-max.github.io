@@ -42,7 +42,7 @@ const CURRENCIES = [
 ];
 
 const FAQS = [
-  { q: "What is Web Work Co?", a: "Web Work Co is a remote website studio at webworkco.com, run by Ryan Mostert. We design, build, and launch business websites and online stores worldwide. We are not webwork.co.za or other companies with a similar name." },
+  { q: "What is Web Work Co?", a: "Web Work Co is a remote website studio run by Ryan Mostert. The name is three words: Web Work Co. The website is webworkco.com. We are not webwork.co.za or other companies with a similar name." },
   { q: "Can I pay in my own currency?", a: "Yes. Use the currency menu. Dollar, euro, pound, Australian dollar, or rand." },
   { q: "Do you have a portfolio?", a: "Yes. Two full sample sites: Harbour Kitchen (restaurant) and Drift Supply (shop). Demos, not my studio name." },
   { q: "I already have a domain. Can you use it?", a: "Yes. You keep it. I connect it so yourname.com opens the new site." },
@@ -210,10 +210,8 @@ export default function Home() {
           <div className="wrap hero-grid">
             <div className="hero-copy">
               <h1 className="display hero-title">
-                <span className="hero-kicker">Web Work Co · websites worldwide</span>
-                <span>Websites</span>
-                <span className="line">that get you</span>
-                <span>customers.</span>
+                <span>Web Work Co</span>
+                <span className="line">Websites that get you customers.</span>
               </h1>
               <p className="lede">
                 Web Work Co builds business websites and online stores worldwide. New sites, shops, or a rescue of a site you already have. Starter sites from {startPrice}. Most launch in 3 to 14 days.

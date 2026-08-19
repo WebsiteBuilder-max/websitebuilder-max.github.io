@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,560&family=Outfit:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    html, body {
+      margin: 0;
+      width: 1024px;
+      height: 1024px;
+      overflow: hidden;
+      background: #070f16;
+    }
+    .canvas {
+      width: 1024px;
+      height: 1024px;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at 50% 42%, #102536 0%, #070f16 62%);
+    }
+    .mark {
+      width: 620px;
+      height: 620px;
+      border: 7px solid #e0be7a;
+      border-radius: 86px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 36px 40px 44px;
+    }
+    .w {
+      font-family: Fraunces, Georgia, serif;
+      font-optical-sizing: auto;
+      font-weight: 560;
+      font-size: 318px;
+      line-height: 0.82;
+      color: #f6f1e8;
+      letter-spacing: -0.06em;
+      margin-top: 8px;
+    }
+    .bar {
+      width: 168px;
+      height: 7px;
+      background: #e0be7a;
+      border-radius: 99px;
+      margin: 10px 0 22px;
+    }
+    .name {
+      font-family: Outfit, "Segoe UI", sans-serif;
+      font-weight: 600;
+      font-size: 32px;
+      letter-spacing: 0.08em;
+      color: #e0be7a;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="mark">
+      <div class="w">W</div>
+      <div class="bar"></div>
+      <div class="name">Web Work Co</div>
+    </div>
+  </div>
+</body>
+</html>

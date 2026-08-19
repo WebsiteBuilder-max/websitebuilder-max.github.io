@@ -7,8 +7,8 @@ const PAGES = {
     title: "About Web Work Co",
     body: (
       <>
-        <p>Web Work Co is a remote website studio at webworkco.com, run by Ryan Mostert. We design, build, and launch business websites and online stores worldwide — and we rescue sites that already exist but don’t work.</p>
-        <p>We are not webwork.co.za or other companies with a similar name. If you searched “Web Work Co” for a website studio, this is us.</p>
+        <p>Web Work Co is a remote website studio run by Ryan Mostert. The name is three words: Web Work Co. The website is webworkco.com.</p>
+        <p>We design, build, and launch business websites and online stores worldwide — and we rescue sites that already exist but don’t work. We are not webwork.co.za. If you searched “Web Work Co” for a website studio, this is us.</p>
         <p>Work is remote. You get a preview link, then the site goes live on a domain you own. The code is yours (GitHub + Cloudflare). There is no locked monthly website builder.</p>
         <p>Contact: <a href="mailto:ryan@webworkco.com">ryan@webworkco.com</a> · <a href="https://wa.me/27786218429">WhatsApp 078 621 8429</a></p>
         <p>Hours: daily 06:00–22:00</p>
