@@ -117,7 +117,7 @@ button { cursor: pointer; }
   letter-spacing: 0;
 }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 650; }
-.brand img { width: 34px; height: 34px; border-radius: 8px; }
+.brand img { width: 40px; height: 40px; border-radius: 10px; background: #070f16; }
 .nav-links { display: flex; gap: 18px; color: var(--muted); font-size: 0.94rem; align-items: center; }
 .nav-links a:hover, .nav-links button:hover { color: var(--ink); }
 .nav-links button {
@@ -543,6 +543,7 @@ footer {
 }
 .site-foot { align-items: flex-start; }
 .site-foot strong { color: var(--ink); display: block; }
+.site-foot p { margin: 6px 0 0; }
 .foot-links { display: flex; gap: 16px; flex-wrap: wrap; }
 .legal-page { min-height: 100vh; background: var(--navy); }
 .legal-body { padding: 48px 0 80px; max-width: 720px; }

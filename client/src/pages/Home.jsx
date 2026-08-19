@@ -132,7 +132,7 @@ export default function Home() {
       setSent(`Sent. I’ll reply to ${form.email}.`);
       setForm((f) => ({ ...f, name: "", email: "", goal: "", siteUrl: "" }));
     } catch {
-      setSent("Could not send. Email me at ryan.mostert2006@gmail.com");
+      setSent("Could not send. Email me at ryan@webworkco.com");
     } finally {
       setSending(false);
     }
@@ -169,7 +169,7 @@ export default function Home() {
       <header className="studio-nav">
         <div className="wrap nav-bar">
           <a className="brand" href="#top">
-            <img src="/logo.jpg" alt="" />
+            <img src="/logo.png" alt="Web Work Co" />
             Web Work Co
           </a>
           <nav className="nav-links">
@@ -216,9 +216,9 @@ export default function Home() {
                 <a className="btn btn-ghost" href="#start">Get a plan</a>
               </div>
               <div className="stat-row">
-                <div><b>3–14</b><span>days to launch</span></div>
-                <div><b>{startPrice}</b><span>starting price</span></div>
-                <div><b>5</b><span>currencies</span></div>
+                <div><b>3–14</b> <span>days to launch</span></div>
+                <div><b>{startPrice}</b> <span>starting price</span></div>
+                <div><b>5</b> <span>currencies</span></div>
               </div>
             </div>
             <aside className="sa-panel">
@@ -384,7 +384,7 @@ export default function Home() {
             <div>
               <p className="kicker">Start</p>
               <h2 className="section-title display">Tell me what the site has to do.</h2>
-              <p className="lede">Goes to Web Work Co. I reply from ryan.mostert2006@gmail.com.</p>
+              <p className="lede">Goes to Web Work Co. I reply from ryan@webworkco.com.</p>
               <p className="price">{shownPrice}</p>
               <p className="muted">{chosen.name}{form.city ? ` · ${form.city}` : ""}</p>
             </div>
@@ -433,13 +433,15 @@ export default function Home() {
       <footer className="wrap site-foot">
         <div>
           <strong>Web Work Co</strong>
-          <p>Ryan Mostert · ryan.mostert2006@gmail.com</p>
+          <p>Ryan Mostert · ryan@webworkco.com</p>
+          <p>WhatsApp 078 621 8429 · Open daily 06:00–22:00</p>
         </div>
         <nav className="foot-links">
           <a href="/about">About</a>
           <a href="/privacy">Privacy</a>
           <a href="/terms">Terms</a>
-          <a href="mailto:ryan.mostert2006@gmail.com">Email</a>
+          <a href="mailto:ryan@webworkco.com">Email</a>
+          <a href="https://wa.me/27786218429">WhatsApp</a>
         </nav>
       </footer>
     </div>
