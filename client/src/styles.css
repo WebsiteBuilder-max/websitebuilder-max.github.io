@@ -229,6 +229,18 @@ button { cursor: pointer; }
   text-shadow: 0 20px 60px rgba(0,0,0,0.35);
 }
 .hero-title span { display: block; text-align: left; }
+.hero-title .hero-kicker {
+  font-family: Outfit, "Segoe UI", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-style: normal;
+  text-shadow: none;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
 .hero-title .line {
   color: var(--gold);
   font-style: italic;

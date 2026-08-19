@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { setSeo } from "../seo.js";
 
 const PACKAGES = [
   {
@@ -41,6 +42,7 @@ const CURRENCIES = [
 ];
 
 const FAQS = [
+  { q: "What is Web Work Co?", a: "Web Work Co is a remote website studio at webworkco.com, run by Ryan Mostert. We design, build, and launch business websites and online stores worldwide. We are not webwork.co.za or other companies with a similar name." },
   { q: "Can I pay in my own currency?", a: "Yes. Use the currency menu. Dollar, euro, pound, Australian dollar, or rand." },
   { q: "Do you have a portfolio?", a: "Yes. Two full sample sites: Harbour Kitchen (restaurant) and Drift Supply (shop). Demos, not my studio name." },
   { q: "I already have a domain. Can you use it?", a: "Yes. You keep it. I connect it so yourname.com opens the new site." },
@@ -77,6 +79,11 @@ export default function Home() {
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
+    setSeo({
+      title: "Web Work Co | Business websites and online stores",
+      description: "Web Work Co builds business websites and online stores worldwide. New sites, shops, or a rescue of a site you already have. Starter sites from $250.",
+      url: "https://webworkco.com/",
+    });
     const saved = localStorage.getItem("ryan-currency");
     if (saved && CURRENCIES.some((c) => c.id === saved)) setCurrency(saved);
   }, []);
@@ -202,23 +209,23 @@ export default function Home() {
         <section className="hero-full">
           <div className="wrap hero-grid">
             <div className="hero-copy">
-              <p className="kicker">Web Work Co · websites worldwide</p>
               <h1 className="display hero-title">
+                <span className="hero-kicker">Web Work Co · websites worldwide</span>
                 <span>Websites</span>
                 <span className="line">that get you</span>
                 <span>customers.</span>
               </h1>
               <p className="lede">
-                New sites. Online stores. Or I take the site you already have and make it work — faster, clearer, ready for the next client.
+                Web Work Co builds business websites and online stores worldwide. New sites, shops, or a rescue of a site you already have. Starter sites from {startPrice}. Most launch in 3 to 14 days.
               </p>
               <div className="actions">
                 <a className="btn btn-gold" href="#portfolio">See portfolio</a>
                 <a className="btn btn-ghost" href="#start">Get a plan</a>
               </div>
               <div className="stat-row">
-                <div><b>3–14</b> <span>days to launch</span></div>
-                <div><b>{startPrice}</b> <span>starting price</span></div>
-                <div><b>5</b> <span>currencies</span></div>
+                <div><b>3 to 14 days</b><span>to launch a site</span></div>
+                <div><b>From {startPrice}</b><span>for a starter site</span></div>
+                <div><b>Five currencies</b><span>USD, euro, pound, AUD, rand</span></div>
               </div>
             </div>
             <aside className="sa-panel">

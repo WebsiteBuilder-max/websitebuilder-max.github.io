@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import BackToStudio from "../components/BackToStudio.jsx";
+import { setSeo } from "../seo.js";
 
 const DISHES = [
   { name: "Kingklip", price: 285, img: "/images/kingklip.jpg", blurb: "Lemon butter, shaved fennel, blistered tomatoes. Line-caught when we can." },
@@ -68,6 +69,13 @@ function capeClock() {
 }
 
 export default function Harbour() {
+  useEffect(() => {
+    setSeo({
+      title: "Harbour Kitchen | Sample restaurant site by Web Work Co",
+      description: "A live sample restaurant website built by Web Work Co. Demo only, not a real business.",
+      url: "https://webworkco.com/harbour-kitchen/",
+    });
+  }, []);
   const [tab, setTab] = useState("All");
   const [page, setPage] = useState("home");
   const [booked, setBooked] = useState(null);

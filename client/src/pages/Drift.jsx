@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import BackToStudio from "../components/BackToStudio.jsx";
+import { setSeo } from "../seo.js";
 
 const PRODUCTS = [
   { id: "cap", name: "Harbour cap", price: 450, img: "/images/cap.jpg", blurb: "Washed navy. Sits right in south-easter.", sizes: ["One size"], tag: "Hats", made: "Cut in Woodstock. Cotton twill.", stock: 14 },
@@ -22,6 +23,13 @@ const JOURNAL = [
 ];
 
 export default function Drift() {
+  useEffect(() => {
+    setSeo({
+      title: "Drift Supply | Sample shop site by Web Work Co",
+      description: "A live sample online store built by Web Work Co. Demo only, not a real business.",
+      url: "https://webworkco.com/drift-supply/",
+    });
+  }, []);
   const [cart, setCart] = useState(() => {
     try { return JSON.parse(localStorage.getItem("drift-cart") || "[]"); } catch { return []; }
   });

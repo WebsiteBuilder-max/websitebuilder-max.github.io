@@ -6,49 +6,130 @@
     <link rel="apple-touch-icon" href="/logo-mark.png" />
     <style>html,body,#root{background:#081824;min-height:100%;margin:0}</style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Web Work Co — Websites and online stores</title>
+    <title>Web Work Co | Business websites and online stores</title>
     <meta
       name="description"
-      content="Web Work Co builds business websites and online stores. New sites, shops, or a rescue of a site you already have. Starting from $250."
+      content="Web Work Co builds business websites and online stores worldwide. New sites, shops, or a rescue of a site you already have. Starter sites from $250."
     />
     <meta name="author" content="Ryan Mostert, Web Work Co" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#070f16" />
     <link rel="canonical" href="https://webworkco.com/" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Web Work Co" />
-    <meta property="og:title" content="Web Work Co — Websites and online stores" />
-    <meta property="og:description" content="Web Work Co builds business websites and online stores. New sites, shops, or a rescue of a site you already have." />
+    <meta property="og:title" content="Web Work Co | Business websites and online stores" />
+    <meta property="og:description" content="Web Work Co builds business websites and online stores worldwide. New sites, shops, or a rescue of a site you already have." />
     <meta property="og:url" content="https://webworkco.com/" />
     <meta property="og:image" content="https://webworkco.com/logo-mark.png" />
+    <meta property="og:image:alt" content="Web Work Co logo" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Web Work Co | Business websites and online stores" />
+    <meta name="twitter:description" content="Web Work Co builds business websites and online stores worldwide. Starter sites from $250." />
+    <meta name="twitter:image" content="https://webworkco.com/logo-mark.png" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "Web Work Co",
-        "alternateName": ["Web Work Co", "WebWork Co", "WebWorkCo", "webworkco", "Ryan Mostert"],
-        "url": "https://webworkco.com/",
-        "email": "ryan@webworkco.com",
-        "telephone": "+27786218429",
-        "description": "Web Work Co designs, builds, and launches business websites and online stores.",
-        "logo": "https://webworkco.com/logo-mark.png",
-        "image": "https://webworkco.com/logo-mark.png",
-        "founder": { "@type": "Person", "name": "Ryan Mostert" },
-        "areaServed": "Worldwide",
-        "priceRange": "$$",
-        "openingHoursSpecification": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-          "opens": "06:00",
-          "closes": "22:00"
-        },
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "email": "ryan@webworkco.com",
-          "telephone": "+27786218429",
-          "contactType": "customer service",
-          "availableLanguage": ["English"]
-        },
-        "sameAs": ["https://github.com/WebsiteBuilder-max"]
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://webworkco.com/#website",
+            "url": "https://webworkco.com/",
+            "name": "Web Work Co",
+            "alternateName": ["WebWork Co", "WebWorkCo", "webworkco"],
+            "inLanguage": "en",
+            "publisher": { "@id": "https://webworkco.com/#business" }
+          },
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://webworkco.com/#business",
+            "name": "Web Work Co",
+            "alternateName": ["WebWork Co", "WebWorkCo", "webworkco", "Ryan Mostert"],
+            "url": "https://webworkco.com/",
+            "email": "ryan@webworkco.com",
+            "telephone": "+27786218429",
+            "description": "Web Work Co is a remote website studio. We design, build, and launch business websites and online stores worldwide, and we rescue sites that already exist.",
+            "logo": "https://webworkco.com/logo-mark.png",
+            "image": "https://webworkco.com/logo-mark.png",
+            "founder": { "@type": "Person", "name": "Ryan Mostert" },
+            "areaServed": "Worldwide",
+            "priceRange": "$$",
+            "currenciesAccepted": "USD, EUR, GBP, AUD, ZAR",
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              "opens": "06:00",
+              "closes": "22:00"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "email": "ryan@webworkco.com",
+              "telephone": "+27786218429",
+              "contactType": "customer service",
+              "availableLanguage": ["English"]
+            },
+            "sameAs": ["https://github.com/WebsiteBuilder-max"],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Website packages",
+              "itemListElement": [
+                { "@type": "Offer", "name": "Starter", "price": "250", "priceCurrency": "USD" },
+                { "@type": "Offer", "name": "Business", "price": "650", "priceCurrency": "USD" },
+                { "@type": "Offer", "name": "Store", "price": "800", "priceCurrency": "USD" },
+                { "@type": "Offer", "name": "Rescue", "description": "Fix or rebuild an existing website. Quoted after review." }
+              ]
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://webworkco.com/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is Web Work Co?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Web Work Co is a remote website studio at webworkco.com, run by Ryan Mostert. We design, build, and launch business websites and online stores worldwide. We are not webwork.co.za or other companies with a similar name."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I pay in my own currency?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Use the currency menu. Dollar, euro, pound, Australian dollar, or rand."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you have a portfolio?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Two full sample sites: Harbour Kitchen (restaurant) and Drift Supply (shop). Demos, not my studio name."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Where do you work?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Anywhere. We work over email or chat. You get a preview link, then we launch."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do I own the website?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Your GitHub. Your Cloudflare. No locked monthly builder."
+                }
+              }
+            ]
+          }
+        ]
       }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,10 +138,22 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/assets/index-B7Nc4ijD.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BiFss1W4.css">
+    <script type="module" crossorigin src="/assets/index-DH1VBk5F.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-C0xsRiI-.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main>
+        <h1>Web Work Co</h1>
+        <p>Web Work Co builds business websites and online stores worldwide. New sites, shops, or a rescue of a site you already have. Starter sites from $250. Most launch in 3 to 14 days.</p>
+        <p>Ryan Mostert · ryan@webworkco.com · WhatsApp +27 78 621 8429</p>
+        <nav>
+          <a href="/about">About Web Work Co</a>
+          <a href="/harbour-kitchen/">Harbour Kitchen sample</a>
+          <a href="/drift-supply/">Drift Supply sample</a>
+          <a href="/#start">Request a plan</a>
+        </nav>
+      </main>
+    </div>
   </body>
 </html>
