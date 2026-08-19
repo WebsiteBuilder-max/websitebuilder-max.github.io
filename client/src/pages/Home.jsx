@@ -7,21 +7,21 @@ const PACKAGES = [
     days: "5–7 days",
     blurb: "One clear page. Enough to look real and get the first message.",
     items: ["Home, about, services, contact", "Looks right on a phone", "Contact or chat button", "Live on your domain", "1 revision round"],
-    prices: { ZAR: 4500, USD: 250, EUR: 230, GBP: 195, AUD: 380 },
+    prices: { ZAR: 2700, USD: 150, EUR: 140, GBP: 120, AUD: 230 },
   },
   {
     name: "Business",
     days: "10–14 days",
     blurb: "A full site built to get bookings, calls, and enquiries.",
     items: ["5 pages, written and designed", "Contact form and maps", "Search basics", "Domain connect", "2 revision rounds"],
-    prices: { ZAR: 11500, USD: 650, EUR: 600, GBP: 510, AUD: 990 },
+    prices: { ZAR: 8900, USD: 500, EUR: 460, GBP: 390, AUD: 760 },
   },
   {
     name: "Store",
     days: "2–3 weeks",
     blurb: "Ecommerce: products, cart, checkout, and payment.",
     items: ["Up to 20 products", "Cart and checkout", "Stripe, PayPal, or card", "Shipping notes", "2 revision rounds"],
-    prices: { ZAR: 14500, USD: 800, EUR: 740, GBP: 630, AUD: 1220 },
+    prices: { ZAR: 10900, USD: 600, EUR: 550, GBP: 470, AUD: 920 },
   },
   {
     name: "Rescue",
@@ -81,7 +81,7 @@ export default function Home() {
   useEffect(() => {
     setSeo({
       title: "Web Work Co | Business websites and online stores",
-      description: "Web Work Co builds business websites and online stores worldwide. New sites, shops, or a rescue of a site you already have. Starter sites from $250.",
+      description: "Web Work Co builds business websites and online stores worldwide. New sites, shops, or a rescue of a site you already have. Starter sites from $150.",
       url: "https://webworkco.com/",
     });
     const saved = localStorage.getItem("ryan-currency");
