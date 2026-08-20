@@ -4,14 +4,17 @@ import { setSeo } from "../seo.js";
 
 const PAGES = {
   about: {
-    title: "About Web Work Co",
+    title: "Hi — I’m Ryan.",
     body: (
       <>
-        <p>Web Work Co is a remote website studio run by Ryan Mostert. The name is three words: Web Work Co. The website is webworkco.com.</p>
-        <p>We design, build, and launch business websites and online stores worldwide — and we rescue sites that already exist but don’t work. We are not webwork.co.za. If you searched “Web Work Co” for a website studio, this is us.</p>
-        <p>Work is remote. You get a preview link, then the site goes live on a domain you own. The code is yours (GitHub + Cloudflare). There is no locked monthly website builder.</p>
+        <p>Web Work Co is me. Ryan Mostert. I design, build, and launch websites for real businesses — shops, firms, restaurants, hospitals, the people who already have customers and just need the site to catch up.</p>
+        <p>The name is three words: Web Work Co. The site is <a href="https://webworkco.com">webworkco.com</a>. We are not webwork.co.za or anyone else with a similar name. If you searched “Web Work Co” for a website studio, you’re in the right place.</p>
+        <p>I work from behind a laptop, not a big office. That means you write to a person. Email or WhatsApp. I reply from ryan@webworkco.com. Hours are daily 06:00–22:00, so we can talk across time zones.</p>
+        <p>How it feels to work with me: you send what the site has to do — or the URL you already have. I send a short plan. If it feels right, I build a private preview. Only you see that link. We change the words, the pages, the bookings, until it feels like your business. Then it goes live on a domain you own. You keep the code (GitHub + Cloudflare). There is no monthly builder that traps you.</p>
+        <p>If you already have a site, I don’t rip out what’s useful. Bookings, email, phone, appointments — if they work, they stay. Rescue jobs get a custom quote after I’ve looked. No set price until I’ve seen your URL.</p>
+        <p>New sites start from a Starter page, a full Business site, or a Store. You pick the currency that matches how you get paid.</p>
+        <p>If now isn’t the time, that’s fine. The first note is a plan, not a contract.</p>
         <p>Contact: <a href="mailto:ryan@webworkco.com">ryan@webworkco.com</a> · <a href="https://wa.me/27786218429">WhatsApp 078 621 8429</a></p>
-        <p>Hours: daily 06:00–22:00</p>
         <p>Website: <a href="https://webworkco.com">webworkco.com</a></p>
       </>
     ),
@@ -44,7 +47,7 @@ const PAGES = {
 const SEO = {
   about: {
     title: "About Web Work Co | Website studio",
-    description: "Web Work Co is a remote website studio at webworkco.com, run by Ryan Mostert. Business websites, online stores, and site rescue worldwide.",
+    description: "Ryan Mostert runs Web Work Co at webworkco.com. Business websites, shops, and rescue of sites you already have. You see a preview first. You own the code.",
     url: "https://webworkco.com/about",
   },
   privacy: {

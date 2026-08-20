@@ -688,8 +688,20 @@ section { padding: 56px 0; scroll-margin-top: 84px; }
   font-weight: 650;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  min-height: 52px;
+  padding: 14px 4px;
+  gap: 12px;
+  font-size: 1.02rem;
+  line-height: 1.35;
 }
-.faq p { margin-top: 10px; color: var(--muted); }
+.faq p {
+  margin-top: 10px;
+  color: var(--muted);
+  padding-bottom: 8px;
+  line-height: 1.7;
+  font-size: 0.98rem;
+}
 
 .quote { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 form { display: grid; gap: 12px; }
@@ -737,8 +749,19 @@ footer {
   box-shadow: 0 16px 40px rgba(224,190,122,0.28);
 }
 .legal-page { min-height: 100vh; background: var(--navy); }
+.legal-page .nav-bar a:last-child {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 4px;
+}
 .legal-body { padding: 48px 0 80px; max-width: 720px; }
-.legal-copy p { margin: 0 0 16px; color: var(--muted); max-width: 62ch; }
+.legal-copy p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  max-width: 62ch;
+  line-height: 1.7;
+}
 .legal-copy a { color: var(--gold); }
 
 .back-studio {
@@ -1308,11 +1331,29 @@ footer {
   .back-studio-row { min-height: 48px; }
   .pack-blurb { min-height: 0; }
   .ticker { padding: 12px 0; }
+  .faq button { min-height: 56px; font-size: 1.05rem; padding: 16px 2px; }
+  .faq p { font-size: 1rem; line-height: 1.75; padding-bottom: 12px; }
+  .legal-body { padding: 28px 0 72px; }
+  .legal-copy p { font-size: 1.05rem; line-height: 1.75; margin-bottom: 20px; }
+  .legal-page .section-title { font-size: 2rem; }
+  .together .about-card, .domain-line .about-card { padding: 18px; }
+  .jump-bar { top: 58px; }
+  .jump-row { padding: 8px 0 12px; gap: 8px; }
+  .jump-row a { min-height: 44px; padding: 10px 14px; }
+  input, select, textarea { min-height: 48px; font-size: 16px; }
+  textarea { min-height: 110px; }
+  .quote { gap: 18px; }
 }
 
 @media (max-width: 560px) {
   .quote, .reserve-box { padding: 20px; }
   .sa-panel, .rescue-band, .card { padding: 18px; }
+  .wrap {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+  .hero-title { font-size: clamp(1.95rem, 11vw, 2.7rem); }
+  .wa-float { min-height: 48px; padding: 12px 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

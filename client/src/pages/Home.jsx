@@ -42,16 +42,54 @@ const CURRENCIES = [
 ];
 
 const FAQS = [
-  { q: "What is Web Work Co?", a: "Web Work Co is a remote website studio run by Ryan Mostert. The name is three words: Web Work Co. The website is webworkco.com. We are not webwork.co.za or other companies with a similar name." },
-  { q: "Can I pay in my own currency?", a: "Yes. Use the currency menu. Dollar, euro, pound, Australian dollar, or rand." },
-  { q: "Do you have a portfolio?", a: "Yes. Two full sample sites: Harbour Kitchen (restaurant) and Drift Supply (shop). Demos, not my studio name." },
-  { q: "I already have a domain. Can you use it?", a: "Yes. You keep it. I connect it so yourname.com opens the new site." },
-  { q: "Where do you work?", a: "Anywhere. We work over email or chat. You get a preview link, then we launch." },
-  { q: "Do I own the website?", a: "Yes. Your GitHub. Your Cloudflare. No locked monthly builder." },
-  { q: "Can you build an online store?", a: "Yes. Products, cart, checkout, Stripe, PayPal, or card. See Drift Supply." },
-  { q: "I already have a website. Can you fix it?", a: "Yes. Pick Rescue, paste your live URL, say what’s wrong. I send a custom quote after I look. Bookings and contact can stay if they already work." },
-  { q: "How do we work together?", a: "Email or WhatsApp. You send the brief or your current URL. I send a private preview. We tweak it until you’re happy, then it goes live on your domain. You own the code. No locked monthly builder." },
-  { q: "What if I don’t like the first version?", a: "That’s what the preview is for. We change it before the world sees it. Each package includes revision rounds. You are not stuck with the first draft." },
+  {
+    q: "What is Web Work Co?",
+    a: "Web Work Co is me — Ryan Mostert. I build websites for businesses, one job at a time. The name is three words: Web Work Co. The website is webworkco.com. We are not webwork.co.za or other companies with a similar name. If you searched “Web Work Co” for a website studio, this is us. You write to a person, not a ticket queue.",
+  },
+  {
+    q: "How do we work together?",
+    a: "Email or WhatsApp is enough. You tell me what the site has to do, or you send the URL you already have. I send a short plan. If it feels right, I build a private preview — a link only you can open. We tweak the words, the pages, and the bookings until you’re happy. Then it goes live on your domain. You own the code. Nothing is locked in a monthly builder. If now isn’t the time, you can say no. The first note is a plan, not a contract.",
+  },
+  {
+    q: "What if I don’t like the first version?",
+    a: "That’s what the preview is for. The world never sees the first draft unless you say so. We change it together — copy, layout, bookings, colours. Starter includes one revision round. Business and Store include two. If something still feels off, say so. I would rather get it right than rush it live.",
+  },
+  {
+    q: "Can I pay in my own currency?",
+    a: "Yes. Use the currency menu at the top of the page. You can look at prices in US dollars, euros, pounds, Australian dollars, or rand. Pick the one that matches how you get paid. When you request a plan, I see the package and the currency you chose, so we don’t talk past each other.",
+  },
+  {
+    q: "Do you have a portfolio?",
+    a: "Yes. Two full sample sites you can click through like a customer: Harbour Kitchen (a restaurant with live tables and bookings) and Drift Supply (a shop with cart, checkout, and stock). They are demos — not my studio name, and not fake reviews of Web Work Co. They show the kind of work I build. Open them from the home page.",
+  },
+  {
+    q: "I already have a domain. Can you use it?",
+    a: "Yes. You keep it. I never buy a client’s domain in my name. You stay the owner. I connect it so yourname.com opens the new site. If you don’t have a domain yet, say so on the form and I’ll help you pick one. .com is usually the cleanest, but we can talk it through.",
+  },
+  {
+    q: "Where do you work?",
+    a: "Anywhere. I’m remote. We work over email or WhatsApp, across time zones. Hours here are daily 06:00–22:00. You get a private preview link on your phone, we tweak it, then we launch. You don’t need to sit in an office with me. A lot of the people I write to are running a shop floor, a clinic, or a tax practice — the site has to fit around that.",
+  },
+  {
+    q: "Do I own the website?",
+    a: "Yes. Your GitHub. Your Cloudflare. The code is yours. There is no locked monthly builder you have to keep paying just to change a sentence. If you ever want another developer to take over, you can. That’s the point.",
+  },
+  {
+    q: "Can you build an online store?",
+    a: "Yes. Products, cart, checkout, and payment — Stripe, PayPal, or card. That’s the Store package. You can click around Drift Supply to see how a shop can feel: stock, sizes, a cart, and a checkout. If you already sell on Shopify and just want the front of the shop to look better, say so. We don’t have to rip out a checkout that already works.",
+  },
+  {
+    q: "I already have a website. Can you fix it?",
+    a: "Yes. That’s Rescue. Pick Rescue on the form, paste your live URL, and tell me what’s wrong — slow, old, hard on a phone, bookings that don’t work, or it just doesn’t look like your business. I look at the real site, then I send a custom quote. There is no set price until I’ve seen it. If your bookings, email, or phone already work, we keep them. I don’t throw out what’s useful.",
+  },
+  {
+    q: "How long does it take?",
+    a: "Starter is usually 5–7 days. Business is about 10–14 days. A Store is 2–3 weeks. Rescue depends on what I find when I open your URL. Those times start once we agree the plan and I have your words, photos, or logo — or access to look at the current site. I’ll tell you if something will take longer before we start.",
+  },
+  {
+    q: "How do I start?",
+    a: "Use Request a plan on this site, or email ryan@webworkco.com, or WhatsApp. Tell me your name, where you are, and what the site has to do. If you already have a site, paste the link. I’ll reply from ryan@webworkco.com. No pressure if you only want a short note first.",
+  },
 ];
 
 const INBOX_HOOK = "https://script.google.com/macros/s/AKfycbyeuCdZI5KA0yYs0YpFubGjnQgKuxTNYGbog3HuniTP2Ulj_BT0MW6zxyl7s-IUAoDm/exec";
@@ -389,8 +427,8 @@ export default function Home() {
         <section className="wrap" id="how">
           <div className="section-head">
             <p className="kicker">How we work</p>
-            <h2 className="section-title display">Plain talk. You see it first. You own it.</h2>
-            <p className="lede">I work over email or WhatsApp. No jargon, no surprise lock-in. You are never asked to go live on a site you haven’t seen.</p>
+            <h2 className="section-title display">We’ll go at your pace. You’ll see it first.</h2>
+            <p className="lede">Email or WhatsApp is enough. No jargon. No surprise lock-in. You never have to go live on a site you haven’t opened on your phone.</p>
           </div>
           <div className="domain-line">
             {[
@@ -423,7 +461,8 @@ export default function Home() {
         <section className="wrap" id="faq">
           <div className="section-head">
             <p className="kicker">Questions</p>
-            <h2 className="section-title display">Straight answers.</h2>
+            <h2 className="section-title display">Things people usually ask.</h2>
+            <p className="lede">Tap a question. If yours isn’t here, email or WhatsApp — I’ll answer as me, not a script.</p>
           </div>
           <div className="faq-list">
             {FAQS.map((item, i) => (
