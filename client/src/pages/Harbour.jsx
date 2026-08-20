@@ -3,24 +3,24 @@ import BackToStudio from "../components/BackToStudio.jsx";
 import { setSeo } from "../seo.js";
 
 const DISHES = [
-  { name: "Kingklip", price: 285, img: "/images/kingklip.jpg", blurb: "Lemon butter, shaved fennel, blistered tomatoes. Line-caught when we can." },
-  { name: "Peri-peri chicken", price: 195, img: "/images/chicken.jpg", blurb: "Whole bird for two, herb oil, bird’s eye chilli, charred lemon." },
-  { name: "Malva pudding", price: 85, img: "/images/malva.jpg", blurb: "Hot custard, vanilla ice cream. The one people come back for." },
+  { name: "Yellowfin", price: 38, img: "/images/kingklip.jpg", blurb: "Citrus, chilli oil, shaved fennel. Seared on the pass." },
+  { name: "Charred chicken", price: 42, img: "/images/chicken.jpg", blurb: "Herb oil, bird’s eye chilli, charred lemon. Share it." },
+  { name: "Honey tart", price: 16, img: "/images/malva.jpg", blurb: "Warm pastry, vanilla ice cream. The one people come back for." },
 ];
 
 const MENU = [
-  { name: "West Coast mussels", info: "White wine, garlic, grilled sourdough.", price: 145, tag: "Starters" },
-  { name: "Snoek pâté", info: "Apricot glaze, rye, pickled red onion.", price: 95, tag: "Starters" },
-  { name: "Tomato & burrata", info: "Heirloom tomatoes, basil oil, sea salt.", price: 110, tag: "Starters" },
-  { name: "Calamari", info: "Flash-fried, lemon, aioli.", price: 125, tag: "Starters" },
-  { name: "Kingklip", info: "Lemon butter, fennel, blistered tomato.", price: 285, tag: "Mains" },
-  { name: "Peri-peri chicken", info: "Herb oil, chilli, charred lemon.", price: 195, tag: "Mains" },
-  { name: "Dry-aged ribeye", info: "300g, bone marrow butter, watercress.", price: 365, tag: "Mains" },
-  { name: "Handmade tagliatelle", info: "West Coast clams, chilli, parsley.", price: 175, tag: "Mains" },
-  { name: "Line-fish of the day", info: "Ask — whatever the boats brought.", price: 265, tag: "Mains" },
-  { name: "Malva pudding", info: "Custard and ice cream.", price: 85, tag: "Dessert" },
-  { name: "Naartjie posset", info: "Shortbread, candied peel.", price: 75, tag: "Dessert" },
-  { name: "Cheese board", info: "Fairview, preserves, crackers.", price: 145, tag: "Dessert" },
+  { name: "Oysters", info: "Shallot vinegar, lemon. Six or twelve.", price: 28, tag: "Starters" },
+  { name: "Tomato & burrata", info: "Heirloom tomatoes, basil oil, sea salt.", price: 18, tag: "Starters" },
+  { name: "Calamari", info: "Flash-fried, lemon, aioli.", price: 19, tag: "Starters" },
+  { name: "Mussels", info: "White wine, garlic, grilled sourdough.", price: 21, tag: "Starters" },
+  { name: "Yellowfin", info: "Citrus, fennel, blistered tomato.", price: 38, tag: "Mains" },
+  { name: "Charred chicken", info: "Herb oil, chilli, charred lemon.", price: 42, tag: "Mains" },
+  { name: "Dry-aged ribeye", info: "300g, bone marrow butter, watercress.", price: 64, tag: "Mains" },
+  { name: "Handmade tagliatelle", info: "Clams, chilli, parsley.", price: 29, tag: "Mains" },
+  { name: "Catch of the day", info: "Ask — whatever landed this morning.", price: 36, tag: "Mains" },
+  { name: "Honey tart", info: "Vanilla ice cream.", price: 16, tag: "Dessert" },
+  { name: "Citrus posset", info: "Shortbread, candied peel.", price: 14, tag: "Dessert" },
+  { name: "Cheese board", info: "Three cheeses, preserves, crackers.", price: 22, tag: "Dessert" },
 ];
 
 const WINES = [
@@ -32,9 +32,9 @@ const WINES = [
 ];
 
 const EVENTS = [
-  { day: "Friday", title: "Harbour jazz", note: "A trio from 19:00. No cover. Book if you want a window." },
-  { day: "Sunday", title: "Long lunch", note: "Set menu R395. Kids half. Last sitting 14:00." },
-  { day: "First Monday", title: "Private room", note: "The bait-shop room for 12. Email for the date." },
+  { day: "Friday", title: "Harbour jazz", note: "A trio from 19:00. No cover. Book if you want the glass." },
+  { day: "Sunday", title: "Long lunch", note: "Set menu $58. Last sitting 14:00." },
+  { day: "First Monday", title: "Private room", note: "The back room for 12. Email for the date." },
 ];
 
 const REVIEWS = [
@@ -150,7 +150,7 @@ export default function Harbour() {
       </header>
       <div className="harbour-livebar" aria-hidden="true">
         <div className="ticker-track">
-          {[`${tables} tables open`, "Line-caught when the boats allow", "Terrace · dogs welcome", "Waterfront kitchen", "Card · contactless", `${tables} tables open`, "Walk-ins if we have a seat"].map((t, i) => (
+          {[`${tables} tables open`, "Kitchen live tonight", "Terrace · dogs welcome", "Waterfront kitchen", "Card · contactless", `${tables} tables open`, "Walk-ins if we have a seat"].map((t, i) => (
             <span key={i}>{t}</span>
           ))}
         </div>
@@ -160,10 +160,10 @@ export default function Harbour() {
         <>
           <section className="harbour-hero" id="top">
             <div className="wrap">
-              <p className="kicker">Waterfront · twelve tables</p>
+              <p className="kicker">Waterfront · twelve tables · live</p>
               <h1 className="display">Fire, fish, harbour light.</h1>
               <p className="harbour-lead">
-                Twelve tables over the boats. We cook what the day boats brought in. No tasting menu. No fuss.
+                Twelve tables over the water. We cook what landed today. No tasting menu. No fuss.
               </p>
               <div className="actions">
                 <button className="btn btn-gold" type="button" onClick={() => setPage("reserve")}>
@@ -180,9 +180,9 @@ export default function Harbour() {
             <p className="kicker">The room</p>
             <div className="grid-2">
               <div>
-                <h2 className="display section-title">A small kitchen on the harbour wall.</h2>
+                <h2 className="display section-title">A small kitchen over the water.</h2>
                 <p className="lede">
-                  Harbour Kitchen opened in a converted bait shop. The pass still faces the water. We take fish from the boats when the weather allows, and we cook it the same night.
+                  Harbour Kitchen is twelve tables and a pass that faces the harbour. Fish comes in the same day. We cook it the same night.
                 </p>
               </div>
               <p className="lede">
@@ -223,10 +223,10 @@ export default function Harbour() {
           <section className="wrap">
             <p className="kicker">The room in pictures</p>
             <div className="gallery">
-              <img src="/images/harbour-hero.jpg" alt="Dining room at dusk" />
-              <img src="/images/kingklip.jpg" alt="Kingklip" />
-              <img src="/images/chicken.jpg" alt="Peri-peri chicken" />
-              <img src="/images/malva.jpg" alt="Malva pudding" />
+              <img src="/images/harbour-night.jpg" alt="Dining room at night" />
+              <img src="/images/kingklip.jpg" alt="Yellowfin" />
+              <img src="/images/chicken.jpg" alt="Charred chicken" />
+              <img src="/images/malva.jpg" alt="Honey tart" />
             </div>
           </section>
         </>
@@ -238,7 +238,7 @@ export default function Harbour() {
           <h2 className="display section-title">A short list. Done properly.</h2>
           <input
             className="search"
-            placeholder="Search mussels, malva, kingklip…"
+            placeholder="Search oysters, chicken, tart…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -270,7 +270,7 @@ export default function Harbour() {
       {page === "wine" && (
         <section className="wrap page-pad">
           <p className="kicker">Cellar</p>
-          <h2 className="display section-title">Mostly Cape. Some Swartland. One MCC.</h2>
+          <h2 className="display section-title">By the glass. One bottle if you stay.</h2>
           <p className="lede">We pour by the glass so you can stay for one.</p>
           {WINES.map((w) => (
             <div className="menu-row" key={w.name}>
@@ -282,7 +282,7 @@ export default function Harbour() {
             </div>
           ))}
           <p className="lede" style={{ marginTop: 28 }}>
-            Corkage R80. No spirits. Rock shandy, grape juice, and good coffee.
+            Corkage $18. No spirits. Grape juice and good coffee.
           </p>
         </section>
       )}
@@ -322,7 +322,7 @@ export default function Harbour() {
             </article>
             <article className="about-card dark-card">
               <h3>Find us</h3>
-              <p className="lede">Above the bait shop, left of the harbour slipway. Parking on the road or the public lot. Four minutes from the station.</p>
+              <p className="lede">Glass wall over the marina. Parking on the street or the public lot. Four minutes from the station.</p>
               <p className="lede">WhatsApp 072 000 0000</p>
               <p className="lede">Private lunch for up to 12 on Mondays.</p>
               <iframe

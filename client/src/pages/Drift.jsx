@@ -141,14 +141,14 @@ export default function Drift() {
           <section className="wrap drift-hero">
             <div>
               <p className="kicker">Independent label · live stock</p>
-              <h1 className="display">Quiet clothes for salt air.</h1>
+              <h1 className="display">Four pieces. Short runs.</h1>
               <p className="lede">
-                A small independent label. Cap, heavy tee, tote, chore jacket. Cart, checkout, wishlist. Demo code DRIFT10.
+                Cap, heavy tee, tote, chore jacket. Cart, checkout, live stock. Demo code DRIFT10.
               </p>
-              <p className="drift-live">{PRODUCTS.reduce((n, p) => n + p.stock, 0)} pieces left this run · four styles · ships from the studio</p>
+              <p className="drift-live">{PRODUCTS.reduce((n, p) => n + p.stock, 0)} pieces left this run · ships worldwide</p>
             </div>
             <div className="drift-hero-shot">
-              <img src="/images/drift-hero.jpg" alt="Drift Supply flat lay" />
+              <img src="/images/drift-studio.jpg" alt="Drift Supply campaign still" />
               <span className="shot-live"><i /> In the studio now</span>
             </div>
           </section>
@@ -208,7 +208,7 @@ export default function Drift() {
             </p>
           </div>
           <div className="gallery" style={{ marginTop: 28 }}>
-            <img src="/images/drift-hero.jpg" alt="Studio flat lay" />
+            <img src="/images/drift-studio.jpg" alt="Studio still" />
             <img src="/images/jacket.jpg" alt="Chore jacket" />
             <img src="/images/tee.jpg" alt="Tee" />
             <img src="/images/cap.jpg" alt="Cap" />

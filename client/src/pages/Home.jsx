@@ -178,7 +178,7 @@ export default function Home() {
       }}
     >
       <div className="live-bg pop" aria-hidden="true">
-        <img src="/images/cape-dusk.jpg" alt="" />
+        <img src="/images/city-night.jpg" alt="" />
       </div>
       <div
         className="spot"
@@ -245,14 +245,14 @@ export default function Home() {
               <a className="device-card device-main" href="/harbour-kitchen/">
                 <div className="device-bar"><i /><i /><i /><span>live · harbour-kitchen</span></div>
                 <div className="device-screen">
-                  <img src="/images/harbour-hero.jpg" alt="" />
+                  <img src="/images/harbour-night.jpg" alt="" />
                   <iframe title="Harbour Kitchen live" src="/harbour-kitchen/" loading="lazy" tabIndex={-1} />
                 </div>
               </a>
               <a className="device-card device-alt" href="/drift-supply/">
                 <div className="device-bar"><i /><i /><i /><span>live · drift-supply</span></div>
                 <div className="device-screen">
-                  <img src="/images/drift-hero.jpg" alt="" />
+                  <img src="/images/drift-studio.jpg" alt="" />
                   <iframe title="Drift Supply live" src="/drift-supply/" loading="lazy" tabIndex={-1} />
                 </div>
               </a>
@@ -261,6 +261,7 @@ export default function Home() {
           </div>
         </section>
 
+        <div className="studio-rest">
         <div className="ticker" aria-hidden="true">
           <div className="ticker-track">
             {["Business sites", "Online stores", "Restaurants", "Landing pages", "Site rescue", "Mobile first", "Your domain", "You own the code", "Business sites", "Online stores", "Restaurants", "Landing pages", "Site rescue", "Mobile first", "Your domain", "You own the code"].map((t, i) => (
@@ -325,7 +326,7 @@ export default function Home() {
           <div className="portfolio-grid">
             <a className="portfolio-card" href="/harbour-kitchen/">
               <div className="shot">
-                <img src="/images/harbour-hero.jpg" alt="Harbour Kitchen restaurant site" />
+                <img src="/images/harbour-night.jpg" alt="Harbour Kitchen restaurant site" />
                 <span className="shot-tag">Live demo</span>
               </div>
               <div>
@@ -337,7 +338,7 @@ export default function Home() {
             </a>
             <a className="portfolio-card" href="/drift-supply/">
               <div className="shot">
-                <img src="/images/drift-hero.jpg" alt="Drift Supply shop site" />
+                <img src="/images/drift-studio.jpg" alt="Drift Supply shop site" />
                 <span className="shot-tag">Live demo</span>
               </div>
               <div>
@@ -469,6 +470,7 @@ export default function Home() {
             </form>
           </div>
         </section>
+        </div>
       </main>
 
       <footer className="wrap site-foot">
