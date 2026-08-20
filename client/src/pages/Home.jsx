@@ -209,36 +209,45 @@ export default function Home() {
         <section className="hero-full">
           <div className="wrap hero-grid">
             <div className="hero-copy">
+              <p className="kicker hero-live"><i /> Open for new work · worldwide</p>
               <h1 className="display hero-title">
                 <span>Web Work Co</span>
-                <span className="line">Websites that get you customers.</span>
+                <span className="line">Sites that look expensive. Prices that don’t.</span>
               </h1>
               <p className="lede">
-                Web Work Co builds business websites and online stores worldwide. New sites, shops, or a rescue of a site you already have. Starter sites from {startPrice}. Most launch in 3 to 14 days.
+                Custom business websites and online stores. Built to look like a real brand on a phone — then launched on your domain. Starter from {startPrice}. Most live in 3 to 14 days.
               </p>
               <div className="actions">
-                <a className="btn btn-gold" href="#portfolio">See portfolio</a>
-                <a className="btn btn-ghost" href="#start">Get a plan</a>
+                <a className="btn btn-gold" href="#portfolio">Click the live samples</a>
+                <a className="btn btn-ghost" href="#start">Request a plan</a>
               </div>
               <div className="stat-row">
-                <div><b>3 to 14 days</b><span>to launch a site</span></div>
-                <div><b>From {startPrice}</b><span>for a starter site</span></div>
-                <div><b>Five currencies</b><span>USD, euro, pound, AUD, rand</span></div>
+                <div><b>3–14 days</b><span>brief to live site</span></div>
+                <div><b>{startPrice}</b><span>starter, your currency</span></div>
+                <div><b>You own it</b><span>GitHub + Cloudflare. No locked builder.</span></div>
               </div>
             </div>
-            <aside className="sa-panel">
-              <p className="kicker">The studio</p>
-              <h2 className="display">Web Work Co</h2>
-              <ul>
-                <li><strong>Portfolio ready</strong>Two full sample sites you can click through.</li>
-                <li><strong>Pay how you want</strong>USD, euro, pound, AUD, or rand.</li>
-                <li><strong>Your domain</strong>I connect it. You keep it.</li>
-                <li><strong>You own the code</strong>GitHub + Cloudflare. No locked builder.</li>
-              </ul>
-              <div className="now-playing"><i /> Open for new work</div>
+            <aside className="hero-stage" aria-label="Live sample previews">
+              <a className="device-card device-main" href="/harbour-kitchen/">
+                <div className="device-bar"><i /><i /><i /><span>harbour-kitchen</span></div>
+                <img src="/images/harbour-hero.jpg" alt="Harbour Kitchen live sample" />
+              </a>
+              <a className="device-card device-alt" href="/drift-supply/">
+                <div className="device-bar"><i /><i /><i /><span>drift-supply</span></div>
+                <img src="/images/drift-hero.jpg" alt="Drift Supply live sample" />
+              </a>
+              <div className="now-playing"><i /> Two full sites you can click through</div>
             </aside>
           </div>
         </section>
+
+        <div className="ticker" aria-hidden="true">
+          <div className="ticker-track">
+            {["Business sites", "Online stores", "Restaurants", "Landing pages", "Site rescue", "Mobile first", "Your domain", "You own the code", "Business sites", "Online stores", "Restaurants", "Landing pages", "Site rescue", "Mobile first", "Your domain", "You own the code"].map((t, i) => (
+              <span key={i}>{t}</span>
+            ))}
+          </div>
+        </div>
 
         <nav className="jump-bar" aria-label="On this page">
           <div className="wrap jump-row">
@@ -295,21 +304,27 @@ export default function Home() {
           </div>
           <div className="portfolio-grid">
             <a className="portfolio-card" href="/harbour-kitchen/">
-              <img src="/images/harbour-hero.jpg" alt="Harbour Kitchen restaurant site" />
+              <div className="shot">
+                <img src="/images/harbour-hero.jpg" alt="Harbour Kitchen restaurant site" />
+                <span className="shot-tag">Live demo</span>
+              </div>
               <div>
                 <span>Restaurant</span>
                 <strong>Harbour Kitchen</strong>
-                <p>Menu, wine, hours, gallery, booking.</p>
-                <em>Open site →</em>
+                <p>Menu, wine, hours, gallery, booking. A full site — not a screenshot.</p>
+                <em>Open the real pages →</em>
               </div>
             </a>
             <a className="portfolio-card" href="/drift-supply/">
-              <img src="/images/drift-hero.jpg" alt="Drift Supply shop site" />
+              <div className="shot">
+                <img src="/images/drift-hero.jpg" alt="Drift Supply shop site" />
+                <span className="shot-tag">Live demo</span>
+              </div>
               <div>
                 <span>Shop</span>
                 <strong>Drift Supply</strong>
-                <p>Products, cart, sizes, checkout.</p>
-                <em>Open site →</em>
+                <p>Products, sizes, cart, checkout. Click around like a customer.</p>
+                <em>Open the real pages →</em>
               </div>
             </a>
           </div>
@@ -323,6 +338,7 @@ export default function Home() {
           <div className="grid-4 pack-grid">
             {PACKAGES.map((p) => (
               <button type="button" className={`card pack ${picked === p.name ? "on" : ""}`} key={p.name} onClick={() => pickPack(p.name)}>
+                {p.name === "Business" ? <span className="pack-flag">Most booked</span> : null}
                 <h3 className="display">{p.name}</h3>
                 <p className="muted pack-blurb">{p.blurb}</p>
                 <p className="price">{p.quote ? "Quote" : formatPrice(p.prices[currency], currency)}</p>
@@ -449,6 +465,7 @@ export default function Home() {
           <a href="https://wa.me/27786218429">WhatsApp</a>
         </nav>
       </footer>
+      <a className="wa-float" href="https://wa.me/27786218429">WhatsApp</a>
     </div>
   );
 }
