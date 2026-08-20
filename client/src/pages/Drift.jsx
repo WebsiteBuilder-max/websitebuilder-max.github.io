@@ -128,6 +128,13 @@ export default function Drift() {
           </div>
         ) : null}
       </header>
+      <div className="harbour-livebar drift-livebar" aria-hidden="true">
+        <div className="ticker-track">
+          {["Live stock", "Short runs", "Ships worldwide", "Demo code DRIFT10", "You own the look", "Live stock", "Short runs", "Ships worldwide"].map((t, i) => (
+            <span key={i}>{t}</span>
+          ))}
+        </div>
+      </div>
 
       {page === "shop" && (
         <>
@@ -136,7 +143,7 @@ export default function Drift() {
               <p className="kicker">Independent label · live stock</p>
               <h1 className="display">Quiet clothes for salt air.</h1>
               <p className="lede">
-                A small Cape label. Cap, heavy tee, tote, chore jacket. Cart, checkout, wishlist. Demo code DRIFT10.
+                A small independent label. Cap, heavy tee, tote, chore jacket. Cart, checkout, wishlist. Demo code DRIFT10.
               </p>
               <p className="drift-live">{PRODUCTS.reduce((n, p) => n + p.stock, 0)} pieces left this run · four styles · ships from the studio</p>
             </div>
