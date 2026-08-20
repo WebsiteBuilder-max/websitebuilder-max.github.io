@@ -10,13 +10,13 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 body {
   font-family: Outfit, "Segoe UI", sans-serif;
   background: var(--navy);
   color: var(--ink);
   line-height: 1.55;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 .skip {
   position: absolute;
@@ -34,7 +34,19 @@ a { color: inherit; text-decoration: none; }
 button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
 
-.studio { position: relative; overflow-x: hidden; }
+.studio { position: relative; overflow-x: clip; }
+.studio::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(rgba(224,190,122,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(224,190,122,0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 15%, transparent 70%);
+}
 .spot { pointer-events: none; position: fixed; inset: 0; z-index: 0; }
 .grain {
   pointer-events: none;
@@ -46,7 +58,12 @@ button { cursor: pointer; }
 }
 .studio > header, .studio > main, .studio > footer { position: relative; z-index: 2; }
 
-.wrap { width: min(1220px, calc(100% - 36px)); margin: 0 auto; }
+.wrap {
+  width: min(1220px, 100%);
+  margin: 0 auto;
+  padding-left: max(22px, env(safe-area-inset-left));
+  padding-right: max(22px, env(safe-area-inset-right));
+}
 .display { font-family: Fraunces, Georgia, serif; font-weight: 500; letter-spacing: -0.035em; }
 .kicker {
   color: var(--gold);
@@ -233,13 +250,15 @@ button { cursor: pointer; }
   align-items: center;
   width: 100%;
 }
+.hero-copy { min-width: 0; overflow: visible; }
 .hero-title {
-  font-size: clamp(3rem, 7vw, 6.4rem);
-  line-height: 0.94;
+  font-size: clamp(2.6rem, 6.2vw, 5.4rem);
+  line-height: 0.98;
   max-width: none;
+  padding-left: 0.06em;
   text-shadow: 0 20px 60px rgba(0,0,0,0.35);
 }
-.hero-title span { display: block; text-align: left; }
+.hero-title span { display: block; text-align: left; overflow-wrap: anywhere; }
 .hero-title .line {
   margin-top: 14px;
   color: var(--gold);
@@ -253,10 +272,10 @@ button { cursor: pointer; }
 .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
 .stat-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin-top: 40px;
-  padding-top: 24px;
+  padding: 24px 4px 0;
   border-top: 1px solid var(--line);
 }
 .stat-row b { display: block; font-size: 1.4rem; }
@@ -399,7 +418,29 @@ button { cursor: pointer; }
 .device-bar i:nth-child(2) { background: #e0be7a; }
 .device-bar i:nth-child(3) { background: #5dca8b; }
 .device-bar span { margin-left: 8px; }
-.device-card img { width: 100%; height: 280px; object-fit: cover; display: block; }
+.device-screen {
+  position: relative;
+  height: 272px;
+  overflow: hidden;
+  background: #070f16;
+}
+.device-screen img {
+  width: 100%;
+  height: 272px;
+  object-fit: cover;
+  display: block;
+}
+.device-screen iframe {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 1280px;
+  height: 820px;
+  border: 0;
+  pointer-events: none;
+  transform: scale(0.42);
+  transform-origin: top left;
+}
 .device-main {
   width: 78%;
   left: 0;
@@ -462,6 +503,7 @@ button { cursor: pointer; }
   border-bottom: 1px solid var(--line);
   padding: 16px 0;
   margin-top: 12px;
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
 }
 .ticker-track {
   display: flex;
@@ -872,8 +914,12 @@ footer {
 .modal-card img { height: 100%; object-fit: cover; }
 .modal-card > div { padding: 24px; }
 
+@media (min-width: 901px) {
+  .device-screen img { opacity: 0; }
+  .device-screen iframe { display: block; }
+}
 @media (max-width: 900px) {
-  .wrap { width: min(1180px, calc(100% - 28px)); }
+  .wrap { width: min(1180px, 100%); }
   .hero-grid, .grid-2, .grid-3, .grid-4, .quote, .dish-grid, .reserve-box, .drift-hero, .modal-card, .work-wide, .bento, .domain-line, .stat-row, .sample-links, .gallery, .portfolio-grid, .offer-grid, .ecom-split, .who-grid {
     grid-template-columns: 1fr;
   }
@@ -912,7 +958,7 @@ footer {
   .brand { font-size: 0.95rem; }
   .hero-full { padding: 28px 0 12px; min-height: 0; display: block; }
   .hero-grid { min-height: 0; gap: 22px; }
-  .hero-title { font-size: clamp(2.3rem, 11vw, 3.4rem); }
+  .hero-title { font-size: clamp(2.15rem, 10vw, 3.1rem); padding-left: 0.04em; }
   .hero-stage { height: 340px; }
   .device-card img { height: 180px; }
   .device-main { width: 86%; }

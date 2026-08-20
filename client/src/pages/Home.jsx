@@ -77,6 +77,7 @@ export default function Home() {
   });
   const [sent, setSent] = useState("");
   const [sending, setSending] = useState(false);
+  const [clock, setClock] = useState("");
 
   useEffect(() => {
     setSeo({
@@ -86,6 +87,19 @@ export default function Home() {
     });
     const saved = localStorage.getItem("ryan-currency");
     if (saved && CURRENCIES.some((c) => c.id === saved)) setCurrency(saved);
+    const tick = () => {
+      setClock(
+        new Date().toLocaleTimeString("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        })
+      );
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
   }, []);
 
   useEffect(() => {
@@ -209,7 +223,7 @@ export default function Home() {
         <section className="hero-full">
           <div className="wrap hero-grid">
             <div className="hero-copy">
-              <p className="kicker hero-live"><i /> Open for new work · worldwide</p>
+              <p className="kicker hero-live"><i /> Live · {clock || "online"} · worldwide</p>
               <h1 className="display hero-title">
                 <span>Web Work Co</span>
                 <span className="line">Sites that look expensive. Prices that don’t.</span>
@@ -229,14 +243,20 @@ export default function Home() {
             </div>
             <aside className="hero-stage" aria-label="Live sample previews">
               <a className="device-card device-main" href="/harbour-kitchen/">
-                <div className="device-bar"><i /><i /><i /><span>harbour-kitchen</span></div>
-                <img src="/images/harbour-hero.jpg" alt="Harbour Kitchen live sample" />
+                <div className="device-bar"><i /><i /><i /><span>live · harbour-kitchen</span></div>
+                <div className="device-screen">
+                  <img src="/images/harbour-hero.jpg" alt="" />
+                  <iframe title="Harbour Kitchen live" src="/harbour-kitchen/" loading="lazy" tabIndex={-1} />
+                </div>
               </a>
               <a className="device-card device-alt" href="/drift-supply/">
-                <div className="device-bar"><i /><i /><i /><span>drift-supply</span></div>
-                <img src="/images/drift-hero.jpg" alt="Drift Supply live sample" />
+                <div className="device-bar"><i /><i /><i /><span>live · drift-supply</span></div>
+                <div className="device-screen">
+                  <img src="/images/drift-hero.jpg" alt="" />
+                  <iframe title="Drift Supply live" src="/drift-supply/" loading="lazy" tabIndex={-1} />
+                </div>
               </a>
-              <div className="now-playing"><i /> Two full sites you can click through</div>
+              <div className="now-playing"><i /> Live pages — click either window</div>
             </aside>
           </div>
         </section>
