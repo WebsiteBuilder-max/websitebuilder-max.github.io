@@ -332,7 +332,7 @@ export default function Home() {
               <div>
                 <span>Restaurant</span>
                 <strong>Harbour Kitchen</strong>
-                <p>Menu, wine, hours, gallery, booking. A full site — not a screenshot.</p>
+                <p>Live tables, seat map, cellar, private room, booking hold. A full site — not a screenshot.</p>
                 <em>Open the real pages →</em>
               </div>
             </a>
@@ -344,7 +344,7 @@ export default function Home() {
               <div>
                 <span>Shop</span>
                 <strong>Drift Supply</strong>
-                <p>Products, sizes, cart, checkout. Click around like a customer.</p>
+                <p>Live stock, lookbook, cart, checkout, tracking. Click around like a customer.</p>
                 <em>Open the real pages →</em>
               </div>
             </a>
