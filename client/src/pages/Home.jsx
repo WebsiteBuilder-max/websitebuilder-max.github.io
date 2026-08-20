@@ -5,29 +5,29 @@ const PACKAGES = [
   {
     name: "Starter",
     days: "5–7 days",
-    blurb: "One clear page. Enough to look real and get the first message.",
-    items: ["Home, about, services, contact", "Looks right on a phone", "Contact or chat button", "Live on your domain", "1 revision round"],
+    blurb: "One strong page. Who you are, what you do, and how to reach you — live on your domain.",
+    items: ["One clear page, written and designed", "Looks right on a phone", "Contact, email, or WhatsApp button", "Hours and location if you need them", "Live on your domain", "1 revision round"],
     prices: { ZAR: 2700, USD: 150, EUR: 140, GBP: 120, AUD: 230 },
   },
   {
     name: "Business",
     days: "10–14 days",
-    blurb: "A full site built to get bookings, calls, and enquiries.",
-    items: ["5 pages, written and designed", "Contact form and maps", "Search basics", "Domain connect", "2 revision rounds"],
+    blurb: "A full site for a real shop or firm. Pages, contact, and bookings — so new people can find you and get in touch.",
+    items: ["About 5 pages, written and designed", "Contact form and maps", "Hours, services, and about", "Bookings or appointment link", "Looks right on a phone", "2 revision rounds"],
     prices: { ZAR: 8900, USD: 500, EUR: 460, GBP: 390, AUD: 760 },
   },
   {
     name: "Store",
     days: "2–3 weeks",
-    blurb: "Ecommerce: products, cart, checkout, and payment.",
-    items: ["Up to 20 products", "Cart and checkout", "Stripe, PayPal, or card", "Shipping notes", "2 revision rounds"],
+    blurb: "An online shop. People pick products, pay, and you get the order.",
+    items: ["Up to 20 products", "Cart and checkout", "Card, PayPal, or Stripe", "Shipping notes", "Looks right on a phone", "2 revision rounds"],
     prices: { ZAR: 10900, USD: 600, EUR: 550, GBP: 470, AUD: 920 },
   },
   {
     name: "Rescue",
-    days: "Special quote",
-    blurb: "You already have a website. I fix it, restyle it, or rebuild what loses you customers.",
-    items: ["I look at your live URL", "Mobile, speed, and copy", "New look or a rebuild", "Quote after I see the site"],
+    days: "Custom quote",
+    blurb: "You already have a website. I fix it, restyle it, or rebuild it. Custom quote after I look — no set price until I’ve seen your URL.",
+    items: ["Send me your live URL", "I check mobile, speed, and copy", "Keep bookings and email if they work", "New look, or a full rebuild", "Custom quote after I look"],
     quote: true,
     prices: { ZAR: 0, USD: 0, EUR: 0, GBP: 0, AUD: 0 },
   },
@@ -49,7 +49,7 @@ const FAQS = [
   { q: "Where do you work?", a: "Anywhere. We work over email or chat. You get a preview link, then we launch." },
   { q: "Do I own the website?", a: "Yes. Your GitHub. Your Cloudflare. No locked monthly builder." },
   { q: "Can you build an online store?", a: "Yes. Products, cart, checkout, Stripe, PayPal, or card. See Drift Supply." },
-  { q: "I already have a website. Can you fix it?", a: "Yes. Pick Rescue, paste your URL, say what’s wrong. I quote after I look." },
+  { q: "I already have a website. Can you fix it?", a: "Yes. Pick Rescue, paste your live URL, say what’s wrong. I send a custom quote after I look. Bookings and contact can stay if they already work." },
 ];
 
 const INBOX_HOOK = "https://script.google.com/macros/s/AKfycbyeuCdZI5KA0yYs0YpFubGjnQgKuxTNYGbog3HuniTP2Ulj_BT0MW6zxyl7s-IUAoDm/exec";
@@ -112,7 +112,7 @@ export default function Home() {
   );
 
   const startPrice = formatPrice(PACKAGES[0].prices[currency], currency);
-  const shownPrice = chosen.quote ? "Special quote" : formatPrice(chosen.prices[currency], currency);
+  const shownPrice = chosen.quote ? "Custom quote" : formatPrice(chosen.prices[currency], currency);
 
   function update(e) {
     const next = { ...form, [e.target.name]: e.target.value };
@@ -129,7 +129,7 @@ export default function Home() {
     e.preventDefault();
     setSending(true);
     setSent("Sending…");
-    const price = chosen.quote ? "Special quote" : formatPrice(chosen.prices[currency], currency);
+    const price = chosen.quote ? "Custom quote" : formatPrice(chosen.prices[currency], currency);
     const payload = {
       name: form.name,
       email: form.email,
@@ -362,7 +362,7 @@ export default function Home() {
                 {p.name === "Business" ? <span className="pack-flag">Most booked</span> : null}
                 <h3 className="display">{p.name}</h3>
                 <p className="muted pack-blurb">{p.blurb}</p>
-                <p className="price">{p.quote ? "Quote" : formatPrice(p.prices[currency], currency)}</p>
+                <p className="price">{p.quote ? "Custom quote" : formatPrice(p.prices[currency], currency)}</p>
                 <p className="muted">{p.days}{p.quote ? "" : ` · ${currency}`}</p>
                 <ul>
                   {p.items.map((item) => (
@@ -378,8 +378,8 @@ export default function Home() {
           <div className="rescue-band">
             <p className="kicker">Already have a site?</p>
             <h2 className="section-title display">I can fix it. Or make it better.</h2>
-            <p className="lede">Slow, not mobile, old, or it doesn’t take payments — send the URL. Special quote after I look.</p>
-            <a className="btn btn-gold" href="#start" onClick={() => pickPack("Rescue")}>Get a rescue quote</a>
+            <p className="lede">Slow, not mobile, old, or it doesn’t take bookings — send the URL. Custom quote after I look. I keep what already works.</p>
+            <a className="btn btn-gold" href="#start" onClick={() => pickPack("Rescue")}>Get a custom quote</a>
           </div>
         </section>
 
