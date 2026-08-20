@@ -24,11 +24,11 @@ const MENU = [
 ];
 
 const WINES = [
-  { name: "Creation Sauvignon Blanc", where: "Walker Bay", glass: 75, bottle: 320 },
-  { name: "Mullineux Kloof Street Rouge", where: "Swartland", glass: 85, bottle: 380 },
-  { name: "Stark-Condé Cabernet", where: "Stellenbosch", glass: 95, bottle: 420 },
-  { name: "MCC Brut Nature", where: "Elgin", glass: 90, bottle: 410 },
-  { name: "Paul Cluver Riesling", where: "Elgin", glass: 70, bottle: 295 },
+  { name: "Sancerre", where: "Loire", glass: 14, bottle: 52 },
+  { name: "Pinot Noir", where: "Oregon", glass: 16, bottle: 58 },
+  { name: "Cabernet", where: "Napa", glass: 18, bottle: 64 },
+  { name: "Champagne brut", where: "France", glass: 19, bottle: 72 },
+  { name: "Riesling", where: "Mosel", glass: 13, bottle: 48 },
 ];
 
 const EVENTS = [
@@ -38,9 +38,9 @@ const EVENTS = [
 ];
 
 const REVIEWS = [
-  { who: "Lerato, Observatory", text: "The kingklip was the best I’ve had this year. They held the table when the train was late." },
-  { who: "James, Kalk Bay", text: "Walked in with the dog. Terrace, rock shandy, no fuss." },
-  { who: "Naledi, Joburg", text: "Came down for the weekend. Booked on the site. WhatsApp’d when we were parking." },
+  { who: "Maya, London", text: "The fish was the best I’ve had this year. They held the table when we were late." },
+  { who: "James, Lisbon", text: "Walked in with the dog. Terrace, no fuss." },
+  { who: "Aisha, New York", text: "Booked on the site. Messaged when we were parking." },
 ];
 
 const HOURS = [
@@ -55,7 +55,7 @@ const HOURS = [
 const TABS = ["All", "Starters", "Mains", "Dessert"];
 
 function rand(n) {
-  return `R${n}`;
+  return `$${n}`;
 }
 
 function capeClock() {
@@ -134,7 +134,7 @@ export default function Harbour() {
             <button type="button" onClick={() => go("reserve")}>Reserve</button>
           </nav>
           <span className="live-pill">
-            <i /> {tables} tables · {clock}
+            <i /> {tables} tables open
           </span>
           <button className="menu-btn" type="button" onClick={() => setNavOpen((v) => !v)}>Menu</button>
         </div>
@@ -150,7 +150,7 @@ export default function Harbour() {
       </header>
       <div className="harbour-livebar" aria-hidden="true">
         <div className="ticker-track">
-          {[`${tables} tables open`, clock, "Line-caught when the weather allows", "Terrace · dogs welcome", "Kalk Bay harbour", `${tables} tables open`, clock, "Cash · card · SnapScan"].map((t, i) => (
+          {[`${tables} tables open`, "Line-caught when the boats allow", "Terrace · dogs welcome", "Waterfront kitchen", "Card · contactless", `${tables} tables open`, "Walk-ins if we have a seat"].map((t, i) => (
             <span key={i}>{t}</span>
           ))}
         </div>
@@ -160,7 +160,7 @@ export default function Harbour() {
         <>
           <section className="harbour-hero" id="top">
             <div className="wrap">
-              <p className="kicker">Kalk Bay · Cape Town · {clock}</p>
+              <p className="kicker">Waterfront · twelve tables</p>
               <h1 className="display">Fire, fish, harbour light.</h1>
               <p className="harbour-lead">
                 Twelve tables over the boats. We cook what the day boats brought in. No tasting menu. No fuss.
@@ -182,11 +182,11 @@ export default function Harbour() {
               <div>
                 <h2 className="display section-title">A small kitchen on the harbour wall.</h2>
                 <p className="lede">
-                  Harbour Kitchen opened in a converted bait shop. The pass still faces the water. We take fish from Kalk Bay harbour when the weather allows, and we cook it the same night.
+                  Harbour Kitchen opened in a converted bait shop. The pass still faces the water. We take fish from the boats when the weather allows, and we cook it the same night.
                 </p>
               </div>
               <p className="lede">
-                Walk-ins if we have a spare seat. Otherwise book on this site. Kids are welcome at lunch. Dogs on the terrace. Cash, card, SnapScan.
+                Walk-ins if we have a spare seat. Otherwise book on this site. Kids are welcome at lunch. Dogs on the terrace. Card or contactless.
               </p>
             </div>
           </section>
@@ -271,7 +271,7 @@ export default function Harbour() {
         <section className="wrap page-pad">
           <p className="kicker">Cellar</p>
           <h2 className="display section-title">Mostly Cape. Some Swartland. One MCC.</h2>
-          <p className="lede">We pour by the glass so you can stay for one and still drive over Boyes Drive.</p>
+          <p className="lede">We pour by the glass so you can stay for one.</p>
           {WINES.map((w) => (
             <div className="menu-row" key={w.name}>
               <div>
@@ -290,7 +290,7 @@ export default function Harbour() {
       {page === "events" && (
         <section className="wrap page-pad">
           <p className="kicker">Tonight and this week</p>
-          <h2 className="display section-title">{tables} tables left. {clock} in Cape Town.</h2>
+          <h2 className="display section-title">{tables} tables left tonight.</h2>
           <div className="grid-3">
             {EVENTS.map((ev) => (
               <article className="about-card dark-card" key={ev.title}>
@@ -309,7 +309,7 @@ export default function Harbour() {
       {page === "visit" && (
         <section className="wrap page-pad">
           <p className="kicker">Visit</p>
-          <h2 className="display section-title">12 Harbour Road, Kalk Bay.</h2>
+          <h2 className="display section-title">12 Harbour Road, the waterfront.</h2>
           <div className="grid-2">
             <article className="about-card dark-card">
               <h3>Hours</h3>
@@ -322,14 +322,14 @@ export default function Harbour() {
             </article>
             <article className="about-card dark-card">
               <h3>Find us</h3>
-              <p className="lede">Above the bait shop, left of the harbour slipway. Parking on Main Road or the municipal lot. Train to Kalk Bay station — four minutes’ walk.</p>
+              <p className="lede">Above the bait shop, left of the harbour slipway. Parking on the road or the public lot. Four minutes from the station.</p>
               <p className="lede">WhatsApp 072 000 0000</p>
               <p className="lede">Private lunch for up to 12 on Mondays.</p>
               <iframe
-                title="Kalk Bay map"
+                title="Waterfront map"
                 className="map"
                 loading="lazy"
-                src="https://maps.google.com/maps?q=Kalk%20Bay%20harbour&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=waterfront%20harbour&t=&z=14&ie=UTF8&iwloc=&output=embed"
               />
             </article>
           </div>
@@ -395,7 +395,7 @@ export default function Harbour() {
       {toast ? <div className="toast">{toast}</div> : null}
 
       <footer className="wrap">
-        <span>Harbour Kitchen · Kalk Bay</span>
+        <span>Harbour Kitchen · waterfront</span>
         <a href="/">Web Work Co</a>
       </footer>
     </div>

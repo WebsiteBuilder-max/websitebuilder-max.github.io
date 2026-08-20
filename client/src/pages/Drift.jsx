@@ -3,10 +3,10 @@ import BackToStudio from "../components/BackToStudio.jsx";
 import { setSeo } from "../seo.js";
 
 const PRODUCTS = [
-  { id: "cap", name: "Harbour cap", price: 450, img: "/images/cap.jpg", blurb: "Washed navy. Sits right in south-easter.", sizes: ["One size"], tag: "Hats", made: "Cut in Woodstock. Cotton twill.", stock: 14 },
-  { id: "tee", name: "Heavyweight tee", price: 580, img: "/images/tee.jpg", blurb: "Thick cotton. Off-white. Doesn’t go see-through.", sizes: ["S", "M", "L", "XL"], tag: "Wear", made: "220gsm. Pre-washed so it stays this size.", stock: 9 },
-  { id: "tote", name: "Canvas tote", price: 320, img: "/images/tote.jpg", blurb: "Sand canvas. Beach, market, laptop.", sizes: ["One size"], tag: "Bags", made: "12oz canvas. Leather grip on the handles.", stock: 22 },
-  { id: "jacket", name: "Navy chore jacket", price: 1890, img: "/images/jacket.jpg", blurb: "Light layer for evening wind off the bay.", sizes: ["S", "M", "L"], tag: "Wear", made: "Unlined. Two chest pockets. Made to be worn open.", stock: 5 },
+  { id: "cap", name: "Harbour cap", price: 45, img: "/images/cap.jpg", blurb: "Washed navy. Sits right in the wind.", sizes: ["One size"], tag: "Hats", made: "Heavy cotton twill.", stock: 14 },
+  { id: "tee", name: "Heavyweight tee", price: 58, img: "/images/tee.jpg", blurb: "Thick cotton. Off-white. Doesn’t go see-through.", sizes: ["S", "M", "L", "XL"], tag: "Wear", made: "220gsm. Pre-washed so it stays this size.", stock: 9 },
+  { id: "tote", name: "Canvas tote", price: 32, img: "/images/tote.jpg", blurb: "Sand canvas. Beach, market, laptop.", sizes: ["One size"], tag: "Bags", made: "12oz canvas. Leather grip on the handles.", stock: 22 },
+  { id: "jacket", name: "Navy chore jacket", price: 189, img: "/images/jacket.jpg", blurb: "Light layer for evening wind.", sizes: ["S", "M", "L"], tag: "Wear", made: "Unlined. Two chest pockets. Made to be worn open.", stock: 5 },
 ];
 
 const SIZES = [
@@ -19,7 +19,7 @@ const SIZES = [
 const JOURNAL = [
   { title: "Why the cap has no logo", body: "It kept peeling in the salt. So we left it off. You already know who made it if you bought it here." },
   { title: "Restock when the roll is gone", body: "We don’t pretend we have 400 jackets. When the navy cloth is finished, that run is finished." },
-  { title: "Collect on Albert Road", body: "If you’re in Cape Town, skip the courier. WhatsApp when you’re at the door." },
+  { title: "Collect from the studio", body: "Skip the courier if you’re nearby. Message when you’re at the door." },
 ];
 
 export default function Drift() {
@@ -133,7 +133,7 @@ export default function Drift() {
         <>
           <section className="wrap drift-hero">
             <div>
-              <p className="kicker">Woodstock · Cape Town · live stock</p>
+              <p className="kicker">Independent label · live stock</p>
               <h1 className="display">Quiet clothes for salt air.</h1>
               <p className="lede">
                 A small Cape label. Cap, heavy tee, tote, chore jacket. Cart, checkout, wishlist. Demo code DRIFT10.
@@ -166,7 +166,7 @@ export default function Drift() {
                   <p className="muted">{p.blurb}</p>
                   <div className="stock-line"><i style={{ width: `${Math.min(100, (p.stock / 22) * 100)}%` }} /></div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12, gap: 8 }}>
-                    <strong>R{p.price}</strong>
+                    <strong>${p.price}</strong>
                     <button className="icon-btn" type="button" onClick={() => toggleWish(p.id)}>
                       {wish.includes(p.id) ? "Saved" : "Save"}
                     </button>
@@ -191,13 +191,13 @@ export default function Drift() {
       {page === "story" && (
         <section className="wrap page-pad">
           <p className="kicker">Story</p>
-          <h2 className="display section-title">Started with a cap that didn’t blow off on Chapman’s Peak.</h2>
+          <h2 className="display section-title">Started with a cap that stayed on in the wind.</h2>
           <div className="grid-2">
             <p className="lede">
-              Drift is two friends in a Woodstock studio. We got tired of thin tees and logos. So we made four pieces, in short runs, and we restock when the roll of cloth is gone.
+              Drift is two friends in a small studio. We got tired of thin tees and logos. So we made four pieces, in short runs, and we restock when the roll of cloth is gone.
             </p>
             <p className="lede">
-              Everything ships from Cape Town. Collect on Albert Road. Joburg and Durban usually take two days with The Courier Guy.
+              Ships worldwide from the studio. Collect if you’re nearby. A real shop would SMS a tracking number.
             </p>
           </div>
           <div className="gallery" style={{ marginTop: 28 }}>
@@ -227,7 +227,7 @@ export default function Drift() {
       {page === "guide" && (
         <section className="wrap page-pad">
           <p className="kicker">Size & shipping</p>
-          <h2 className="display section-title">Measured in centimetres. Shipped from Cape Town.</h2>
+          <h2 className="display section-title">Measured in centimetres. Ships worldwide.</h2>
           <div className="grid-2">
             <article className="about-card">
               <h3>Size guide</h3>
@@ -241,11 +241,10 @@ export default function Drift() {
               <p className="muted" style={{ marginTop: 12 }}>Between sizes? Take the bigger one. The jacket sits open.</p>
             </article>
             <article className="about-card">
-              <h3>Shipping (SA)</h3>
-              <p className="lede">Cape Town metro — R70 or free over R1,000. Collect in Woodstock is free.</p>
-              <p className="lede">Joburg, Pretoria, Durban, PE — R95. Rest of SA — R120.</p>
-              <p className="lede">No international on this sample. Returns in 14 days if the tags are on.</p>
-              <p className="lede">PayFast, SnapScan, card, or EFT. Demo checkout does not take money. Try code DRIFT10.</p>
+              <h3>Shipping</h3>
+              <p className="lede">Local metro — $8 or free over $120. Collect from the studio is free.</p>
+              <p className="lede">Worldwide tracked — from $18. Returns in 14 days if the tags are on.</p>
+              <p className="lede">Card or PayPal. Demo checkout does not take money. Try code DRIFT10.</p>
             </article>
           </div>
         </section>
@@ -260,7 +259,7 @@ export default function Drift() {
               <h2 className="display">{product.name}</h2>
               <p className="lede">{product.blurb}</p>
               <p className="lede">{product.made}</p>
-              <p className="price">R{product.price}</p>
+              <p className="price">${product.price}</p>
               <p className="muted">Size</p>
               <div className="sizes">
                 {product.sizes.map((s) => (
@@ -270,7 +269,7 @@ export default function Drift() {
                 ))}
               </div>
               <button className="cart-btn" type="button" onClick={() => add(product, size)}>
-                Add {size} · R{product.price}
+                Add {size} · ${product.price}
               </button>
             </div>
           </div>
@@ -291,7 +290,7 @@ export default function Drift() {
                 <div className="line" key={i.key}>
                   <div>
                     <strong>{i.name}</strong>
-                    <div className="muted">{i.size} · R{i.price}</div>
+                    <div className="muted">{i.size} · ${i.price}</div>
                   </div>
                   <div>
                     <button className="qty-btn" type="button" onClick={() => setQty(i.key, i.qty - 1)}>−</button>
@@ -304,31 +303,30 @@ export default function Drift() {
             <label>Code
               <input value={code} onChange={(e) => setCode(e.target.value)} placeholder="DRIFT10" />
             </label>
-            {off ? <p className="muted">DRIFT10 took R{off} off.</p> : null}
-            <p>Total R{total}</p>
+            {off ? <p className="muted">DRIFT10 took ${off} off.</p> : null}
+            <p>Total ${total}</p>
             <button className="checkout" type="button" onClick={() => cart.length && setStep(2)}>Checkout</button>
           </>
         )}
 
         {step === 2 && (
           <form onSubmit={placeOrder} style={{ marginTop: 16 }}>
-            <p className="muted">Delivery in South Africa</p>
+            <p className="muted">Ships worldwide</p>
             <label>Name<input required /></label>
             <label>Email<input type="email" required /></label>
             <label>City
-              <select required defaultValue="Cape Town">
-                {["Cape Town", "Johannesburg", "Pretoria", "Durban", "Stellenbosch", "Gqeberha"].map((c) => (
+              <select required defaultValue="London">
+                {["London", "New York", "Sydney", "Toronto", "Berlin", "Dubai"].map((c) => (
                   <option key={c}>{c}</option>
                 ))}
               </select>
             </label>
-            <label>Address<input required placeholder="Street and suburb" /></label>
+            <label>Address<input required placeholder="Street and city" /></label>
             <label>Pay with
               <select value={pay} onChange={(e) => setPay(e.target.value)}>
-                <option>PayFast</option>
-                <option>SnapScan</option>
                 <option>Card</option>
-                <option>EFT</option>
+                <option>PayPal</option>
+                <option>Apple Pay</option>
               </select>
             </label>
             <button className="checkout" type="submit">Place order · {pay} (demo)</button>
@@ -338,7 +336,7 @@ export default function Drift() {
 
         {step === 3 && (
           <div style={{ marginTop: 24 }}>
-            <p className="kicker">Packed in Woodstock</p>
+            <p className="kicker">Packed at the studio</p>
             <h2 className="display">Order {order}</h2>
             <p className="lede">Demo only. No card was charged. A real shop would SMS a tracking number.</p>
             <button className="checkout" type="button" onClick={() => { setStep(1); setOpen(false); }}>
@@ -351,7 +349,7 @@ export default function Drift() {
       {toast ? <div className="toast light-toast">{toast}</div> : null}
 
       <footer className="wrap">
-        <span>Drift Supply · Woodstock</span>
+        <span>Drift Supply · worldwide</span>
         <a href="/">Web Work Co</a>
       </footer>
     </div>

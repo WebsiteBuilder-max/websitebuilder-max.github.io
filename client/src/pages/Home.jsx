@@ -223,7 +223,7 @@ export default function Home() {
         <section className="hero-full">
           <div className="wrap hero-grid">
             <div className="hero-copy">
-              <p className="kicker hero-live"><i /> Live · {clock || "online"} · worldwide</p>
+              <p className="kicker hero-live"><i /> Live · worldwide</p>
               <h1 className="display hero-title">
                 <span>Web Work Co</span>
                 <span className="line">Sites that look expensive. Prices that don’t.</span>
