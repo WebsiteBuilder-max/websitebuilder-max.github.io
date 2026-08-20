@@ -133,13 +133,17 @@ export default function Drift() {
         <>
           <section className="wrap drift-hero">
             <div>
-              <p className="kicker">Woodstock · Cape Town</p>
+              <p className="kicker">Woodstock · Cape Town · live stock</p>
               <h1 className="display">Quiet clothes for salt air.</h1>
               <p className="lede">
-                A small Cape label. Cap, heavy tee, tote, chore jacket. Cart, checkout, wishlist, and a demo code: DRIFT10.
+                A small Cape label. Cap, heavy tee, tote, chore jacket. Cart, checkout, wishlist. Demo code DRIFT10.
               </p>
+              <p className="drift-live">{PRODUCTS.reduce((n, p) => n + p.stock, 0)} pieces left this run · four styles · ships from the studio</p>
             </div>
-            <img src="/images/drift-hero.jpg" alt="Drift Supply flat lay" />
+            <div className="drift-hero-shot">
+              <img src="/images/drift-hero.jpg" alt="Drift Supply flat lay" />
+              <span className="shot-live"><i /> In the studio now</span>
+            </div>
           </section>
 
           <section className="wrap" id="shop">
@@ -154,10 +158,13 @@ export default function Drift() {
             <div className="grid-4">
               {shown.map((p) => (
                 <article className="product" key={p.id}>
-                  <img src={p.img} alt={p.name} />
+                  <div className="product-shot">
+                    <img src={p.img} alt={p.name} />
+                    <span className="stock-pill">{p.stock} left</span>
+                  </div>
                   <h3>{p.name}</h3>
                   <p className="muted">{p.blurb}</p>
-                  <p className="muted">{p.stock} left this run</p>
+                  <div className="stock-line"><i style={{ width: `${Math.min(100, (p.stock / 22) * 100)}%` }} /></div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12, gap: 8 }}>
                     <strong>R{p.price}</strong>
                     <button className="icon-btn" type="button" onClick={() => toggleWish(p.id)}>

@@ -148,6 +148,13 @@ export default function Harbour() {
           </div>
         ) : null}
       </header>
+      <div className="harbour-livebar" aria-hidden="true">
+        <div className="ticker-track">
+          {[`${tables} tables open`, clock, "Line-caught when the weather allows", "Terrace · dogs welcome", "Kalk Bay harbour", `${tables} tables open`, clock, "Cash · card · SnapScan"].map((t, i) => (
+            <span key={i}>{t}</span>
+          ))}
+        </div>
+      </div>
 
       {page === "home" && (
         <>
@@ -155,7 +162,7 @@ export default function Harbour() {
             <div className="wrap">
               <p className="kicker">Kalk Bay · Cape Town · {clock}</p>
               <h1 className="display">Fire, fish, harbour light.</h1>
-              <p style={{ maxWidth: "40ch", marginTop: 12 }}>
+              <p className="harbour-lead">
                 Twelve tables over the boats. We cook what the day boats brought in. No tasting menu. No fuss.
               </p>
               <div className="actions">
