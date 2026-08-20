@@ -50,6 +50,8 @@ const FAQS = [
   { q: "Do I own the website?", a: "Yes. Your GitHub. Your Cloudflare. No locked monthly builder." },
   { q: "Can you build an online store?", a: "Yes. Products, cart, checkout, Stripe, PayPal, or card. See Drift Supply." },
   { q: "I already have a website. Can you fix it?", a: "Yes. Pick Rescue, paste your live URL, say what’s wrong. I send a custom quote after I look. Bookings and contact can stay if they already work." },
+  { q: "How do we work together?", a: "Email or WhatsApp. You send the brief or your current URL. I send a private preview. We tweak it until you’re happy, then it goes live on your domain. You own the code. No locked monthly builder." },
+  { q: "What if I don’t like the first version?", a: "That’s what the preview is for. We change it before the world sees it. Each package includes revision rounds. You are not stuck with the first draft." },
 ];
 
 const INBOX_HOOK = "https://script.google.com/macros/s/AKfycbyeuCdZI5KA0yYs0YpFubGjnQgKuxTNYGbog3HuniTP2Ulj_BT0MW6zxyl7s-IUAoDm/exec";
@@ -164,6 +166,7 @@ export default function Home() {
     ["#portfolio", "Portfolio"],
     ["#prices", "Prices"],
     ["#rescue", "Rescue"],
+    ["#how", "How we work"],
     ["#start", "Start"],
   ];
 
@@ -385,17 +388,31 @@ export default function Home() {
 
         <section className="wrap" id="how">
           <div className="section-head">
-            <p className="kicker">How it works</p>
-            <h2 className="section-title display">Three steps. Then it’s live.</h2>
+            <p className="kicker">How we work</p>
+            <h2 className="section-title display">Plain talk. You see it first. You own it.</h2>
+            <p className="lede">I work over email or WhatsApp. No jargon, no surprise lock-in. You are never asked to go live on a site you haven’t seen.</p>
           </div>
           <div className="domain-line">
             {[
-              ["01", "You send the brief", "Goal, photos, logo — or your current URL."],
-              ["02", "I build a preview", "You click a private link and we tweak it."],
-              ["03", "Your domain goes live", "yourname.com opens the new site. You own the code."],
+              ["01", "You tell me the job", "What the site has to do, your photos and logo — or the URL you already have. I send a short plan. You decide."],
+              ["02", "You get a private preview", "A link only you can open. We tweak the words, the pages, the bookings. Revision rounds are in the package."],
+              ["03", "It goes live on your name", "yourname.com opens the new site. You own the code. GitHub + Cloudflare. No monthly builder you can’t leave."],
             ].map(([n, t, d]) => (
               <article className="about-card" key={n}>
                 <span className="num">{n}</span>
+                <h3>{t}</h3>
+                <p className="muted">{d}</p>
+              </article>
+            ))}
+          </div>
+          <div className="together">
+            {[
+              ["You see it before anyone else", "Nothing goes public until you’ve clicked the preview and said it feels right."],
+              ["We keep what already works", "Bookings, email, phone, appointments — if they’re good, they stay. I don’t rip out what’s useful."],
+              ["You can say no", "The first note is a plan, not a contract. If it isn’t the time, that’s fine."],
+              ["You can always reach me", "Ryan Mostert. ryan@webworkco.com or WhatsApp. Same person who builds the site."],
+            ].map(([t, d]) => (
+              <article className="about-card" key={t}>
                 <h3>{t}</h3>
                 <p className="muted">{d}</p>
               </article>

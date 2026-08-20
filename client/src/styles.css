@@ -664,6 +664,12 @@ section { padding: 56px 0; scroll-margin-top: 84px; }
 .card ul { margin-top: 12px; padding-left: 18px; color: var(--muted); }
 
 .domain-line { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.together {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 18px;
+}
 .num {
   width: 42px; height: 42px; border-radius: 50%;
   border: 1px solid var(--gold); color: var(--gold);
@@ -1232,7 +1238,7 @@ footer {
 }
 @media (max-width: 900px) {
   .wrap { width: min(1180px, 100%); }
-  .hero-grid, .grid-2, .grid-3, .grid-4, .quote, .dish-grid, .reserve-box, .drift-hero, .modal-card, .work-wide, .bento, .domain-line, .stat-row, .sample-links, .gallery, .portfolio-grid, .offer-grid, .ecom-split, .who-grid, .live-board, .look-card, .shop-tools {
+  .hero-grid, .grid-2, .grid-3, .grid-4, .quote, .dish-grid, .reserve-box, .drift-hero, .modal-card, .work-wide, .bento, .domain-line, .stat-row, .sample-links, .gallery, .portfolio-grid, .offer-grid, .ecom-split, .who-grid, .live-board, .look-card, .shop-tools, .together {
     grid-template-columns: 1fr;
   }
   .currency-label span { display: none; }
