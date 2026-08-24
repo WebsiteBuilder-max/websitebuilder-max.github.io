@@ -95,6 +95,21 @@ const FAQS = [
 
 const INBOX_HOOK = "https://script.google.com/macros/s/AKfycbyeuCdZI5KA0yYs0YpFubGjnQgKuxTNYGbog3HuniTP2Ulj_BT0MW6zxyl7s-IUAoDm/exec";
 
+const JUMP = [
+  ["#work", "Work"],
+  ["#portfolio", "Portfolio"],
+  ["#prices", "Prices"],
+  ["#rescue", "Rescue"],
+  ["#how", "How we work"],
+  ["#start", "Start"],
+];
+
+const TIPS = [
+  { file: "shop.jsx", lines: ["const open = true;", "if (phone) showWhatsApp();", "cart updates live."] },
+  { file: "bookings.js", lines: ["hold table 15 min;", "seat map from the floor;", "preview before live."] },
+  { file: "rescue.md", lines: ["keep the bookings;", "fix the phone page;", "quote after I look."] },
+];
+
 function formatPrice(amount, currency) {
   const item = CURRENCIES.find((c) => c.id === currency) || CURRENCIES[0];
   const n = amount.toLocaleString(currency === "ZAR" ? "en-ZA" : "en-US");
@@ -119,6 +134,9 @@ export default function Home() {
   const [sent, setSent] = useState("");
   const [sending, setSending] = useState(false);
   const [clock, setClock] = useState("");
+  const [onJump, setOnJump] = useState("#work");
+  const [flash, setFlash] = useState(false);
+  const [tip, setTip] = useState(0);
 
   useEffect(() => {
     setSeo({
@@ -140,12 +158,37 @@ export default function Home() {
     };
     tick();
     const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
+    const tipId = setInterval(() => setTip((n) => (n + 1) % TIPS.length), 4200);
+    return () => {
+      clearInterval(id);
+      clearInterval(tipId);
+    };
+  }, []);
+
+  useEffect(() => {
+    const ids = JUMP.map(([href]) => href.slice(1));
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const vis = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (vis) setOnJump(`#${vis.target.id}`);
+      },
+      { rootMargin: "-28% 0px -58% 0px", threshold: [0.12, 0.4] }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
   }, []);
 
   useEffect(() => {
     localStorage.setItem("ryan-currency", currency);
-  }, [currency]);
+    setFlash(true);
+    const t = setTimeout(() => setFlash(false), 420);
+    return () => clearTimeout(t);
+  }, [currency, picked]);
 
   const chosen = useMemo(
     () => PACKAGES.find((p) => p.name === form.pack) || PACKAGES[1],
@@ -200,14 +243,15 @@ export default function Home() {
     }
   }
 
-  const jump = [
-    ["#work", "Work"],
-    ["#portfolio", "Portfolio"],
-    ["#prices", "Prices"],
-    ["#rescue", "Rescue"],
-    ["#how", "How we work"],
-    ["#start", "Start"],
-  ];
+  function goPack(name, href) {
+    pickPack(name);
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  const liveName = form.name.trim() || "your shop";
+  const liveCity = form.city.trim() || "your city";
+  const activeTip = TIPS[tip];
 
   return (
     <div
@@ -236,8 +280,8 @@ export default function Home() {
             Web Work Co
           </a>
           <nav className="nav-links">
-            {jump.map(([href, label]) => (
-              <a key={href} href={href}>{label}</a>
+            {JUMP.map(([href, label]) => (
+              <a key={href} href={href} className={onJump === href ? "on" : ""}>{label}</a>
             ))}
           </nav>
           <div className="nav-end">
@@ -249,13 +293,14 @@ export default function Home() {
                 ))}
               </select>
             </label>
+            <span className="nav-clock" aria-hidden="true">{clock}</span>
             <button className="menu-btn" type="button" onClick={() => setMenu((v) => !v)}>Menu</button>
           </div>
         </div>
         {menu ? (
           <div className="mobile-menu wrap">
-            {jump.map(([href, label]) => (
-              <a key={href} href={href} onClick={() => setMenu(false)}>{label}</a>
+            {JUMP.map(([href, label]) => (
+              <a key={href} href={href} className={onJump === href ? "on" : ""} onClick={() => setMenu(false)}>{label}</a>
             ))}
           </div>
         ) : null}
@@ -277,6 +322,21 @@ export default function Home() {
                 <a className="btn btn-gold" href="#portfolio">Click the live samples</a>
                 <a className="btn btn-ghost" href="#start">Request a plan</a>
               </div>
+              <div className={`live-win ${flash ? "flash" : ""}`} aria-live="polite">
+                <div className="device-bar">
+                  <i /><i /><i />
+                  <span>live · {activeTip.file}</span>
+                  <b className="clock">{clock}</b>
+                </div>
+                <pre>
+                  <code><em>package</em> {picked}</code>
+                  <code className="price-line"><em>price</em> {shownPrice} {currency}</code>
+                  {activeTip.lines.map((line) => (
+                    <code key={line}>{line}</code>
+                  ))}
+                  <code className="ok">preview ready</code>
+                </pre>
+              </div>
               <div className="stat-row">
                 <div><b>3–14 days</b><span>brief to live site</span></div>
                 <div><b>{startPrice}</b><span>starter, your currency</span></div>
@@ -285,14 +345,14 @@ export default function Home() {
             </div>
             <aside className="hero-stage" aria-label="Live sample previews">
               <a className="device-card device-main" href="/harbour-kitchen/">
-                <div className="device-bar"><i /><i /><i /><span>live · harbour-kitchen</span></div>
+                <div className="device-bar"><i /><i /><i /><span>live · harbour-kitchen</span><b className="clock">{clock}</b></div>
                 <div className="device-screen">
                   <img src="/images/harbour-night.jpg" alt="" />
                   <iframe title="Harbour Kitchen live" src="/harbour-kitchen/" loading="lazy" tabIndex={-1} />
                 </div>
               </a>
               <a className="device-card device-alt" href="/drift-supply/">
-                <div className="device-bar"><i /><i /><i /><span>live · drift-supply</span></div>
+                <div className="device-bar"><i /><i /><i /><span>live · drift-supply</span><b className="clock">{clock}</b></div>
                 <div className="device-screen">
                   <img src="/images/drift-studio.jpg" alt="" />
                   <iframe title="Drift Supply live" src="/drift-supply/" loading="lazy" tabIndex={-1} />
@@ -314,8 +374,8 @@ export default function Home() {
 
         <nav className="jump-bar" aria-label="On this page">
           <div className="wrap jump-row">
-            {jump.map(([href, label]) => (
-              <a key={href} href={href}>{label}</a>
+            {JUMP.map(([href, label]) => (
+              <a key={href} href={href} className={onJump === href ? "on" : ""}>{label}</a>
             ))}
           </div>
         </nav>
@@ -326,7 +386,7 @@ export default function Home() {
             <h2 className="section-title display">From one page to a shop that takes money.</h2>
           </div>
           <div className="offer-grid">
-            <article className="card offer-card">
+            <button type="button" className={`card offer-card ${picked === "Starter" ? "on" : ""}`} onClick={() => goPack("Starter", "#prices")}>
               <p className="kicker">Leads</p>
               <h3 className="display">Business sites</h3>
               <p className="muted">Who you are, what you do, how to reach you. Phone first.</p>
@@ -335,8 +395,9 @@ export default function Home() {
                 <li>Maps, hours, chat or email</li>
                 <li>Works on any phone</li>
               </ul>
-            </article>
-            <article className="card offer-card">
+              <em>Pick Starter →</em>
+            </button>
+            <button type="button" className={`card offer-card ${picked === "Business" ? "on" : ""}`} onClick={() => goPack("Business", "#portfolio")}>
               <p className="kicker">Bookings</p>
               <h3 className="display">Restaurants & bookings</h3>
               <p className="muted">Menus, table requests, diaries. See Harbour Kitchen.</p>
@@ -345,8 +406,9 @@ export default function Home() {
                 <li>Reserve forms</li>
                 <li>Hours and location</li>
               </ul>
-            </article>
-            <article className="card offer-card">
+              <em>See Harbour Kitchen →</em>
+            </button>
+            <button type="button" className={`card offer-card ${picked === "Store" ? "on" : ""}`} onClick={() => goPack("Store", "#portfolio")}>
               <p className="kicker">Ecommerce</p>
               <h3 className="display">Online stores</h3>
               <p className="muted">Products, cart, checkout. Stripe, PayPal, or card. See Drift Supply.</p>
@@ -355,7 +417,28 @@ export default function Home() {
                 <li>Cart and checkout</li>
                 <li>Shipping notes</li>
               </ul>
-            </article>
+              <em>See Drift Supply →</em>
+            </button>
+          </div>
+          <div className="tip-row">
+            {TIPS.map((item, i) => (
+              <button
+                type="button"
+                className={`live-win tip-win ${tip === i ? "flash" : ""}`}
+                key={item.file}
+                onClick={() => setTip(i)}
+              >
+                <div className="device-bar">
+                  <i /><i /><i />
+                  <span>{item.file}</span>
+                </div>
+                <pre>
+                  {item.lines.map((line) => (
+                    <code key={line}>{line}</code>
+                  ))}
+                </pre>
+              </button>
+            ))}
           </div>
         </section>
 
@@ -404,7 +487,7 @@ export default function Home() {
                 {p.name === "Business" ? <span className="pack-flag">Most booked</span> : null}
                 <h3 className="display">{p.name}</h3>
                 <p className="muted pack-blurb">{p.blurb}</p>
-                <p className="price">{p.quote ? "Custom quote" : formatPrice(p.prices[currency], currency)}</p>
+                <p className={`price ${flash && picked === p.name ? "flash" : ""}`}>{p.quote ? "Custom quote" : formatPrice(p.prices[currency], currency)}</p>
                 <p className="muted">{p.days}{p.quote ? "" : ` · ${currency}`}</p>
                 <ul>
                   {p.items.map((item) => (
@@ -484,6 +567,21 @@ export default function Home() {
               <p className="kicker">Start</p>
               <h2 className="section-title display">Tell me what the site has to do.</h2>
               <p className="lede">Goes to Web Work Co. I reply from ryan@webworkco.com.</p>
+              <div className={`live-win recap ${flash ? "flash" : ""}`} aria-live="polite">
+                <div className="device-bar">
+                  <i /><i /><i />
+                  <span>plan · live</span>
+                  <b className="clock">{clock}</b>
+                </div>
+                <pre>
+                  <code><em>for</em> {liveName}</code>
+                  <code><em>in</em> {liveCity}</code>
+                  <code><em>package</em> {chosen.name}</code>
+                  <code className="price-line"><em>price</em> {shownPrice}</code>
+                  <code>{form.domain}</code>
+                  {form.goal.trim() ? <code className="ok">{form.goal.trim()}</code> : <code className="ok">tell me what the site has to do</code>}
+                </pre>
+              </div>
               <p className="price">{shownPrice}</p>
               <p className="muted">{chosen.name}{form.city ? ` · ${form.city}` : ""}</p>
             </div>
