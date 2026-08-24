@@ -7,21 +7,21 @@ const PACKAGES = [
     days: "5–7 days",
     blurb: "One strong page. Who you are, what you do, and how to reach you — live on your domain.",
     items: ["One clear page, written and designed", "Looks right on a phone", "Contact, email, or WhatsApp button", "Hours and location if you need them", "Live on your domain", "1 revision round"],
-    prices: { ZAR: 2700, USD: 150, EUR: 140, GBP: 120, AUD: 230 },
+    prices: { ZAR: 2700, USD: 150, EUR: 140, GBP: 120, AED: 550, AUD: 230 },
   },
   {
     name: "Business",
     days: "10–14 days",
     blurb: "A full site for a real shop or firm. Pages, contact, and bookings — so new people can find you and get in touch.",
     items: ["About 5 pages, written and designed", "Contact form and maps", "Hours, services, and about", "Bookings or appointment link", "Looks right on a phone", "2 revision rounds"],
-    prices: { ZAR: 8900, USD: 500, EUR: 460, GBP: 390, AUD: 760 },
+    prices: { ZAR: 8900, USD: 500, EUR: 460, GBP: 390, AED: 1850, AUD: 760 },
   },
   {
     name: "Store",
     days: "2–3 weeks",
     blurb: "An online shop. People pick products, pay, and you get the order.",
     items: ["Up to 20 products", "Cart and checkout", "Card, PayPal, or Stripe", "Shipping notes", "Looks right on a phone", "2 revision rounds"],
-    prices: { ZAR: 10900, USD: 600, EUR: 550, GBP: 470, AUD: 920 },
+    prices: { ZAR: 10900, USD: 600, EUR: 550, GBP: 470, AED: 2200, AUD: 920 },
   },
   {
     name: "Rescue",
@@ -29,7 +29,7 @@ const PACKAGES = [
     blurb: "You already have a website. I fix it, restyle it, or rebuild it. Custom quote after I look — no set price until I’ve seen your URL.",
     items: ["Send me your live URL", "I check mobile, speed, and copy", "Keep bookings and email if they work", "New look, or a full rebuild", "Custom quote after I look"],
     quote: true,
-    prices: { ZAR: 0, USD: 0, EUR: 0, GBP: 0, AUD: 0 },
+    prices: { ZAR: 0, USD: 0, EUR: 0, GBP: 0, AED: 0, AUD: 0 },
   },
 ];
 
@@ -37,6 +37,7 @@ const CURRENCIES = [
   { id: "USD", name: "US dollar", prefix: "$" },
   { id: "EUR", name: "Euro", prefix: "€" },
   { id: "GBP", name: "British pound", prefix: "£" },
+  { id: "AED", name: "UAE dirham", prefix: "AED " },
   { id: "AUD", name: "Australian dollar", prefix: "A$" },
   { id: "ZAR", name: "South African rand", prefix: "R" },
 ];
@@ -56,7 +57,7 @@ const FAQS = [
   },
   {
     q: "Can I pay in my own currency?",
-    a: "Yes. Use the currency menu at the top of the page. You can look at prices in US dollars, euros, pounds, Australian dollars, or rand. Pick the one that matches how you get paid. When you request a plan, I see the package and the currency you chose, so we don’t talk past each other.",
+    a: "Yes. Use the currency menu at the top of the page. You can look at prices in US dollars, euros, pounds, UAE dirhams, Australian dollars, or rand. Pick the one that matches how you get paid. When you request a plan, I see the package and the currency you chose, so we don’t talk past each other.",
   },
   {
     q: "Do you have a portfolio?",
