@@ -7,21 +7,21 @@ const PACKAGES = [
     days: "5–7 days",
     blurb: "One strong page. Who you are, what you do, and how to reach you — live on your domain.",
     items: ["One clear page, written and designed", "Looks right on a phone", "Contact, email, or WhatsApp button", "Hours and location if you need them", "Live on your domain", "1 revision round"],
-    prices: { ZAR: 2700, USD: 150, EUR: 140, GBP: 120, AED: 550, AUD: 230 },
+    prices: { ZAR: 2700, USD: 170, EUR: 150, GBP: 120, AED: 600, AUD: 260 },
   },
   {
     name: "Business",
     days: "10–14 days",
     blurb: "A full site for a real shop or firm. Pages, contact, and bookings — so new people can find you and get in touch.",
     items: ["About 5 pages, written and designed", "Contact form and maps", "Hours, services, and about", "Bookings or appointment link", "Looks right on a phone", "2 revision rounds"],
-    prices: { ZAR: 5500, USD: 500, EUR: 460, GBP: 390, AED: 1850, AUD: 760 },
+    prices: { ZAR: 5500, USD: 350, EUR: 300, GBP: 250, AED: 1250, AUD: 550 },
   },
   {
     name: "Store",
     days: "2–3 weeks",
     blurb: "An online shop. People pick products, pay, and you get the order.",
     items: ["Up to 20 products", "Cart and checkout", "Card, PayPal, or Stripe", "Shipping notes", "Looks right on a phone", "2 revision rounds"],
-    prices: { ZAR: 10900, USD: 600, EUR: 550, GBP: 470, AED: 2200, AUD: 920 },
+    prices: { ZAR: 10900, USD: 700, EUR: 600, GBP: 500, AED: 2500, AUD: 1050 },
   },
   {
     name: "Rescue",
@@ -145,7 +145,7 @@ export default function Home() {
   useEffect(() => {
     setSeo({
       title: "Web Work Co | Business websites and online stores",
-      description: "Web Work Co builds business websites and online stores worldwide. New sites, shops, or a rescue of a site you already have. Starter sites from $150.",
+      description: "Web Work Co builds business websites and online stores worldwide. New sites, shops, or a rescue of a site you already have. Starter sites from $170.",
       url: "https://webworkco.com/",
     });
     const saved = localStorage.getItem("ryan-currency");
