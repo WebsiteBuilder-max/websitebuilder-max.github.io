@@ -14,7 +14,7 @@ const PACKAGES = [
     days: "10–14 days",
     blurb: "A full site for a real shop or firm. Pages, contact, and bookings — so new people can find you and get in touch.",
     items: ["About 5 pages, written and designed", "Contact form and maps", "Hours, services, and about", "Bookings or appointment link", "Looks right on a phone", "2 revision rounds"],
-    prices: { ZAR: 8900, USD: 500, EUR: 460, GBP: 390, AED: 1850, AUD: 760 },
+    prices: { ZAR: 5500, USD: 500, EUR: 460, GBP: 390, AED: 1850, AUD: 760 },
   },
   {
     name: "Store",
