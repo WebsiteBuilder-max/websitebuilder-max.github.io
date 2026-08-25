@@ -258,12 +258,8 @@ export default function Home() {
       message: form.goal || "(none)",
     };
     try {
-      try {
-        await postPlan("/api/plan", payload);
-      } catch {
-        const results = await Promise.allSettled(PLAN_INBOXES.map((url) => postPlan(url, payload)));
-        if (!results.some((r) => r.status === "fulfilled")) throw new Error("send failed");
-      }
+      const results = await Promise.allSettled(PLAN_INBOXES.map((url) => postPlan(url, payload)));
+      if (!results.some((r) => r.status === "fulfilled")) throw new Error("send failed");
       setSent(`Sent. I’ll reply to ${form.email}.`);
       setForm((f) => ({ ...f, name: "", email: "", goal: "", siteUrl: "" }));
     } catch {
