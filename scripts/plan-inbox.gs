@@ -1,5 +1,12 @@
 function doPost(e) {
-  const data = JSON.parse(e.postData.contents);
+  const raw = e.postData && e.postData.contents ? e.postData.contents : "{}";
+  let data = {};
+  try {
+    data = JSON.parse(raw);
+  } catch (err) {
+    data = {};
+  }
+
   const lines = [
     "New website plan request",
     "",
@@ -12,18 +19,16 @@ function doPost(e) {
     "Domain: " + (data.domain || ""),
     "",
     "What they want:",
-    data.goal || "(none)",
+    data.goal || data.message || "(none)",
   ];
 
-  GmailApp.sendEmail(
-    "ryan.mostert2006@gmail.com",
-    "New website plan: " + (data.package || "Plan") + " — " + (data.name || "Someone"),
-    lines.join("\n"),
-    {
-      name: "Ryan Studio",
-      replyTo: data.email || "ryan.mostert2006@gmail.com",
-    }
-  );
+  MailApp.sendEmail({
+    to: "ryan@webworkco.com, Ryan.mostert58@gmail.com",
+    subject: "New website plan: " + (data.package || "Plan") + " — " + (data.name || "Someone"),
+    body: lines.join("\n"),
+    name: "Web Work Co",
+    replyTo: data.email || "ryan@webworkco.com",
+  });
 
   return ContentService
     .createTextOutput(JSON.stringify({ ok: true }))

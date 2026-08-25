@@ -93,7 +93,10 @@ const FAQS = [
   },
 ];
 
-const INBOX_HOOK = "https://script.google.com/macros/s/AKfycbyeuCdZI5KA0yYs0YpFubGjnQgKuxTNYGbog3HuniTP2Ulj_BT0MW6zxyl7s-IUAoDm/exec";
+const PLAN_INBOXES = [
+  "https://formsubmit.co/ajax/ryan@webworkco.com",
+  "https://formsubmit.co/ajax/Ryan.mostert58@gmail.com",
+];
 
 const JUMP = [
   ["#work", "Work"],
@@ -130,6 +133,7 @@ export default function Home() {
     domain: "I already have a domain",
     siteUrl: "",
     goal: "",
+    company: "",
   });
   const [sent, setSent] = useState("");
   const [sending, setSending] = useState(false);
@@ -209,14 +213,41 @@ export default function Home() {
     setForm((f) => ({ ...f, pack: name }));
   }
 
+  async function postPlan(url, payload) {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const text = await res.text();
+    let data = {};
+    try {
+      data = JSON.parse(text);
+    } catch {
+      throw new Error("bad response");
+    }
+    const ok = data.ok === true || data.success === true || data.success === "true" || /activat/i.test(String(data.message || ""));
+    if (!res.ok && !ok) throw new Error(data.message || "send failed");
+    if (!ok) throw new Error(data.message || "send failed");
+    return data;
+  }
+
   async function submit(e) {
     e.preventDefault();
+    if (form.company) {
+      setSent(`Sent. I’ll reply to ${form.email}.`);
+      return;
+    }
     setSending(true);
     setSent("Sending…");
     const price = chosen.quote ? "Custom quote" : formatPrice(chosen.prices[currency], currency);
     const payload = {
       name: form.name,
       email: form.email,
+      _replyto: form.email,
+      _subject: `Web Work Co plan: ${form.pack} — ${form.name}`,
+      _template: "table",
+      _captcha: "false",
       city: form.city,
       package: form.pack,
       currency,
@@ -224,20 +255,19 @@ export default function Home() {
       domain: form.domain,
       currentSite: form.siteUrl || "(none)",
       goal: form.goal || "(none)",
+      message: form.goal || "(none)",
     };
     try {
-      if (INBOX_HOOK) {
-        try {
-          const res = await fetch(INBOX_HOOK, { method: "POST", body: JSON.stringify(payload) });
-          if (!res.ok) throw new Error("send failed");
-        } catch {
-          await fetch(INBOX_HOOK, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
-        }
+      try {
+        await postPlan("/api/plan", payload);
+      } catch {
+        const results = await Promise.allSettled(PLAN_INBOXES.map((url) => postPlan(url, payload)));
+        if (!results.some((r) => r.status === "fulfilled")) throw new Error("send failed");
       }
       setSent(`Sent. I’ll reply to ${form.email}.`);
       setForm((f) => ({ ...f, name: "", email: "", goal: "", siteUrl: "" }));
     } catch {
-      setSent("Could not send. Email me at ryan@webworkco.com");
+      setSent("Could not send. Email me at ryan@webworkco.com or WhatsApp 078 621 8429");
     } finally {
       setSending(false);
     }
@@ -586,6 +616,7 @@ export default function Home() {
               <p className="muted">{chosen.name}{form.city ? ` · ${form.city}` : ""}</p>
             </div>
             <form onSubmit={submit}>
+              <label className="hp" aria-hidden="true">Company<input name="company" value={form.company} onChange={update} tabIndex={-1} autoComplete="off" /></label>
               <label>Name<input name="name" value={form.name} onChange={update} required /></label>
               <label>Email<input name="email" type="email" value={form.email} onChange={update} required /></label>
               <label>City / country<input name="city" value={form.city} onChange={update} placeholder="London, NYC, Sydney…" /></label>
