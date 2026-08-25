@@ -1,6 +1,6 @@
 const INBOXES = [
+  "https://formsubmit.co/ajax/ryan.mostert2006@gmail.com",
   "https://formsubmit.co/ajax/ryan@webworkco.com",
-  "https://formsubmit.co/ajax/Ryan.mostert58@gmail.com",
 ];
 
 function headersFor(request) {
@@ -72,15 +72,6 @@ export async function onRequestPost({ request }) {
 
   if (delivered) {
     return Response.json({ ok: true }, { headers });
-  }
-
-  const activating = results.some((r) => {
-    if (r.status !== "fulfilled") return false;
-    return /activat/i.test(String(r.value.body.message || ""));
-  });
-
-  if (activating) {
-    return Response.json({ ok: true, pending: true }, { headers });
   }
 
   return Response.json({ ok: false }, { status: 502, headers });

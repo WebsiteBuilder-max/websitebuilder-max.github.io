@@ -94,8 +94,8 @@ const FAQS = [
 ];
 
 const PLAN_INBOXES = [
+  "https://formsubmit.co/ajax/ryan.mostert2006@gmail.com",
   "https://formsubmit.co/ajax/ryan@webworkco.com",
-  "https://formsubmit.co/ajax/Ryan.mostert58@gmail.com",
 ];
 
 const JUMP = [
@@ -226,8 +226,7 @@ export default function Home() {
     } catch {
       throw new Error("bad response");
     }
-    const ok = data.ok === true || data.success === true || data.success === "true" || /activat/i.test(String(data.message || ""));
-    if (!res.ok && !ok) throw new Error(data.message || "send failed");
+    const ok = data.success === true || data.success === "true" || data.ok === true;
     if (!ok) throw new Error(data.message || "send failed");
     return data;
   }
