@@ -100,10 +100,10 @@ const PLAN_INBOXES = [
 
 const JUMP = [
   ["#work", "Work"],
-  ["#portfolio", "Portfolio"],
+  ["#portfolio", "Samples"],
   ["#prices", "Prices"],
   ["#rescue", "Rescue"],
-  ["#how", "How we work"],
+  ["#how", "How"],
   ["#start", "Start"],
 ];
 
@@ -141,6 +141,7 @@ export default function Home() {
   const [onJump, setOnJump] = useState("#work");
   const [flash, setFlash] = useState(false);
   const [tip, setTip] = useState(0);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
     setSeo({
@@ -163,11 +164,38 @@ export default function Home() {
     tick();
     const id = setInterval(tick, 1000);
     const tipId = setInterval(() => setTip((n) => (n + 1) % TIPS.length), 4200);
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncMotion = () => setReduceMotion(motion.matches);
+    syncMotion();
+    motion.addEventListener("change", syncMotion);
     return () => {
       clearInterval(id);
       clearInterval(tipId);
+      motion.removeEventListener("change", syncMotion);
     };
   }, []);
+
+  useEffect(() => {
+    const bg = document.querySelector(".live-bg");
+    if (!bg) return undefined;
+    const onScroll = () => {
+      bg.style.transform = `translate3d(0, ${Math.min(window.scrollY, 900) * 0.14}px, 0)`;
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const video = document.querySelector(".live-bg video");
+    if (!video) return undefined;
+    const onVis = () => {
+      if (document.hidden) video.pause();
+      else video.play().catch(() => {});
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, [reduceMotion]);
 
   useEffect(() => {
     const ids = JUMP.map(([href]) => href.slice(1));
@@ -288,8 +316,14 @@ export default function Home() {
         });
       }}
     >
-      <div className="live-bg pop" aria-hidden="true">
+      <div className="live-bg" aria-hidden="true">
+        {reduceMotion ? null : (
+          <video autoPlay muted loop playsInline poster="/images/city-night.jpg">
+            <source src="/images/city-night-live.mp4" type="video/mp4" />
+          </video>
+        )}
         <img src="/images/city-night.jpg" alt="" />
+        <span className="live-water" />
       </div>
       <div
         className="spot"
@@ -344,7 +378,7 @@ export default function Home() {
                 Custom business websites and online stores. Built to look like a real brand on a phone — then launched on your domain. Starter from {startPrice}. Most live in 3 to 14 days.
               </p>
               <div className="actions">
-                <a className="btn btn-gold" href="#portfolio">Click the live samples</a>
+                <a className="btn btn-gold" href="#portfolio">See sample sites</a>
                 <a className="btn btn-ghost" href="#start">Request a plan</a>
               </div>
               <div className={`live-win ${flash ? "flash" : ""}`} aria-live="polite">
@@ -422,7 +456,7 @@ export default function Home() {
               </ul>
               <em>Pick Starter →</em>
             </button>
-            <button type="button" className={`card offer-card ${picked === "Business" ? "on" : ""}`} onClick={() => goPack("Business", "#portfolio")}>
+            <button type="button" className={`card offer-card ${picked === "Business" ? "on" : ""}`} onClick={() => goPack("Business", "#prices")}>
               <p className="kicker">Bookings</p>
               <h3 className="display">Restaurants & bookings</h3>
               <p className="muted">Menus, table requests, diaries. See Harbour Kitchen.</p>
@@ -433,7 +467,7 @@ export default function Home() {
               </ul>
               <em>See Harbour Kitchen →</em>
             </button>
-            <button type="button" className={`card offer-card ${picked === "Store" ? "on" : ""}`} onClick={() => goPack("Store", "#portfolio")}>
+            <button type="button" className={`card offer-card ${picked === "Store" ? "on" : ""}`} onClick={() => goPack("Store", "#prices")}>
               <p className="kicker">Ecommerce</p>
               <h3 className="display">Online stores</h3>
               <p className="muted">Products, cart, checkout. Stripe, PayPal, or card. See Drift Supply.</p>
@@ -615,10 +649,12 @@ export default function Home() {
               <label>Name<input name="name" value={form.name} onChange={update} required /></label>
               <label>Email<input name="email" type="email" value={form.email} onChange={update} required /></label>
               <label>City / country<input name="city" value={form.city} onChange={update} placeholder="London, NYC, Sydney…" /></label>
-              <label>Package
+              <label>What kind of site
                 <select name="pack" value={form.pack} onChange={update}>
                   {PACKAGES.map((p) => (
-                    <option key={p.name}>{p.name}</option>
+                    <option key={p.name} value={p.name}>
+                      {p.name}{p.quote ? " — custom quote" : ` — ${formatPrice(p.prices[currency], currency)}`}
+                    </option>
                   ))}
                 </select>
               </label>
@@ -644,9 +680,13 @@ export default function Home() {
               <label>What should the site do?
                 <textarea name="goal" value={form.goal} onChange={update} placeholder="Bookings, sales, or fix my current site…" />
               </label>
-              <button className="btn btn-gold" type="submit" disabled={sending}>
-                {sending ? "Sending…" : "Request a plan"}
-              </button>
+              <div className="form-actions">
+                <button className="btn btn-gold" type="submit" disabled={sending}>
+                  {sending ? "Sending…" : "Request a plan"}
+                </button>
+                <a className="btn btn-ghost" href="https://wa.me/27786218429">WhatsApp instead</a>
+              </div>
+              <p className="form-note">I reply from ryan@webworkco.com, usually the same day.</p>
               <p className="success">{sent}</p>
             </form>
           </div>

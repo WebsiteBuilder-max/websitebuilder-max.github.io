@@ -195,26 +195,54 @@ button { cursor: pointer; }
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  will-change: transform;
 }
+.live-bg video,
 .live-bg img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(1.1) brightness(0.55) contrast(1.15);
+  filter: saturate(1.08) brightness(0.58) contrast(1.12);
+}
+.live-bg video { z-index: 1; }
+.live-bg img {
+  z-index: 0;
   transform-origin: 50% 40%;
   animation: drift 32s ease-in-out infinite alternate;
 }
+.live-bg:has(video) img { opacity: 0; animation: none; }
 @keyframes drift {
   from { transform: scale(1) translate3d(0, 0, 0); }
   to { transform: scale(1.12) translate3d(-2%, 1%, 0); }
+}
+.live-water {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 52%;
+  background: linear-gradient(115deg, transparent 28%, rgba(237, 201, 138, 0.08) 50%, transparent 72%);
+  background-size: 240% 100%;
+  animation: water 18s ease-in-out infinite;
+  mix-blend-mode: screen;
+  opacity: 0.4;
+}
+@keyframes water {
+  0% { background-position: 0% 10%; opacity: 0.22; }
+  50% { background-position: 100% 0%; opacity: 0.48; }
+  100% { background-position: 0% 10%; opacity: 0.22; }
 }
 .live-bg::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 3;
   background:
-    linear-gradient(90deg, rgba(7,15,22,0.88) 0%, rgba(7,15,22,0.55) 46%, rgba(7,15,22,0.28) 100%),
-    linear-gradient(180deg, rgba(7,15,22,0.4) 0%, rgba(7,15,22,0.2) 38%, rgba(7,15,22,0.92) 100%);
+    linear-gradient(90deg, rgba(7,15,22,0.88) 0%, rgba(7,15,22,0.52) 46%, rgba(7,15,22,0.26) 100%),
+    linear-gradient(180deg, rgba(7,15,22,0.38) 0%, rgba(7,15,22,0.16) 38%, rgba(7,15,22,0.92) 100%);
 }
 .studio-rest {
   position: relative;
@@ -843,6 +871,17 @@ footer {
 .site-foot strong { color: var(--ink); display: block; }
 .site-foot p { margin: 6px 0 0; }
 .foot-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+.form-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 12px;
+}
 .wa-float {
   position: fixed;
   right: 18px;
@@ -1468,5 +1507,5 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .live-bg img, .ticker-track, .live-pill i, .device-main, .device-alt, .harbour-hero, .drift-hero img, .stock-pill.low, .feed-list li, .live-win, .price.flash { animation: none; }
+  .live-bg img, .live-water, .ticker-track, .live-pill i, .device-main, .device-alt, .harbour-hero, .drift-hero img, .stock-pill.low, .feed-list li, .live-win, .price.flash { animation: none; }
 }
