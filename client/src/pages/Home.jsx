@@ -100,14 +100,18 @@ const PLAN_INBOXES = [
 
 const JUMP = [
   ["#work", "Work"],
-  ["#portfolio", "Samples"],
+  ["#portfolio", "Portfolio"],
   ["#prices", "Prices"],
   ["#rescue", "Rescue"],
-  ["#how", "How"],
+  ["#how", "How we work"],
   ["#start", "Start"],
 ];
 
-
+const TIPS = [
+  { file: "shop.jsx", lines: ["const open = true;", "if (phone) showWhatsApp();", "cart updates live."] },
+  { file: "bookings.js", lines: ["hold table 15 min;", "seat map from the floor;", "preview before live."] },
+  { file: "rescue.md", lines: ["keep the bookings;", "fix the phone page;", "quote after I look."] },
+];
 
 function formatPrice(amount, currency) {
   const item = CURRENCIES.find((c) => c.id === currency) || CURRENCIES[0];
@@ -136,7 +140,7 @@ export default function Home() {
   const [clock, setClock] = useState("");
   const [onJump, setOnJump] = useState("#work");
   const [flash, setFlash] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const [tip, setTip] = useState(0);
 
   useEffect(() => {
     setSeo({
@@ -158,28 +162,12 @@ export default function Home() {
     };
     tick();
     const id = setInterval(tick, 1000);
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const syncMotion = () => setReduceMotion(motion.matches);
-    syncMotion();
-    motion.addEventListener("change", syncMotion);
+    const tipId = setInterval(() => setTip((n) => (n + 1) % TIPS.length), 4200);
     return () => {
       clearInterval(id);
-      motion.removeEventListener("change", syncMotion);
+      clearInterval(tipId);
     };
   }, []);
-
-
-
-  useEffect(() => {
-    const video = document.querySelector(".live-bg video");
-    if (!video) return undefined;
-    const onVis = () => {
-      if (document.hidden) video.pause();
-      else video.play().catch(() => {});
-    };
-    document.addEventListener("visibilitychange", onVis);
-    return () => document.removeEventListener("visibilitychange", onVis);
-  }, [reduceMotion]);
 
   useEffect(() => {
     const ids = JUMP.map(([href]) => href.slice(1));
@@ -288,6 +276,7 @@ export default function Home() {
 
   const liveName = form.name.trim() || "your shop";
   const liveCity = form.city.trim() || "your city";
+  const activeTip = TIPS[tip];
 
   return (
     <div
@@ -299,17 +288,12 @@ export default function Home() {
         });
       }}
     >
-      <div className="live-bg" aria-hidden="true">
-        {reduceMotion ? null : (
-          <video autoPlay muted loop playsInline poster="/images/city-night.jpg">
-            <source src="/images/city-night-live.mp4" type="video/mp4" />
-          </video>
-        )}
+      <div className="live-bg pop" aria-hidden="true">
         <img src="/images/city-night.jpg" alt="" />
       </div>
       <div
         className="spot"
-        style={{ background: `radial-gradient(640px circle at ${spot.x}% ${spot.y}%, rgba(224,190,122,0.12), transparent 46%)` }}
+        style={{ background: `radial-gradient(700px circle at ${spot.x}% ${spot.y}%, rgba(224,190,122,0.22), transparent 42%)` }}
       />
       <div className="grain" />
 
@@ -360,14 +344,23 @@ export default function Home() {
                 Custom business websites and online stores. Built to look like a real brand on a phone — then launched on your domain. Starter from {startPrice}. Most live in 3 to 14 days.
               </p>
               <div className="actions">
-                <a className="btn btn-gold" href="#portfolio">See sample sites</a>
+                <a className="btn btn-gold" href="#portfolio">Click the live samples</a>
                 <a className="btn btn-ghost" href="#start">Request a plan</a>
               </div>
-              <div className={`hero-live-card ${flash ? "flash" : ""}`} aria-live="polite">
-                <p className="hero-live"><i /> Live · {clock}</p>
-                <strong>{picked}</strong>
-                <b>{shownPrice}</b>
-                <span>Most sites live in 3 to 14 days</span>
+              <div className={`live-win ${flash ? "flash" : ""}`} aria-live="polite">
+                <div className="device-bar">
+                  <i /><i /><i />
+                  <span>live · {activeTip.file}</span>
+                  <b className="clock">{clock}</b>
+                </div>
+                <pre>
+                  <code><em>package</em> {picked}</code>
+                  <code className="price-line"><em>price</em> {shownPrice} {currency}</code>
+                  {activeTip.lines.map((line) => (
+                    <code key={line}>{line}</code>
+                  ))}
+                  <code className="ok">preview ready</code>
+                </pre>
               </div>
               <div className="stat-row">
                 <div><b>3–14 days</b><span>brief to live site</span></div>
@@ -419,7 +412,6 @@ export default function Home() {
           </div>
           <div className="offer-grid">
             <button type="button" className={`card offer-card ${picked === "Starter" ? "on" : ""}`} onClick={() => goPack("Starter", "#prices")}>
-              <div className="offer-shot"><img src="/images/city-night.jpg" alt="" /></div>
               <p className="kicker">Leads</p>
               <h3 className="display">Business sites</h3>
               <p className="muted">Who you are, what you do, how to reach you. Phone first.</p>
@@ -430,8 +422,7 @@ export default function Home() {
               </ul>
               <em>Pick Starter →</em>
             </button>
-            <button type="button" className={`card offer-card ${picked === "Business" ? "on" : ""}`} onClick={() => goPack("Business", "#prices")}>
-              <div className="offer-shot"><img src="/images/harbour-night.jpg" alt="" /></div>
+            <button type="button" className={`card offer-card ${picked === "Business" ? "on" : ""}`} onClick={() => goPack("Business", "#portfolio")}>
               <p className="kicker">Bookings</p>
               <h3 className="display">Restaurants & bookings</h3>
               <p className="muted">Menus, table requests, diaries. See Harbour Kitchen.</p>
@@ -442,8 +433,7 @@ export default function Home() {
               </ul>
               <em>See Harbour Kitchen →</em>
             </button>
-            <button type="button" className={`card offer-card ${picked === "Store" ? "on" : ""}`} onClick={() => goPack("Store", "#prices")}>
-              <div className="offer-shot"><img src="/images/drift-studio.jpg" alt="" /></div>
+            <button type="button" className={`card offer-card ${picked === "Store" ? "on" : ""}`} onClick={() => goPack("Store", "#portfolio")}>
               <p className="kicker">Ecommerce</p>
               <h3 className="display">Online stores</h3>
               <p className="muted">Products, cart, checkout. Stripe, PayPal, or card. See Drift Supply.</p>
@@ -454,6 +444,26 @@ export default function Home() {
               </ul>
               <em>See Drift Supply →</em>
             </button>
+          </div>
+          <div className="tip-row">
+            {TIPS.map((item, i) => (
+              <button
+                type="button"
+                className={`live-win tip-win ${tip === i ? "flash" : ""}`}
+                key={item.file}
+                onClick={() => setTip(i)}
+              >
+                <div className="device-bar">
+                  <i /><i /><i />
+                  <span>{item.file}</span>
+                </div>
+                <pre>
+                  {item.lines.map((line) => (
+                    <code key={line}>{line}</code>
+                  ))}
+                </pre>
+              </button>
+            ))}
           </div>
         </section>
 
@@ -605,12 +615,10 @@ export default function Home() {
               <label>Name<input name="name" value={form.name} onChange={update} required /></label>
               <label>Email<input name="email" type="email" value={form.email} onChange={update} required /></label>
               <label>City / country<input name="city" value={form.city} onChange={update} placeholder="London, NYC, Sydney…" /></label>
-              <label>What kind of site
+              <label>Package
                 <select name="pack" value={form.pack} onChange={update}>
                   {PACKAGES.map((p) => (
-                    <option key={p.name} value={p.name}>
-                      {p.name}{p.quote ? " — custom quote" : ` — ${formatPrice(p.prices[currency], currency)}`}
-                    </option>
+                    <option key={p.name}>{p.name}</option>
                   ))}
                 </select>
               </label>
@@ -636,13 +644,9 @@ export default function Home() {
               <label>What should the site do?
                 <textarea name="goal" value={form.goal} onChange={update} placeholder="Bookings, sales, or fix my current site…" />
               </label>
-              <div className="form-actions">
-                <button className="btn btn-gold" type="submit" disabled={sending}>
-                  {sending ? "Sending…" : "Request a plan"}
-                </button>
-                <a className="btn btn-ghost" href="https://wa.me/27786218429">WhatsApp instead</a>
-              </div>
-              <p className="form-note">I reply from ryan@webworkco.com, usually the same day.</p>
+              <button className="btn btn-gold" type="submit" disabled={sending}>
+                {sending ? "Sending…" : "Request a plan"}
+              </button>
               <p className="success">{sent}</p>
             </form>
           </div>
