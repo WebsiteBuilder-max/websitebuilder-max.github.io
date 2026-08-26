@@ -168,16 +168,7 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    const bg = document.querySelector(".live-bg");
-    if (!bg) return undefined;
-    const onScroll = () => {
-      bg.style.transform = `translate3d(0, ${Math.min(window.scrollY, 900) * 0.14}px, 0)`;
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+
 
   useEffect(() => {
     const video = document.querySelector(".live-bg video");

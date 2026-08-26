@@ -195,14 +195,13 @@ button { cursor: pointer; }
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  will-change: transform;
 }
 .live-bg video,
 .live-bg img {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -6%;
+  width: 112%;
+  height: 112%;
   object-fit: cover;
   object-position: center 58%;
   filter: saturate(0.92) brightness(0.94) contrast(1.08) hue-rotate(-6deg);
@@ -210,13 +209,13 @@ button { cursor: pointer; }
 .live-bg video { z-index: 1; }
 .live-bg img {
   z-index: 0;
-  transform-origin: 50% 62%;
-  animation: drift 28s ease-in-out infinite alternate;
+  transform-origin: 50% 58%;
+  animation: drift 48s ease-in-out infinite alternate;
 }
 .live-bg:has(video) img { opacity: 0; animation: none; }
 @keyframes drift {
-  from { transform: scale(1.04) translate3d(0, 0, 0); }
-  to { transform: scale(1.16) translate3d(-3%, 2%, 0); }
+  from { transform: scale(1.02) translate3d(0, 0, 0); }
+  to { transform: scale(1.06) translate3d(-1.2%, 0.8%, 0); }
 }
 .live-bg::after {
   content: "";
