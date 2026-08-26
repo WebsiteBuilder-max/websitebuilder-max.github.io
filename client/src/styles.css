@@ -43,10 +43,10 @@ button { cursor: pointer; }
   inset: 0;
   z-index: 1;
   background-image:
-    linear-gradient(rgba(224,190,122,0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(224,190,122,0.045) 1px, transparent 1px);
+    linear-gradient(rgba(224,190,122,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(224,190,122,0.018) 1px, transparent 1px);
   background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse at 50% 30%, #000 15%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 8%, transparent 58%);
 }
 .spot { pointer-events: none; position: fixed; inset: 0; z-index: 0; }
 .grain {
@@ -98,7 +98,7 @@ button { cursor: pointer; }
   top: 0;
   z-index: 20;
   backdrop-filter: blur(18px);
-  background: rgba(7, 15, 22, 0.92);
+  background: rgba(7, 15, 22, 0.52);
   border-bottom: 1px solid var(--line);
 }
 .studio-nav .wrap, .site-nav .wrap, .nav-bar {
@@ -204,36 +204,19 @@ button { cursor: pointer; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(1.04) brightness(0.86) contrast(1.06);
+  object-position: center 58%;
+  filter: saturate(0.92) brightness(0.94) contrast(1.08) hue-rotate(-6deg);
 }
 .live-bg video { z-index: 1; }
 .live-bg img {
   z-index: 0;
-  transform-origin: 50% 40%;
-  animation: drift 32s ease-in-out infinite alternate;
+  transform-origin: 50% 62%;
+  animation: drift 28s ease-in-out infinite alternate;
 }
 .live-bg:has(video) img { opacity: 0; animation: none; }
 @keyframes drift {
-  from { transform: scale(1) translate3d(0, 0, 0); }
-  to { transform: scale(1.12) translate3d(-2%, 1%, 0); }
-}
-.live-water {
-  position: absolute;
-  z-index: 2;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 48%;
-  background: linear-gradient(115deg, transparent 32%, rgba(255,255,255,0.05) 50%, transparent 68%);
-  background-size: 220% 100%;
-  animation: water 22s ease-in-out infinite;
-  mix-blend-mode: soft-light;
-  opacity: 0.35;
-}
-@keyframes water {
-  0% { background-position: 0% 10%; opacity: 0.22; }
-  50% { background-position: 100% 0%; opacity: 0.48; }
-  100% { background-position: 0% 10%; opacity: 0.22; }
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to { transform: scale(1.16) translate3d(-3%, 2%, 0); }
 }
 .live-bg::after {
   content: "";
@@ -241,14 +224,16 @@ button { cursor: pointer; }
   inset: 0;
   z-index: 3;
   background:
-    linear-gradient(90deg, rgba(7,15,22,0.62) 0%, rgba(7,15,22,0.28) 48%, rgba(7,15,22,0.12) 100%),
-    linear-gradient(180deg, rgba(7,15,22,0.18) 0%, rgba(7,15,22,0.06) 42%, rgba(7,15,22,0.78) 100%);
+    linear-gradient(90deg, rgba(7,15,22,0.78) 0%, rgba(7,15,22,0.38) 38%, rgba(7,15,22,0.08) 100%),
+    linear-gradient(180deg, rgba(7,15,22,0.22) 0%, transparent 36%, rgba(7,15,22,0.55) 100%);
 }
 .studio-rest {
   position: relative;
   z-index: 2;
-  background: #070f16;
-  box-shadow: 0 -48px 90px rgba(7,15,22,0.92);
+  background:
+    linear-gradient(180deg, rgba(7,15,22,0.78) 0%, rgba(7,15,22,0.9) 28%, rgba(7,15,22,0.96) 100%),
+    url("/images/city-dusk.jpg") center 32% / cover no-repeat;
+  box-shadow: 0 -48px 90px rgba(7,15,22,0.88);
 }
 .offer-grid {
   display: grid;
@@ -260,8 +245,28 @@ button { cursor: pointer; }
 .offer-card {
   width: 100%;
   cursor: pointer;
+  overflow: hidden;
+  padding: 0 0 22px;
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
+.offer-shot {
+  height: 168px;
+  margin: 0 0 18px;
+  overflow: hidden;
+}
+.offer-shot img {
+  width: 100%;
+  height: 168px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.offer-card:hover .offer-shot img { transform: scale(1.06); }
+.offer-card .kicker,
+.offer-card h3,
+.offer-card p,
+.offer-card ul,
+.offer-card em { padding-left: 22px; padding-right: 22px; }
+.offer-card .kicker { padding-top: 4px; }
 .offer-card:hover, .offer-card.on {
   transform: translateY(-6px);
   border-color: rgba(224,190,122,0.5);
@@ -370,7 +375,32 @@ button { cursor: pointer; }
 .who-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .who-grid article h3 { margin: 8px 0; }
 
-.hero-full { padding: 56px 0 28px; position: relative; min-height: min(88vh, 820px); display: flex; align-items: center; }
+.hero-full { padding: 40px 0 36px; position: relative; min-height: calc(100svh - 72px); display: flex; align-items: center; }
+.hero-live-card {
+  margin-top: 28px;
+  max-width: 360px;
+  padding: 16px 18px 18px;
+  background: rgba(7, 15, 22, 0.55);
+  border: 1px solid rgba(237, 201, 138, 0.32);
+  border-radius: 18px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+}
+.hero-live-card strong {
+  display: block;
+  margin-top: 8px;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 500;
+}
+.hero-live-card b {
+  display: block;
+  color: var(--gold);
+  font-size: 1.2rem;
+  margin: 4px 0 6px;
+}
+.hero-live-card span { color: #d7e0e8; font-size: 0.9rem; }
+.hero-live-card.flash { box-shadow: 0 0 0 1px rgba(237,201,138,0.45), 0 24px 60px rgba(0,0,0,0.35); }
 .hero-live {
   display: inline-flex;
   align-items: center;
@@ -419,9 +449,12 @@ button { cursor: pointer; }
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
-  margin-top: 40px;
-  padding: 24px 4px 0;
-  border-top: 1px solid var(--line);
+  margin-top: 28px;
+  padding: 16px 18px;
+  border: 1px solid rgba(246, 241, 232, 0.12);
+  border-radius: 18px;
+  background: rgba(7, 15, 22, 0.42);
+  backdrop-filter: blur(14px);
 }
 .stat-row b { display: block; font-size: 1.4rem; color: #f7f2e9; text-shadow: 0 8px 24px rgba(0,0,0,0.5); }
 .stat-row span { color: #d7e0e8; font-size: 0.85rem; text-shadow: 0 6px 18px rgba(0,0,0,0.45); }
@@ -681,8 +714,8 @@ section { padding: 56px 0; scroll-margin-top: 84px; }
   position: sticky;
   top: 60px;
   z-index: 18;
-  background: #070f16;
-  backdrop-filter: none;
+  background: rgba(7, 15, 22, 0.72);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
 }
 .jump-row {
@@ -704,7 +737,6 @@ section { padding: 56px 0; scroll-margin-top: 84px; }
 }
 .tight section { padding: 44px 0; }
 .compact { padding-top: 28px !important; padding-bottom: 28px !important; }
-.hero-full { min-height: auto; }
 .section-head { max-width: 40rem; margin-bottom: 28px; }
 .section-head .lede { margin-top: 12px; }
 .section-title { font-size: clamp(1.9rem, 3.4vw, 3rem); line-height: 1.12; }
@@ -760,19 +792,23 @@ section { padding: 56px 0; scroll-margin-top: 84px; }
 .bento h3 { font-size: 1.5rem; margin: 8px 0; }
 
 .card, .faq, .quote, .about-card {
-  background: #101c28;
+  background: rgba(16, 28, 40, 0.82);
   border: 1px solid var(--line);
   border-radius: 22px;
   padding: 24px;
   text-align: left;
   color: var(--ink);
+  backdrop-filter: blur(12px);
 }
 .pack.on { background: #162433; }
 .rescue-band {
-  background: #132233;
+  background:
+    linear-gradient(120deg, rgba(7,15,22,0.72), rgba(7,15,22,0.38)),
+    url("/images/city-dusk.jpg") center 40% / cover no-repeat;
   border: 1px solid rgba(224,190,122,0.35);
   border-radius: 28px;
   padding: 36px;
+  overflow: hidden;
 }
 .rescue-list { margin: 16px 0 24px; padding-left: 18px; color: var(--muted); }
 .pack { width: 100%; transition: border-color 0.2s ease, transform 0.2s ease; position: relative; }
@@ -1446,7 +1482,9 @@ footer {
   }
   .studio-nav .wrap, .site-nav .wrap, .nav-bar { min-height: 60px; gap: 10px; }
   .brand { font-size: 0.95rem; }
-  .hero-full { padding: 28px 0 12px; min-height: 0; display: block; }
+  .hero-full { padding: 28px 0 20px; min-height: min(78svh, 760px); display: block; }
+  .studio-rest { background-attachment: scroll; }
+  .offer-shot, .offer-shot img { height: 140px; }
   .hero-grid { min-height: 0; gap: 22px; }
   .hero-title { font-size: clamp(2.15rem, 10vw, 3.1rem); padding-left: 0.04em; }
   .hero-stage { height: 340px; }
@@ -1507,5 +1545,5 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .live-bg img, .live-water, .ticker-track, .live-pill i, .device-main, .device-alt, .harbour-hero, .drift-hero img, .stock-pill.low, .feed-list li, .live-win, .price.flash { animation: none; }
+  .live-bg img, .ticker-track, .live-pill i, .device-main, .device-alt, .harbour-hero, .drift-hero img, .stock-pill.low, .feed-list li, .live-win, .price.flash { animation: none; }
 }

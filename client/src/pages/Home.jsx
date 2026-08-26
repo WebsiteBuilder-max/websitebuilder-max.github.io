@@ -107,11 +107,7 @@ const JUMP = [
   ["#start", "Start"],
 ];
 
-const TIPS = [
-  { file: "shop.jsx", lines: ["const open = true;", "if (phone) showWhatsApp();", "cart updates live."] },
-  { file: "bookings.js", lines: ["hold table 15 min;", "seat map from the floor;", "preview before live."] },
-  { file: "rescue.md", lines: ["keep the bookings;", "fix the phone page;", "quote after I look."] },
-];
+
 
 function formatPrice(amount, currency) {
   const item = CURRENCIES.find((c) => c.id === currency) || CURRENCIES[0];
@@ -140,7 +136,6 @@ export default function Home() {
   const [clock, setClock] = useState("");
   const [onJump, setOnJump] = useState("#work");
   const [flash, setFlash] = useState(false);
-  const [tip, setTip] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
@@ -163,14 +158,12 @@ export default function Home() {
     };
     tick();
     const id = setInterval(tick, 1000);
-    const tipId = setInterval(() => setTip((n) => (n + 1) % TIPS.length), 4200);
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const syncMotion = () => setReduceMotion(motion.matches);
     syncMotion();
     motion.addEventListener("change", syncMotion);
     return () => {
       clearInterval(id);
-      clearInterval(tipId);
       motion.removeEventListener("change", syncMotion);
     };
   }, []);
@@ -304,7 +297,6 @@ export default function Home() {
 
   const liveName = form.name.trim() || "your shop";
   const liveCity = form.city.trim() || "your city";
-  const activeTip = TIPS[tip];
 
   return (
     <div
@@ -323,11 +315,10 @@ export default function Home() {
           </video>
         )}
         <img src="/images/city-night.jpg" alt="" />
-        <span className="live-water" />
       </div>
       <div
         className="spot"
-        style={{ background: `radial-gradient(700px circle at ${spot.x}% ${spot.y}%, rgba(224,190,122,0.22), transparent 42%)` }}
+        style={{ background: `radial-gradient(640px circle at ${spot.x}% ${spot.y}%, rgba(224,190,122,0.12), transparent 46%)` }}
       />
       <div className="grain" />
 
@@ -381,20 +372,11 @@ export default function Home() {
                 <a className="btn btn-gold" href="#portfolio">See sample sites</a>
                 <a className="btn btn-ghost" href="#start">Request a plan</a>
               </div>
-              <div className={`live-win ${flash ? "flash" : ""}`} aria-live="polite">
-                <div className="device-bar">
-                  <i /><i /><i />
-                  <span>live · {activeTip.file}</span>
-                  <b className="clock">{clock}</b>
-                </div>
-                <pre>
-                  <code><em>package</em> {picked}</code>
-                  <code className="price-line"><em>price</em> {shownPrice} {currency}</code>
-                  {activeTip.lines.map((line) => (
-                    <code key={line}>{line}</code>
-                  ))}
-                  <code className="ok">preview ready</code>
-                </pre>
+              <div className={`hero-live-card ${flash ? "flash" : ""}`} aria-live="polite">
+                <p className="hero-live"><i /> Live · {clock}</p>
+                <strong>{picked}</strong>
+                <b>{shownPrice}</b>
+                <span>Most sites live in 3 to 14 days</span>
               </div>
               <div className="stat-row">
                 <div><b>3–14 days</b><span>brief to live site</span></div>
@@ -446,6 +428,7 @@ export default function Home() {
           </div>
           <div className="offer-grid">
             <button type="button" className={`card offer-card ${picked === "Starter" ? "on" : ""}`} onClick={() => goPack("Starter", "#prices")}>
+              <div className="offer-shot"><img src="/images/city-night.jpg" alt="" /></div>
               <p className="kicker">Leads</p>
               <h3 className="display">Business sites</h3>
               <p className="muted">Who you are, what you do, how to reach you. Phone first.</p>
@@ -457,6 +440,7 @@ export default function Home() {
               <em>Pick Starter →</em>
             </button>
             <button type="button" className={`card offer-card ${picked === "Business" ? "on" : ""}`} onClick={() => goPack("Business", "#prices")}>
+              <div className="offer-shot"><img src="/images/harbour-night.jpg" alt="" /></div>
               <p className="kicker">Bookings</p>
               <h3 className="display">Restaurants & bookings</h3>
               <p className="muted">Menus, table requests, diaries. See Harbour Kitchen.</p>
@@ -468,6 +452,7 @@ export default function Home() {
               <em>See Harbour Kitchen →</em>
             </button>
             <button type="button" className={`card offer-card ${picked === "Store" ? "on" : ""}`} onClick={() => goPack("Store", "#prices")}>
+              <div className="offer-shot"><img src="/images/drift-studio.jpg" alt="" /></div>
               <p className="kicker">Ecommerce</p>
               <h3 className="display">Online stores</h3>
               <p className="muted">Products, cart, checkout. Stripe, PayPal, or card. See Drift Supply.</p>
@@ -478,26 +463,6 @@ export default function Home() {
               </ul>
               <em>See Drift Supply →</em>
             </button>
-          </div>
-          <div className="tip-row">
-            {TIPS.map((item, i) => (
-              <button
-                type="button"
-                className={`live-win tip-win ${tip === i ? "flash" : ""}`}
-                key={item.file}
-                onClick={() => setTip(i)}
-              >
-                <div className="device-bar">
-                  <i /><i /><i />
-                  <span>{item.file}</span>
-                </div>
-                <pre>
-                  {item.lines.map((line) => (
-                    <code key={line}>{line}</code>
-                  ))}
-                </pre>
-              </button>
-            ))}
           </div>
         </section>
 
